@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
+<!-- SEO & Meta Tags -->
+<title>Irwan Saputra | Digital Marketing Specialist & Meta Ads Expert</title>
+<meta name="description" content="Digital & Performance Marketing Specialist with 6+ years of experience scaling Meta Ads, optimizing funnels, and driving revenue.">
+<meta name="keywords" content="Irwan Saputra, Digital Marketing, Meta Ads Expert, Freelance Marketer Jakarta, Funnel Optimization">
+<meta name="author" content="Irwan Saputra">
+
+<!-- Open Graph / WhatsApp / Social Media Preview Cards -->
+<meta property="og:title" content="Irwan Saputra | Digital Marketing Specialist & Meta Ads Expert">
+<meta property="og:description" content="6+ years turning ad budgets into revenue. Proven track record in scaling Meta Ads funnels. Let's talk!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://irwansaputra.my.id/">
+<meta property="og:image" content="https://irwansaputra.my.id/profile.jpg">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Irwan Saputra | Digital Marketing Specialist & Meta Ads Expert</title>
 <meta name="description" content="Digital & Performance Marketing Specialist with 6+ years of experience scaling Meta Ads and driving revenue.">
 
@@ -23,10 +35,8 @@
     --green-dim: #1D3B2A;
     --amber: #F0B849;
     --red: #FF6B6B;
+    --frame-w: 400px;
     --page-bg: #000;
-    
-    --radius: 12px;
-    --mono: 'Roboto Mono', monospace;
     color-scheme: dark;
   }
 
@@ -50,206 +60,226 @@
   
   html, body {
     background: var(--page-bg);
-    font-family: var(--mono);
+    font-family: 'Roboto Mono', monospace;
     color: var(--text);
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
     transition: background 0.3s ease, color 0.3s ease;
   }
 
-  /* Force a mobile-width frame regardless of viewport */
-  .device-frame {
+  .frame {
     width: 100%;
-    height: 100dvh;
+    max-width: var(--frame-w);
     background: var(--bg);
+    min-height: 100vh;
+    transition: background 0.3s ease;
+    box-shadow: 0 0 40px rgba(0,0,0,0.2);
     position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    padding-bottom: 50px;
   }
 
-  @media (min-width: 450px) {
-    .device-frame {
-      max-width: 430px;
-      height: 90vh;
-      max-height: 850px;
-      border-radius: 32px;
-      border: 8px solid var(--surface-2);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
+  @media (max-width: 430px) {
+    .frame { box-shadow: none; min-width: 100%; }
   }
-
-  .device-content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 16px 16px 90px 16px;
-  }
-
-  .device-content::-webkit-scrollbar { width: 4px; }
-  .device-content::-webkit-scrollbar-track { background: transparent; }
-  .device-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
   ::selection { background: var(--green); color: #000; }
 
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    background: var(--bg);
+    transition: background 0.3s ease;
+  }
+
   .titlebar {
     display: flex; align-items: center; gap: 10px;
-    padding: 12px 14px;
+    padding: 14px 18px;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    z-index: 20;
     transition: background 0.3s ease, border-color 0.3s ease;
   }
-  .dots { display: flex; gap: 6px; flex-shrink: 0; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot.red { background: var(--red); }
-  .dot.yellow { background: var(--amber); }
-  .dot.green { background: var(--green); }
-  
+
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; cursor: pointer; transition: opacity 0.2s ease; }
+  .dot:hover { opacity: 0.7; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FEBC2E; }
+  .dot.g { background: #28C840; }
+
   .filename {
-    flex: 1; font-size: 12px; color: var(--muted);
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    text-align: center; font-weight: 500;
+    font-size: 12px; color: var(--muted); letter-spacing: 0.02em;
+    flex: 1; text-align: center;
   }
+
+  .theme-toggle {
+    display: flex; align-items: center; gap: 3px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .theme-toggle button {
+    display: flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    border: none; border-radius: 50%;
+    background: transparent;
+    color: var(--dim);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .theme-toggle button.active {
+    background: var(--bg);
+    color: var(--green);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .theme-toggle svg { width: 14px; height: 14px; }
+
+  .profile { padding: 20px 20px 16px; background: var(--bg); }
+  .profile-row { display: flex; justify-content: space-between; align-items: flex-start; }
   
-  .controls { display: flex; align-items: center; gap: 6px; }
+  .profile-name { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .profile-role { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.05em; }
+  
+  .cursor {
+    display: inline-block; width: 8px; height: 14px; background: var(--green);
+    margin-left: 4px; vertical-align: -1px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
   .pill {
     display: flex; background: var(--surface-2);
     border: 1px solid var(--border); border-radius: 999px;
     padding: 2px; gap: 2px;
-    transition: background 0.3s ease, border-color 0.3s ease;
   }
   .pill button {
-    border: none; background: transparent; color: var(--dim);
-    font-family: var(--mono); font-size: 11px; font-weight: 600;
-    padding: 4px 8px; border-radius: 999px; cursor: pointer;
-    transition: all 0.2s ease; display: flex; align-items: center; justify-content: center;
+    border: none; background: transparent; color: var(--muted);
+    font-family: 'Roboto Mono', monospace; font-size: 11px; font-weight: 600;
+    padding: 3px 8px; border-radius: 999px; cursor: pointer;
+    transition: all 0.2s ease;
   }
-  .pill button.active { background: var(--bg); color: var(--green); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-  .pill button svg { width: 14px; height: 14px; }
+  .pill button.active { background: var(--bg); color: var(--green); }
 
   .card {
+    margin: 16px 20px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px; margin-bottom: 16px;
+    border-radius: 8px;
+    padding: 18px;
     transition: background 0.3s ease, border-color 0.3s ease;
   }
+
   .code-header {
-    font-size: 11px; font-weight: 600; color: var(--dim);
-    letter-spacing: 0.05em; margin-bottom: 14px;
+    font-size: 10px; color: var(--dim); letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 14px;
     display: flex; align-items: center; gap: 6px;
   }
 
-  .hero h2 { font-size: 17px; line-height: 1.5; margin: 0 0 12px 0; font-weight: 700; color: var(--text); }
-  .hero p { font-size: 13px; line-height: 1.65; color: var(--muted); margin: 0 0 18px 0; }
-  
+  .hero h2 { font-size: 16px; line-height: 1.5; margin: 0 0 12px 0; font-weight: 700; color: var(--text); }
+  .hero p { font-size: 12.5px; line-height: 1.65; color: var(--muted); margin: 0 0 16px 0; }
+
   .btn {
-    font-family: var(--mono); font-size: 12.5px; text-decoration: none;
+    font-family: 'Roboto Mono', monospace; font-size: 12px; text-decoration: none;
     padding: 12px 16px; border-radius: 8px; display: inline-flex;
     align-items: center; justify-content: center; gap: 8px;
     border: 1px solid var(--border); cursor: pointer; font-weight: 600;
     transition: all 0.2s ease;
   }
   .btn.primary { background: var(--green); color: #000; border-color: var(--green); }
-  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2); }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2); }
   .btn.secondary { background: var(--surface-2); color: var(--text); }
   .btn.secondary:hover { border-color: var(--dim); }
   .btn.full { width: 100%; }
 
-  .metrics-grid { display: flex; flex-direction: column; gap: 12px; }
-  .metric {
-    background: var(--surface-2);
+  .stat-section { margin: 16px 20px; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-card {
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px; padding: 14px;
-    transition: border-color 0.2s ease;
+    border-radius: 8px;
+    padding: 14px;
   }
-  .metric:hover { border-color: var(--dim); }
-  .metric-value { font-size: 24px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
-  .metric-label { font-size: 11.5px; color: var(--muted); line-height: 1.4; margin-bottom: 10px; }
-  .bar { height: 4px; border-radius: 2px; background: var(--green); opacity: 0.85; }
-  .metric:nth-child(1) .bar { width: 100%; }
-  .metric:nth-child(2) .bar { width: 78%; }
+  .stat-card.full-width { grid-column: span 2; }
+  .stat-num { font-size: 20px; font-weight: 700; color: var(--green); line-height: 1.1; margin-bottom: 4px; }
+  .stat-cap { font-size: 10.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+  .stat-bar { height: 4px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; background: var(--green); border-radius: 2px; }
 
-  .services-list { display: flex; flex-direction: column; gap: 10px; }
+  .services-list { display: flex; flex-direction: column; gap: 8px; }
   .service-item {
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 8px; overflow: hidden;
-    transition: border-color 0.2s ease;
   }
   .service-head {
-    width: 100%; display: flex; align-items: center; gap: 12px;
-    background: none; border: none; padding: 14px;
-    font-family: var(--mono); color: var(--text); cursor: pointer; text-align: left;
+    width: 100%; display: flex; align-items: center; gap: 10px;
+    background: none; border: none; padding: 12px;
+    font-family: 'Roboto Mono', monospace; color: var(--text); cursor: pointer; text-align: left;
   }
   .service-icon {
-    flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px;
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px;
     background: var(--green-dim); color: var(--green);
     display: flex; align-items: center; justify-content: center;
   }
-  .service-icon svg { width: 15px; height: 15px; }
-  .service-head strong { flex: 1; font-size: 13px; font-weight: 600; }
+  .service-icon svg { width: 14px; height: 14px; }
+  .service-head strong { flex: 1; font-size: 12px; font-weight: 600; }
   .chevron { width: 14px; height: 14px; color: var(--dim); flex-shrink: 0; transition: transform 0.2s ease; }
   .service-item.open .chevron { transform: rotate(180deg); color: var(--green); }
-  .service-item.open { border-color: var(--border); }
-  .service-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.25s ease, opacity 0.2s ease; padding: 0 14px; }
-  .service-item.open .service-body { max-height: 220px; opacity: 1; padding: 0 14px 16px 54px; }
-  .service-body p { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+  .service-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.25s ease, opacity 0.2s ease; padding: 0 12px; }
+  .service-item.open .service-body { max-height: 220px; opacity: 1; padding: 0 12px 14px 48px; }
+  .service-body p { margin: 0; font-size: 11.5px; line-height: 1.6; color: var(--muted); }
 
-  .case { margin-bottom: 22px; }
+  .case { margin-bottom: 20px; }
   .case:last-child { margin-bottom: 0; }
   .case-image {
-    height: 130px; border: 1px dashed var(--border); border-radius: 8px;
+    height: 120px; border: 1px dashed var(--border); border-radius: 8px;
     background: var(--surface-2); display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 8px;
-    color: var(--dim); margin-bottom: 12px; position: relative; overflow: hidden;
+    align-items: center; justify-content: center; gap: 6px;
+    color: var(--dim); margin-bottom: 10px; position: relative; overflow: hidden;
   }
   .case-image img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
-  .case-image span { font-size: 11px; z-index: 1; }
+  .case-image span { font-size: 10.5px; z-index: 1; }
   .case-image svg { z-index: 1; }
-  .case-file { font-size: 13px; color: var(--green); margin-bottom: 8px; font-weight: 700; }
-  .case p { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 0 0 10px 0; }
-  .case ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
-  .case li { font-size: 12.5px; line-height: 1.6; color: var(--text); }
+  .case-file { font-size: 12px; color: var(--green); margin-bottom: 6px; font-weight: 700; }
+  .case p { font-size: 12px; line-height: 1.6; color: var(--muted); margin: 0 0 8px 0; }
+  .case ul { margin: 0; padding-left: 16px; display: flex; flex-direction: column; gap: 5px; }
+  .case li { font-size: 11.5px; line-height: 1.55; color: var(--text); }
 
-  /* AI Badge untuk Differentiator - Full width */
   .ai-badge {
     display: flex; align-items: center; gap: 12px;
     background: var(--surface-2); border: 1px solid var(--border);
-    padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 12px;
     width: 100%;
   }
   .ai-badge-icon {
-    width: 28px; height: 28px; border-radius: 6px; background: var(--green-dim);
+    width: 26px; height: 26px; border-radius: 6px; background: var(--green-dim);
     color: var(--green); display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .ai-badge-text { display: flex; flex-direction: column; gap: 4px; }
-  .ai-badge-title { font-size: 13px; font-weight: 700; color: var(--text); }
-  .ai-badge-sub { font-size: 10px; color: var(--dim); letter-spacing: 0.05em; text-transform: uppercase; }
+  .ai-badge-text { display: flex; flex-direction: column; gap: 2px; }
+  .ai-badge-title { font-size: 12px; font-weight: 700; color: var(--text); }
+  .ai-badge-sub { font-size: 9.5px; color: var(--dim); letter-spacing: 0.05em; text-transform: uppercase; }
 
-  .why p { font-size: 13px; line-height: 1.7; color: var(--muted); margin: 0; }
+  .why p { font-size: 12px; line-height: 1.7; color: var(--muted); margin: 0; }
 
-  .footer-cta p { font-size: 13.5px; line-height: 1.6; margin: 0 0 16px 0; color: var(--text); }
-  .cta-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  
-  /* Styling tombol contact sama rata & ada icon */
-  .btn.contact-btn {
-    flex: 1;
-    justify-content: center;
-    padding: 12px;
-  }
+  .footer-cta p { font-size: 12.5px; line-height: 1.6; margin: 0 0 14px 0; color: var(--text); }
+  .cta-row { display: flex; gap: 8px; }
+  .contact-btn { flex: 1; justify-content: center; padding: 12px; }
 
   .signature {
-    text-align: center; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.1em; color: var(--dim); padding: 24px 0 10px 0;
+    text-align: center; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.1em; color: var(--dim); padding: 20px 0 10px 0;
   }
-  .signature span { display: inline-block; margin-top: 6px; }
+  .signature span { display: inline-block; margin-top: 4px; }
 
   .fab-wrap {
     position: absolute; left: 16px; bottom: 16px;
@@ -262,25 +292,22 @@
   }
   .fab-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
   .fab-item {
-    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    font-family: 'Roboto Mono', monospace; font-size: 11.5px; font-weight: 500;
     background: var(--surface); border: 1px solid var(--border); color: var(--text);
-    padding: 10px 16px; border-radius: 8px; text-decoration: none; cursor: pointer; white-space: nowrap;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    padding: 8px 14px; border-radius: 8px; text-decoration: none; cursor: pointer; white-space: nowrap;
   }
   .fab-item:hover { border-color: var(--green); background: var(--surface-2); }
   .fab-item.hide-btn { color: var(--dim); }
   .fab-main {
-    width: 48px; height: 48px; border-radius: 50%;
+    width: 42px; height: 42px; border-radius: 50%;
     background: var(--green); color: #000; border: none;
-    font-size: 20px; font-weight: 700; cursor: pointer;
-    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.3); font-family: var(--mono);
-    transition: transform 0.2s ease;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.3); font-family: 'Roboto Mono', monospace;
   }
   .fab-main:hover { transform: scale(1.05); }
   .fab-mini {
-    display: none; width: 16px; height: 16px; border-radius: 50%;
+    display: none; width: 14px; height: 14px; border-radius: 50%;
     background: var(--green); opacity: 0.55; border: none; cursor: pointer;
-    box-shadow: 0 2px 8px rgba(74, 222, 128, 0.3);
   }
   .fab-wrap.minimized .fab-main, .fab-wrap.minimized .fab-menu { display: none; }
   .fab-wrap.minimized .fab-mini { display: block; }
@@ -288,169 +315,169 @@
 </head>
 <body>
 
-<div class="device-frame">
+<div class="frame">
   
-  <div class="device-content">
+  <div class="sticky-header">
     <div class="titlebar">
       <div class="dots">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
       </div>
       <div class="filename">irwan_saputra.home</div>
-      <div class="controls">
-        <div class="pill" id="langPill">
-          <button data-lang-btn="id" class="active">ID</button>
-          <button data-lang-btn="en">EN</button>
-        </div>
-        <div class="pill" id="themePill">
-          <button data-theme-btn="dark" class="active" aria-label="Dark mode">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-          </button>
-          <button data-theme-btn="light" aria-label="Light mode">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
-          </button>
-        </div>
+      <div class="theme-toggle" role="group" aria-label="Theme toggle">
+        <button type="button" data-theme-btn="dark" class="active" aria-label="Dark mode">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button type="button" data-theme-btn="light" aria-label="Light mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="card hero">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <div class="code-header" style="margin-bottom:0;">// intro.md</div>
+      <div class="pill" id="langPill">
+        <button data-lang-btn="id" class="active">ID</button>
+        <button data-lang-btn="en">EN</button>
+      </div>
+    </div>
+    <h2 data-i18n="hero_headline">Budget iklan kamu harusnya balik jadi cuan, bukan cuma angka reach yang bagus di laporan.</h2>
+    <p data-i18n="hero_sub">Udah 6+ tahun gonta-ganti industri — dari travel, jam tangan mewah, wedding venue, sampai produk digital. Yang saya pelajari: settingan iklan yang "kelihatan bagus" dan yang "beneran menghasilkan" itu dua hal berbeda. Pernah scale satu funnel sampai 44.5x ROAS — dan saya bisa cerita gimana caranya.</p>
+    <a class="btn primary full" href="https://wa.me/628979906686?text=Hi%20Irwan%2C%20saya%20tertarik%20diskusi%20soal%20Meta%20Ads.">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.24 0 4.35.87 5.93 2.46a8.24 8.24 0 0 1 2.43 5.88c0 4.57-3.72 8.29-8.32 8.29a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.14.82.84-3.06-.2-.32a8.19 8.19 0 0 1-1.28-4.42c0-4.58 3.72-8.32 8.26-8.32M8.53 6.85c-.17 0-.45.06-.68.32-.23.25-.9.87-.9 2.13 0 1.25.92 2.46 1.04 2.63.13.17 1.78 2.85 4.4 3.89 2.18.86 2.62.69 3.09.65.48-.04 1.55-.63 1.77-1.24.22-.6.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.6.13-.17.26-.68.85-.83 1.02-.15.17-.3.2-.57.07-.26-.13-1.11-.41-2.11-1.31-.78-.7-1.31-1.55-1.46-1.82-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.43.09-.17.04-.33-.02-.46-.06-.13-.6-1.47-.83-2.01-.22-.53-.44-.46-.6-.47z"/></svg>
+      <span data-i18n="cta_talk">Ngobrol dulu yuk</span>
+    </a>
+  </section>
+
+  <div class="stat-section">
+    <div class="code-header">// results.log</div>
+    <div class="stat-grid">
+      <div class="stat-card full-width">
+        <div class="stat-num">Rp 16.06 Miliar</div>
+        <div class="stat-cap" data-i18n="metric2">Revenue yang saya bantu hasilkan, FY2024</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="stat-card full-width">
+        <div class="stat-num">44.5x</div>
+        <div class="stat-cap" data-i18n="metric1">Peak ROAS — paket Umrah</div>
+        <div class="stat-bar"><div class="stat-bar-fill" style="width:78%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="card">
+    <div class="code-header">services.config</div>
+    <div class="services-list">
+      <div class="service-item">
+        <button class="service-head">
+          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
+          <strong data-i18n="svc1_title">Bangun Funnel dari Nol</strong>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="service-body"><p data-i18n="svc1_desc">Dari riset audience sampai struktur TOF/MOF/BOF yang beneran nyambung satu sama lain, bukan campaign yang jalan sendiri-sendiri.</p></div>
+      </div>
+      <div class="service-item">
+        <button class="service-head">
+          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <strong data-i18n="svc2_title">Audit Akun yang Udah Jalan</strong>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="service-body"><p data-i18n="svc2_desc">Kadang budget bocor bukan karena strateginya salah total, tapi ada satu-dua hal kecil yang kelewat. Saya bantu cari itu.</p></div>
+      </div>
+      <div class="service-item">
+        <button class="service-head">
+          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="20" x2="4" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="20" y1="20" x2="20" y2="14"/></svg></span>
+          <strong data-i18n="svc3_title">Dashboard & Laporan</strong>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="service-body"><p data-i18n="svc3_desc">Nggak perlu bolak-balik buka Ads Manager tiap hari buat tahu campaign mana yang jalan. Saya biasa bikinin dashboard sendiri buat ini.</p></div>
+      </div>
+      <div class="service-item">
+        <button class="service-head">
+          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+          <strong data-i18n="svc4_title">Copy & Landing Page</strong>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="service-body"><p data-i18n="svc4_desc">Iklan bagus tapi landing page-nya nggak nyambung ya percuma. Saya pegang dua-duanya biar satu alur.</p></div>
+      </div>
+      <div class="service-item">
+        <button class="service-head">
+          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+          <strong data-i18n="svc5_title">Bikin Website dari Nol</strong>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="service-body"><p data-i18n="svc5_desc">Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard ini? Saya bisa bikinin, termasuk deploy-nya.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="code-header">case_studies/</div>
+    <div class="case">
+      <div class="case-image">
+        <img src="screenshot_jannah.png" alt="" onerror="this.style.display='none'">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
+        <span data-i18n="case1_img_label">[ screenshot_jannah.png ]</span>
+      </div>
+      <div class="case-file">jannah-travel.log</div>
+      <p data-i18n="case1_desc">Ini salah satu yang paling saya banggain. Pegang full-funnel Meta Ads buat paket Umrah, dari orang lihat iklan sampai beneran daftar dan bayar.</p>
+      <ul>
+        <li data-i18n="case1_b1">Rp614 juta booking cuma dari Rp15.7 juta ad spend (Feb–Mar 2026)</li>
+        <li data-i18n="case1_b2">ROAS rata-rata ~39x, pernah nyentuh 44.5x</li>
+        <li data-i18n="case1_b3">CPA serendah Rp867rb-an, dan 88% lead yang masuk memang qualified — bukan cuma ramai doang</li>
+      </ul>
+    </div>
+    <div class="case" style="margin-top: 24px;">
+      <div class="case-image">
+        <img src="dashboard_digiproduct.png" alt="" onerror="this.style.display='none'">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
+        <span data-i18n="case2_img_label">[ dashboard_digiproduct.png ]</span>
+      </div>
+      <div class="case-file">haydarlens-digital-product.log</div>
+      <p data-i18n="case2_desc">Ini project testing funnel buat produk digital seorang KOL. Saya coba beberapa struktur (BOF, MOF, retargeting) buat lihat mana yang paling efisien.</p>
+      <ul>
+        <li data-i18n="case2_b1">Funnel MOF ternyata paling jago — nyumbang ~91% total pembelian di ROAS 4.93x</li>
+        <li data-i18n="case2_b2">Total blended ROAS ~4.6x dari 336 pembelian</li>
+        <li data-i18n="case2_b3">CTR sampai 3.84% di kampanye yang paling top</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card why">
+    <div class="code-header">differentiators.md</div>
+    
+    <div class="ai-badge">
+      <div class="ai-badge-icon">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      </div>
+      <div class="ai-badge-text">
+        <div class="ai-badge-title">AI-Powered Workflow</div>
+        <div class="ai-badge-sub">Fast Execution · Data-Driven</div>
       </div>
     </div>
 
-    <section class="card hero">
-      <h2 data-i18n="hero_headline">Budget iklan kamu harusnya balik jadi cuan, bukan cuma angka reach yang bagus di laporan.</h2>
-      <p data-i18n="hero_sub">Udah 6+ tahun gonta-ganti industri — dari travel, jam tangan mewah, wedding venue, sampai produk digital. Yang saya pelajari: settingan iklan yang "kelihatan bagus" dan yang "beneran menghasilkan" itu dua hal berbeda. Pernah scale satu funnel sampai 44.5x ROAS — dan saya bisa cerita gimana caranya.</p>
-      <a class="btn primary full" href="https://wa.me/628979906686?text=Hi%20Irwan%2C%20saya%20tertarik%20diskusi%20soal%20Meta%20Ads.">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.24 0 4.35.87 5.93 2.46a8.24 8.24 0 0 1 2.43 5.88c0 4.57-3.72 8.29-8.32 8.29a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.14.82.84-3.06-.2-.32a8.19 8.19 0 0 1-1.28-4.42c0-4.58 3.72-8.32 8.26-8.32M8.53 6.85c-.17 0-.45.06-.68.32-.23.25-.9.87-.9 2.13 0 1.25.92 2.46 1.04 2.63.13.17 1.78 2.85 4.4 3.89 2.18.86 2.62.69 3.09.65.48-.04 1.55-.63 1.77-1.24.22-.6.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.6.13-.17.26-.68.85-.83 1.02-.15.17-.3.2-.57.07-.26-.13-1.11-.41-2.11-1.31-.78-.7-1.31-1.55-1.46-1.82-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.43.09-.17.04-.33-.02-.46-.06-.13-.6-1.47-.83-2.01-.22-.53-.44-.46-.6-.47z"/></svg>
-        <span data-i18n="cta_talk">Ngobrol dulu yuk</span>
+    <p data-i18n="why_me">Jujur aja, saya sekarang kerja pakai AI buat hampir semua hal — bikin laporan, nyusun dashboard, sampai produksi konten. Bukan buat gaya-gayaan, tapi karena itu bikin saya bisa gerak jauh lebih cepat dibanding cara kerja manual biasa. Fokus saya juga lebih ke produk yang harganya besar dan orang butuh mikir dulu sebelum beli (travel, luxury) — itu butuh funnel yang lebih dalam, bukan cuma boost post terus selesai. Dan setiap keputusan budget, saya coba dasarin dari hasil testing, bukan feeling.</p>
+  </section>
+
+  <section class="card footer-cta">
+    <div class="code-header">contact.env</div>
+    <p data-i18n="footer_line">Kalau budget iklan kamu udah jalan tapi hasilnya belum sebanding, mungkin kita perlu ngobrol.</p>
+    <div class="cta-row">
+      <a class="btn primary contact-btn" href="https://wa.me/628979906686">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        WhatsApp
       </a>
-    </section>
-
-    <section class="card">
-      <div class="code-header">// results.log</div>
-      <div class="metrics-grid">
-        <div class="metric">
-          <div class="metric-value">Rp 16.06 Miliar</div>
-          <div class="metric-label" data-i18n="metric2">Revenue yang saya bantu hasilkan, FY2024</div>
-          <div class="bar"></div>
-        </div>
-        <div class="metric">
-          <div class="metric-value">44.5x</div>
-          <div class="metric-label" data-i18n="metric1">Peak ROAS — paket Umrah</div>
-          <div class="bar"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="code-header">services.config</div>
-      <div class="services-list">
-        <div class="service-item">
-          <button class="service-head">
-            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
-            <strong data-i18n="svc1_title">Bangun Funnel dari Nol</strong>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="service-body"><p data-i18n="svc1_desc">Dari riset audience sampai struktur TOF/MOF/BOF yang beneran nyambung satu sama lain, bukan campaign yang jalan sendiri-sendiri.</p></div>
-        </div>
-        <div class="service-item">
-          <button class="service-head">
-            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-            <strong data-i18n="svc2_title">Audit Akun yang Udah Jalan</strong>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="service-body"><p data-i18n="svc2_desc">Kadang budget bocor bukan karena strateginya salah total, tapi ada satu-dua hal kecil yang kelewat. Saya bantu cari itu.</p></div>
-        </div>
-        <div class="service-item">
-          <button class="service-head">
-            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="20" x2="4" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="20" y1="20" x2="20" y2="14"/></svg></span>
-            <strong data-i18n="svc3_title">Dashboard & Laporan</strong>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="service-body"><p data-i18n="svc3_desc">Nggak perlu bolak-balik buka Ads Manager tiap hari buat tahu campaign mana yang jalan. Saya biasa bikinin dashboard sendiri buat ini.</p></div>
-        </div>
-        <div class="service-item">
-          <button class="service-head">
-            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
-            <strong data-i18n="svc4_title">Copy & Landing Page</strong>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="service-body"><p data-i18n="svc4_desc">Iklan bagus tapi landing page-nya nggak nyambung ya percuma. Saya pegang dua-duanya biar satu alur.</p></div>
-        </div>
-        <div class="service-item">
-          <button class="service-head">
-            <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
-            <strong data-i18n="svc5_title">Bikin Website dari Nol</strong>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="service-body"><p data-i18n="svc5_desc">Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard ini? Saya bisa bikinin, termasuk deploy-nya.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="code-header">case_studies/</div>
-      <div class="case">
-        <div class="case-image">
-          <img src="screenshot_jannah.png" alt="" onerror="this.style.display='none'">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
-          <span data-i18n="case1_img_label">[ screenshot_jannah.png ]</span>
-        </div>
-        <div class="case-file">jannah-travel.log</div>
-        <p data-i18n="case1_desc">Ini salah satu yang paling saya banggain. Pegang full-funnel Meta Ads buat paket Umrah, dari orang lihat iklan sampai beneran daftar dan bayar.</p>
-        <ul>
-          <li data-i18n="case1_b1">Rp614 juta booking cuma dari Rp15.7 juta ad spend (Feb–Mar 2026)</li>
-          <li data-i18n="case1_b2">ROAS rata-rata ~39x, pernah nyentuh 44.5x</li>
-          <li data-i18n="case1_b3">CPA serendah Rp867rb-an, dan 88% lead yang masuk memang qualified — bukan cuma ramai doang</li>
-        </ul>
-      </div>
-      <div class="case">
-        <div class="case-image">
-          <img src="dashboard_digiproduct.png" alt="" onerror="this.style.display='none'">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
-          <span data-i18n="case2_img_label">[ dashboard_digiproduct.png ]</span>
-        </div>
-        <div class="case-file">haydarlens-digital-product.log</div>
-        <p data-i18n="case2_desc">Ini project testing funnel buat produk digital seorang KOL. Saya coba beberapa struktur (BOF, MOF, retargeting) buat lihat mana yang paling efisien.</p>
-        <ul>
-          <li data-i18n="case2_b1">Funnel MOF ternyata paling jago — nyumbang ~91% total pembelian di ROAS 4.93x</li>
-          <li data-i18n="case2_b2">Total blended ROAS ~4.6x dari 336 pembelian</li>
-          <li data-i18n="case2_b3">CTR sampai 3.84% di kampanye yang paling top</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="card why">
-      <div class="code-header">differentiators.md</div>
-      
-      <div class="ai-badge">
-        <div class="ai-badge-icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        </div>
-        <div class="ai-badge-text">
-          <div class="ai-badge-title">AI-Powered Workflow</div>
-          <div class="ai-badge-sub">Fast Execution · Data-Driven</div>
-        </div>
-      </div>
-
-      <p data-i18n="why_me">Jujur aja, saya sekarang kerja pakai AI buat hampir semua hal — bikin laporan, nyusun dashboard, sampai produksi konten. Bukan buat gaya-gayaan, tapi karena itu bikin saya bisa gerak jauh lebih cepat dibanding cara kerja manual biasa. Fokus saya juga lebih ke produk yang harganya besar dan orang butuh mikir dulu sebelum beli (travel, luxury) — itu butuh funnel yang lebih dalam, bukan cuma boost post terus selesai. Dan setiap keputusan budget, saya coba dasarin dari hasil testing, bukan feeling.</p>
-    </section>
-
-    <section class="card footer-cta">
-      <div class="code-header">contact.env</div>
-      <p data-i18n="footer_line">Kalau budget iklan kamu udah jalan tapi hasilnya belum sebanding, mungkin kita perlu ngobrol.</p>
-      <div class="cta-row">
-        <a class="btn primary contact-btn" href="https://wa.me/628979906686">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-          WhatsApp
-        </a>
-        <a class="btn secondary contact-btn" href="mailto:Irwankhairy7@gmail.com">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          Email
-        </a>
-      </div>
-    </section>
-
-    <div class="signature">
-      IRWAN SAPUTRA<br>
-      <span>🇮🇩 JAKARTA, INDONESIA</span>
+      <a class="btn secondary contact-btn" href="mailto:Irwankhairy7@gmail.com">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        Email
+      </a>
     </div>
+  </section>
 
+  <div class="signature">
+    IRWAN SAPUTRA<br>
+    <span>🇮🇩 JAKARTA, INDONESIA</span>
   </div>
 
   <div class="fab-wrap" id="fabWrap">
