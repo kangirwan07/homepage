@@ -234,8 +234,15 @@
   .service-head strong { flex: 1; font-size: 12px; font-weight: 600; }
   .chevron { width: 14px; height: 14px; color: var(--dim); flex-shrink: 0; transition: transform 0.2s ease; }
   .service-item.open .chevron { transform: rotate(180deg); color: var(--green); }
-  .service-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.25s ease, opacity 0.2s ease; padding: 0 12px; }
-  .service-item.open .service-body { max-height: 220px; opacity: 1; padding: 0 12px 14px 48px; }
+  .service-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+    padding: 0 12px;
+  }
+  .service-body > p { overflow: hidden; min-height: 0; }
+  .service-item.open .service-body { grid-template-rows: 1fr; opacity: 1; padding: 0 12px 14px 48px; }
   .service-body p { margin: 0; font-size: 11.5px; line-height: 1.6; color: var(--muted); }
 
   .case { margin-bottom: 20px; }
@@ -282,7 +289,7 @@
   .signature span { display: inline-block; margin-top: 4px; }
 
   .fab-wrap {
-    position: absolute; left: 16px; bottom: 16px;
+    position: fixed; left: max(16px, calc(50vw - (var(--frame-w) / 2) + 16px)); bottom: 16px;
     display: flex; flex-direction: column; align-items: flex-start; gap: 8px; z-index: 50;
   }
   .fab-menu {
@@ -369,7 +376,7 @@
   <section class="card">
     <div class="code-header">services.config</div>
     <div class="services-list">
-      <div class="service-item">
+      <div class="service-item open">
         <button class="service-head">
           <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
           <strong data-i18n="svc1_title">Bangun Funnel dari Nol</strong>
@@ -408,6 +415,14 @@
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="service-body"><p data-i18n="svc5_desc">Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard ini? Saya bisa bikinin, termasuk deploy-nya.</p></div>
+      </div>
+      <div class="service-item">
+        <button class="service-head">
+          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+          <strong data-i18n="svc6_title">Strategi Konten & Sosmed</strong>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="service-body"><p data-i18n="svc6_desc">Selain nulis copy, saya juga bantu susun content pillar dan arah strategi kontennya — biar postingan sosmed nggak asal jalan tanpa tujuan yang jelas.</p></div>
       </div>
     </div>
   </section>
@@ -509,6 +524,8 @@
     svc4_desc: { id:"Iklan bagus tapi landing page-nya nggak nyambung ya percuma. Saya pegang dua-duanya biar satu alur.", en:"Good ads with mismatched landing pages are useless. I handle both to ensure flow." },
     svc5_title: { id:"Bikin Website dari Nol", en:"Build Web From Scratch" },
     svc5_desc: { id:"Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard ini? Saya bisa bikinin, termasuk deploy-nya.", en:"Need a landing page, company profile, or internal tool? I can build and deploy it (no-code)." },
+    svc6_title: { id:"Strategi Konten & Sosmed", en:"Content & Social Media Strategy" },
+    svc6_desc: { id:"Selain nulis copy, saya juga bantu susun content pillar dan arah strategi kontennya — biar postingan sosmed nggak asal jalan tanpa tujuan yang jelas.", en:"Beyond copywriting, I also help map out content pillars and the overall content strategy — so social posts have direction, not just random output." },
     case1_desc: { id:"Ini salah satu yang paling saya banggain. Pegang full-funnel Meta Ads buat paket Umrah, dari orang lihat iklan sampai beneran daftar dan bayar.", en:"One of my proudest projects. Handled full-funnel Meta Ads for Umrah packages, from viewing ads to actual signup and payment." },
     case1_b1: { id:"Rp614 juta booking cuma dari Rp15.7 juta ad spend (Feb–Mar 2026)", en:"Rp614M in bookings from just Rp15.7M ad spend (Feb–Mar 2026)" },
     case1_b2: { id:"ROAS rata-rata ~39x, pernah nyentuh 44.5x", en:"Average ROAS ~39x, peaked at 44.5x" },
