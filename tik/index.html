@@ -27,20 +27,21 @@
                             grass1: '#8fd66b',
                             grass2: '#69c04b',
                             card: '#ffffff',
-                            cardSoft: '#fff8ec',
+                            cardSoft: '#fff8ec', // Warna cream lembut untuk background
                             ink: '#3b3350',
                             inkSoft: '#6b6280',
-                            primary: '#7c5cf2',
-                            secondary: '#ef5f8f',
+                            primary: '#7c5cf2', // Ungu utama
+                            secondary: '#ef5f8f', // Pink
                             success: '#4bc776',
                             danger: '#ff7a7a',
-                            warning: '#ffb15e'
+                            warning: '#ffb15e' // Orange
                         }
                     },
                     boxShadow: {
                         'b-4': '0 4px 0 0 rgba(0,0,0,0.1)',
                         'b-8': '0 8px 0 0 rgba(0,0,0,0.15)',
                         'btn': '0 6px 0 0 rgba(0,0,0,0.2)',
+                        'card-flat': '0 6px 0 0 #f3f4f6', // Shadow solid untuk card
                     }
                 }
             }
@@ -49,11 +50,17 @@
 
     <style>
         body {
-            background: linear-gradient(180deg, #7ec8f2 0%, #bdeaff 45%, #8fd66b 45%, #69c04b 100%);
-            background-attachment: fixed;
+            /* Background utama diset ke cream lembut seperti referensi, 
+               kita akan pakai gradient untuk layar peta secara terpisah */
+            background-color: #fff8ec; 
             color: #3b3350;
             overscroll-behavior-y: none;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        .bg-nature-gradient {
+            background: linear-gradient(180deg, #7ec8f2 0%, #bdeaff 45%, #8fd66b 45%, #69c04b 100%);
+            background-attachment: fixed;
         }
 
         .app-container {
@@ -72,7 +79,6 @@
             display: none;
             flex: 1;
             flex-direction: column;
-            padding: 1rem;
             animation: fadeIn 0.4s ease-out;
             z-index: 10;
         }
@@ -104,6 +110,50 @@
         @keyframes bob {
             0%, 100% { transform: translateY(0) rotate(-2deg); }
             50% { transform: translateY(-12px) rotate(2deg); }
+        }
+
+        /* Styling spesifik untuk UI Awal yang baru */
+        .speech-bubble-top {
+            position: relative;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px solid #f3f4f6;
+        }
+        .speech-bubble-top::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+            z-index: 2;
+        }
+        .speech-bubble-top::before {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 12px 12px 0;
+            border-style: solid;
+            border-color: #f3f4f6 transparent transparent transparent;
+            z-index: 1;
+        }
+
+        .avatar-btn {
+            transition: all 0.2s;
+            filter: grayscale(0.5);
+            opacity: 0.7;
+        }
+        .avatar-btn.selected {
+            filter: grayscale(0);
+            opacity: 1;
+            border-color: #ffb15e; /* brand-warning */
+            background-color: #fffaf0;
+            transform: scale(1.1);
         }
 
         /* Node Pulau di Peta */
@@ -219,10 +269,10 @@
         }
     </style>
 </head>
-<body class="antialiased font-sans">
+<body class="antialiased font-sans transition-colors duration-500" id="main-body">
 
-<!-- Latar Belakang Dekoratif -->
-<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden flex justify-center">
+<!-- Latar Belakang Dekoratif (Hanya muncul di Peta/Game) -->
+<div id="nature-decor" class="fixed inset-0 pointer-events-none z-0 overflow-hidden flex justify-center hidden opacity-0 transition-opacity duration-500">
     <div class="w-full max-w-[540px] relative">
         <div class="absolute top-6 right-6 w-20 h-20 rounded-full bg-yellow-300 shadow-[0_0_40px_10px_rgba(253,224,71,0.6)]"></div>
         <div class="absolute top-12 left-4 w-20 h-8 bg-white/80 rounded-full blur-[1px]"></div>
@@ -233,7 +283,7 @@
 
 <div class="app-container" id="app">
 
-    <div id="topbar" class="hidden flex justify-between items-center p-4 z-20 relative mt-2">
+    <div id="topbar" class="hidden justify-between items-center p-4 z-20 relative mt-2">
         <button id="btn-home" class="btn-push w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-b-4 text-brand-ink transition-transform hover:scale-105">
             🏠
         </button>
@@ -246,28 +296,94 @@
         </button>
     </div>
 
-    <section id="screen-start" class="screen active justify-center items-center text-center mt-8">
-        <div class="text-[7rem] mascot-bob mb-6">🦉</div>
-        <div class="bg-white p-6 md:p-8 rounded-[2rem] shadow-b-8 w-full max-w-[90%] mx-auto">
-            <h1 class="font-heading text-3xl md:text-4xl font-bold text-brand-primary leading-tight mb-3">
-                Petualangan<br>Berpikir Komputasional
-            </h1>
-            <p class="text-brand-inkSoft font-medium mb-6 text-lg">
-                Ayo bantu teman-teman hewan memecahkan teka-teki! 🐢🐰🦋🐒🦫
-            </p>
-            <div class="text-left mb-6">
-                <label class="block text-sm font-bold text-brand-inkSoft mb-2 ml-2">Siapa namamu, Pahlawan?</label>
-                <input type="text" id="input-name" placeholder="Ketik namamu..." maxlength="15" autocomplete="off"
-                       class="w-full bg-brand-cardSoft border-4 border-purple-100 rounded-2xl px-5 py-4 text-xl font-bold text-brand-ink focus:outline-none focus:border-brand-primary transition-colors">
+    <!-- LAYAR AWAL BARU -->
+    <section id="screen-start" class="screen active relative pb-10">
+        <!-- Header Layar Awal -->
+        <div class="flex justify-between items-center w-full px-6 py-6 pt-8">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl mascot-bob" style="animation-duration: 4s;">🌟</span>
+                <span class="font-heading font-extrabold text-brand-warning text-xl">Anak Hebat</span>
             </div>
-            <button id="btn-start" class="btn-push w-full bg-gradient-to-b from-brand-secondary to-pink-600 text-white rounded-full py-4 text-xl font-bold shadow-[0_6px_0_0_#be185d]">
-                🚀 Mulai Petualangan!
-            </button>
+            <div class="flex gap-3">
+                <button id="btn-sound-start" class="btn-push w-11 h-11 rounded-full border-2 border-brand-primary/20 flex items-center justify-center text-brand-primary bg-white shadow-sm text-lg">
+                    🔊
+                </button>
+                <button class="btn-push w-11 h-11 rounded-full border-2 border-brand-inkSoft/20 flex items-center justify-center text-brand-ink bg-white shadow-sm text-lg">
+                    👤
+                </button>
+            </div>
         </div>
-        <p class="mt-8 text-white/90 font-bold text-sm text-center drop-shadow-md">Spesial untuk Sahabat SD Kelas 1 💛</p>
+
+        <div class="flex flex-col items-center px-4">
+            <!-- Tag Pil -->
+            <div class="bg-brand-warning/10 border border-brand-warning/30 rounded-full px-5 py-1.5 text-brand-warning font-bold text-[10px] sm:text-xs uppercase tracking-wider mb-4 shadow-sm">
+                Petualangan Berpikir Komputasional
+            </div>
+
+            <!-- Judul Utama -->
+            <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-brand-primary text-center leading-tight mb-2">
+                Kuis Hebat<br>Anak Cerdas! <span class="inline-block transform rotate-12 text-blue-400">🛡️</span>
+            </h1>
+            <p class="text-brand-inkSoft font-medium text-sm text-center mb-8 px-4">
+                Ayo uji kemampuan akalmu dan kumpulkan bintang kejayaan!
+            </p>
+
+            <!-- Area Maskot & Bubble -->
+            <div class="relative flex flex-col items-center z-20 mb-[-30px]">
+                <div class="speech-bubble-top px-6 py-4 w-[280px] text-center">
+                    <p class="text-sm font-bold text-brand-ink leading-snug">
+                        Halo sahabat hebat! Pilih karaktermu & tulis namamu yuk!
+                    </p>
+                </div>
+                <div class="text-[6rem] mascot-bob mt-4 drop-shadow-lg relative z-10">🦉</div>
+            </div>
+
+            <!-- Card Utama Putih -->
+            <div class="bg-white rounded-[2rem] shadow-card-flat border-2 border-gray-100 w-full max-w-[95%] p-6 pt-12 relative z-10">
+                
+                <!-- Pilih Karakter -->
+                <p class="text-center font-bold text-brand-ink text-sm mb-4">Pilih Karakter Favoritmu:</p>
+                <div class="flex justify-center gap-2 mb-6" id="avatar-container">
+                    <button class="avatar-btn selected w-12 h-12 rounded-[1rem] border-2 border-gray-200 bg-white text-2xl flex items-center justify-center" data-avatar="👦">👦</button>
+                    <button class="avatar-btn w-12 h-12 rounded-[1rem] border-2 border-gray-200 bg-white text-2xl flex items-center justify-center" data-avatar="👧">👧</button>
+                    <button class="avatar-btn w-12 h-12 rounded-[1rem] border-2 border-gray-200 bg-white text-2xl flex items-center justify-center" data-avatar="🐢">🐢</button>
+                    <button class="avatar-btn w-12 h-12 rounded-[1rem] border-2 border-gray-200 bg-white text-2xl flex items-center justify-center" data-avatar="🐰">🐰</button>
+                    <button class="avatar-btn w-12 h-12 rounded-[1rem] border-2 border-gray-200 bg-white text-2xl flex items-center justify-center" data-avatar="🤖">🤖</button>
+                </div>
+
+                <!-- Input Nama -->
+                <p class="text-center font-bold text-brand-ink text-sm mb-3">Siapa Namamu?</p>
+                <input type="text" id="input-name" placeholder="Ketik namamu..." maxlength="15" autocomplete="off"
+                       class="w-full bg-brand-cardSoft border-2 border-transparent rounded-2xl px-5 py-4 text-center text-xl font-extrabold text-brand-ink focus:outline-none focus:border-brand-primary transition-colors placeholder:text-gray-400 placeholder:font-medium mb-6 shadow-inner">
+
+                <!-- Pilih Topik (Kosmetik untuk UI) -->
+                <p class="text-center font-bold text-brand-ink text-xs uppercase tracking-wider mb-3">Pilih Mode Permainan:</p>
+                <div class="grid grid-cols-2 gap-3 mb-8">
+                    <button class="bg-brand-warning text-white rounded-xl py-2.5 font-bold text-sm shadow-[0_4px_0_0_#d97706] border border-orange-400 active:translate-y-1 active:shadow-none transition-all">
+                        🌈 Semua Pulau
+                    </button>
+                    <button class="bg-gray-100 text-gray-500 rounded-xl py-2.5 font-bold text-sm border border-gray-200 cursor-not-allowed">
+                        🔒 Latihan
+                    </button>
+                </div>
+
+                <!-- Tombol Mulai -->
+                <button id="btn-start" class="btn-push w-full bg-brand-warning text-white rounded-2xl py-4 text-xl font-extrabold shadow-[0_6px_0_0_#d97706] tracking-wide border-2 border-orange-400">
+                    🚀 MULAI PETUALANGAN!
+                </button>
+            </div>
+
+            <!-- Footer Start Screen -->
+            <div class="w-full max-w-[95%] flex justify-between items-center mt-6 px-2">
+                <button class="bg-white px-4 py-2 rounded-full border border-gray-200 text-xs font-bold text-brand-inkSoft shadow-sm flex items-center gap-2">
+                    📜 Riwayat Bintang
+                </button>
+                <span class="text-xs font-medium text-gray-400">Versi 2.0</span>
+            </div>
+        </div>
     </section>
 
-    <section id="screen-map" class="screen">
+    <section id="screen-map" class="screen p-4">
         <div class="text-center mb-8 mt-4">
             <h2 id="map-greeting" class="font-heading text-4xl font-bold text-white drop-shadow-lg">Halo!</h2>
             <p class="text-white/90 font-bold text-lg drop-shadow-md">Pilih pulau untuk mulai bermain</p>
@@ -277,9 +393,9 @@
         </div>
     </section>
 
-    <section id="screen-intro" class="screen justify-center items-center text-center">
+    <section id="screen-intro" class="screen justify-center items-center text-center p-4">
         <div id="intro-mascot" class="text-9xl mascot-bob mb-8">🐢</div>
-        <div class="speech-bubble bg-white p-6 rounded-3xl shadow-b-8 w-full max-w-[90%] mb-10">
+        <div class="speech-bubble bg-white p-6 rounded-3xl shadow-b-8 w-full max-w-[90%] mb-10 border-2 border-gray-100">
             <h3 id="intro-title" class="font-heading text-2xl font-bold text-brand-primary mb-2">Pulau</h3>
             <p id="intro-text" class="text-brand-ink font-medium text-lg leading-snug">...</p>
         </div>
@@ -288,7 +404,7 @@
         </button>
     </section>
 
-    <section id="screen-quiz" class="screen">
+    <section id="screen-quiz" class="screen p-4 flex-col h-full">
         <div class="flex items-center gap-3 mb-4 bg-white/30 p-2.5 rounded-full backdrop-blur-md">
             <div class="flex-1 h-5 bg-white/60 rounded-full overflow-hidden shadow-inner">
                 <div id="progress-fill" class="h-full bg-gradient-to-r from-yellow-400 to-pink-500 transition-all duration-500 ease-out w-0%"></div>
@@ -296,7 +412,7 @@
             <span id="q-counter" class="font-bold text-brand-ink bg-white px-3 py-1 rounded-full shadow-sm text-sm">1/5</span>
         </div>
 
-        <div class="bg-white flex-1 rounded-[2rem] shadow-b-8 p-6 flex flex-col relative z-10">
+        <div class="bg-white flex-1 rounded-[2rem] shadow-b-8 border-2 border-gray-100 p-6 flex flex-col relative z-10 w-full mx-auto">
             <div class="flex items-start gap-4 mb-5">
                 <div id="q-mascot" class="text-5xl shrink-0 drop-shadow-sm">🐢</div>
                 <div class="flex-1">
@@ -319,8 +435,8 @@
         </div>
     </section>
 
-    <section id="screen-badge" class="screen justify-center items-center text-center">
-        <div class="bg-white p-8 rounded-[2rem] shadow-b-8 w-full max-w-[90%] flex flex-col items-center">
+    <section id="screen-badge" class="screen justify-center items-center text-center p-4">
+        <div class="bg-white p-8 rounded-[2rem] shadow-b-8 border-2 border-gray-100 w-full max-w-[90%] flex flex-col items-center">
             <h2 class="font-heading text-4xl font-bold text-brand-primary mb-6">Hebat Sekali!</h2>
             <div class="relative w-40 h-40 mb-6 flex justify-center items-center">
                 <div class="absolute inset-0 bg-yellow-300 rounded-full animate-ping opacity-40"></div>
@@ -329,13 +445,13 @@
             <p id="badge-text" class="text-brand-ink font-bold text-xl mb-8 leading-snug">
                 Kamu mendapatkan lencana karena telah menyelesaikan level ini!
             </p>
-            <button id="btn-badge-continue" class="btn-push w-full bg-gradient-to-b from-brand-warning to-orange-500 text-white rounded-full py-4 text-xl font-bold shadow-[0_6px_0_0_#c2410c]">
+            <button id="btn-badge-continue" class="btn-push w-full bg-brand-warning text-white rounded-full py-4 text-xl font-bold shadow-[0_6px_0_0_#c2410c] border border-orange-400">
                 Kembali ke Peta 🗺️
             </button>
         </div>
     </section>
 
-    <section id="screen-final" class="screen justify-center items-center">
+    <section id="screen-final" class="screen justify-center items-center p-4">
         <div class="bg-white border-[8px] border-yellow-400 p-8 rounded-[2rem] shadow-b-8 w-full max-w-[95%] text-center relative overflow-hidden">
             <div class="absolute -right-12 -top-12 w-32 h-32 bg-red-500 rotate-45 transform"></div>
             
@@ -359,7 +475,7 @@
                 </div>
             </div>
             
-            <button id="btn-replay" class="btn-push w-full bg-gradient-to-b from-gray-400 to-gray-600 text-white rounded-full py-4 text-xl font-bold shadow-[0_6px_0_0_#374151]">
+            <button id="btn-replay" class="btn-push w-full bg-gray-500 text-white rounded-full py-4 text-xl font-bold shadow-[0_6px_0_0_#374151]">
                 🔁 Main Lagi dari Awal
             </button>
         </div>
@@ -385,7 +501,7 @@
             ]
         },
         {
-            id: "kelinci", name: "Hutan Kelinci", mascot: "🐰", theme: "Dekomposisi (Memecah Masalah)", color: "from-pink-400 to-pink-600", shadow: "shadow-[0_6px_0_0_#be185d]",
+            id: "kelinci", name: "Hutan Kelinci", mascot: "🐰", theme: "Dekomposisi", color: "from-pink-400 to-pink-600", shadow: "shadow-[0_6px_0_0_#be185d]",
             intro: "Kamarku berantakan sekali! Bantu aku berpikir cara merapikannya sedikit demi sedikit ya.",
             questions: [
                 { type: "mcq", text: "Kamar yang berantakan sebaiknya dirapikan dengan cara...", options: [ { t: "Dibiarkan saja", e: "🙈" }, { t: "Dirapikan satu per satu", e: "🧹", correct: true }, { t: "Ditutup pintunya", e: "🚪" } ] },
@@ -403,7 +519,7 @@
             ]
         },
         {
-            id: "monyet", name: "Pasar Monyet", mascot: "🐒", theme: "Abstraksi (Fokus yang Penting)", color: "from-yellow-400 to-orange-500", shadow: "shadow-[0_6px_0_0_#c2410c]",
+            id: "monyet", name: "Pasar Monyet", mascot: "🐒", theme: "Abstraksi", color: "from-yellow-400 to-orange-500", shadow: "shadow-[0_6px_0_0_#c2410c]",
             intro: "Selamat datang di tokoku! Aku suka mengelompokkan barang biar mudah dicari. Yuk bantu aku!",
             questions: [
                 { type: "mcq", text: "Contoh hasil berpikir secara umum (abstraksi) adalah...", options: [ { t: "Mengelompokkan barang", e: "📦", correct: true }, { t: "Mengenali pola gambar", e: "🖼️" }, { t: "Langkah demi langkah", e: "🪜" } ] },
@@ -412,7 +528,7 @@
             ]
         },
         {
-            id: "berang", name: "Sungai Berang", mascot: "🦫", theme: "Algoritma (Langkah Berurutan)", color: "from-blue-400 to-blue-600", shadow: "shadow-[0_6px_0_0_#1d4ed8]",
+            id: "berang", name: "Sungai Berang", mascot: "🦫", theme: "Algoritma", color: "from-blue-400 to-blue-600", shadow: "shadow-[0_6px_0_0_#1d4ed8]",
             intro: "Aku suka membuat sarapan dengan urutan yang benar. Ayo urutkan bersamaku!",
             questions: [
                 { type: "order", text: "Urutkan langkah membuat sereal!", steps: [ "Siapkan mangkok", "Tuang sereal", "Tambahkan susu" ] },
@@ -424,6 +540,7 @@
 
     let state = {
         name: "",
+        avatar: "👦",
         stars: 0,
         completed: {},
         soundOn: true
@@ -431,7 +548,7 @@
     
     let cur = { islandIdx: 0, qIdx: 0, tries: 0, orderPicked: [] };
 
-    const STORAGE_KEY = "petualangan-berpikir-sd";
+    const STORAGE_KEY = "petualangan-berpikir-sd-v2";
 
     function saveState() {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
@@ -455,7 +572,7 @@
         [349,1], [392,1], [440,1], [392,1],
         [330,1], [349,1], [392,2]
     ];
-    const BG_BEAT = 0.35; // Kecepatan tempo
+    const BG_BEAT = 0.35; 
 
     function ensureAudio() {
         if (!actx) {
@@ -470,7 +587,6 @@
         return true;
     }
 
-    // Fungsi dasar membuat nada (Bip)
     function tone(freq, start, dur, type, vol) {
         if (!actx || !state.soundOn) return;
         try {
@@ -487,14 +603,12 @@
         } catch(e) {}
     }
 
-    // Kumpulan Efek Suara
     function playClick() { ensureAudio(); tone(520, 0, 0.08, "square", 0.08); }
     function playCorrect() { ensureAudio(); tone(523, 0, 0.15, "sine", 0.15); tone(659, 0.1, 0.15, "sine", 0.15); tone(784, 0.2, 0.2, "sine", 0.15); }
     function playWrong() { ensureAudio(); tone(200, 0, 0.15, "sawtooth", 0.1); tone(150, 0.1, 0.2, "sawtooth", 0.1); }
     function playBadge() { ensureAudio(); [523, 659, 784, 1046].forEach((f, i) => tone(f, i * 0.12, 0.2, "triangle", 0.15)); }
     function playWin() { ensureAudio(); [392, 523, 659, 784, 1046, 784, 1046].forEach((f, i) => tone(f, i * 0.13, 0.25, "triangle", 0.15)); }
 
-    // Musik Latar (Looping BGM)
     function bgNote(freq, startTime, durBeats) {
         if (!actx || !bgMelodyGain) return;
         const dur = durBeats * BG_BEAT;
@@ -503,7 +617,7 @@
         osc.type = "triangle";
         osc.frequency.value = freq;
         g.gain.setValueAtTime(0.0001, startTime);
-        g.gain.linearRampToValueAtTime(0.03, startTime + 0.05); // Volume BGM Pelan
+        g.gain.linearRampToValueAtTime(0.03, startTime + 0.05); 
         g.gain.linearRampToValueAtTime(0.0001, startTime + dur * 0.9);
         osc.connect(g).connect(bgMelodyGain);
         osc.start(startTime);
@@ -551,11 +665,9 @@
             utt.rate = 0.9;
             utt.pitch = 1.1;
             
-            // Turunkan volume BGM saat bicara
             if (bgMelodyGain) { try { bgMelodyGain.gain.setTargetAtTime(0.1, actx.currentTime, 0.1); } catch(e) {} }
             
             utt.onend = () => { 
-                // Kembalikan volume BGM
                 if (bgMelodyGain) { try { bgMelodyGain.gain.setTargetAtTime(1, actx.currentTime, 0.3); } catch(e) {} } 
             };
             utt.onerror = utt.onend;
@@ -595,18 +707,40 @@
         }
     }
 
+    function toggleThemeBackground(isMapOrGame) {
+        const body = document.getElementById("main-body");
+        const decor = document.getElementById("nature-decor");
+        
+        if (isMapOrGame) {
+            body.classList.add("bg-nature-gradient");
+            body.style.backgroundColor = ""; // Clear inline
+            decor.classList.remove("hidden");
+            // Delay untuk transisi
+            setTimeout(() => decor.classList.remove("opacity-0"), 50);
+        } else {
+            body.classList.remove("bg-nature-gradient");
+            body.style.backgroundColor = "#fff8ec"; 
+            decor.classList.add("opacity-0");
+            setTimeout(() => decor.classList.add("hidden"), 500);
+        }
+    }
+
     function showScreen(id) {
         document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
         document.getElementById(id).classList.add("active");
         
         const topbar = document.getElementById("topbar");
-        if (id === "screen-map" || id === "screen-quiz") {
-            topbar.classList.remove("hidden");
-            topbar.classList.add("flex");
-        } else {
+        
+        if (id === "screen-start") {
             topbar.classList.add("hidden");
             topbar.classList.remove("flex");
+            toggleThemeBackground(false);
+        } else {
+            topbar.classList.remove("hidden");
+            topbar.classList.add("flex");
+            toggleThemeBackground(true);
         }
+        
         window.scrollTo(0, 0);
     }
 
@@ -618,7 +752,9 @@
     }
 
     function renderMap() {
-        document.getElementById("map-greeting").textContent = `Halo, ${state.name}!`;
+        const greeting = document.getElementById("map-greeting");
+        greeting.innerHTML = `Halo, ${state.avatar} <span class="text-brand-warning">${state.name}!</span>`;
+        
         const container = document.getElementById("path-container");
         container.innerHTML = "";
 
@@ -688,7 +824,6 @@
         cur.tries = 0;
         cur.orderPicked = [];
 
-        // Setup UI Atas
         document.getElementById("q-mascot").textContent = isl.mascot;
         document.getElementById("q-text").textContent = q.text;
         document.getElementById("q-counter").textContent = `${cur.qIdx + 1}/${isl.questions.length}`;
@@ -703,7 +838,6 @@
         area.innerHTML = "";
         area.dataset.locked = "0";
 
-        // Render Opsi Berdasarkan Tipe
         if (q.type === "mcq" || q.type === "tf") {
             const options = q.type === "tf" 
                 ? [{t:"Benar", e:"✅", correct: q.answer===true}, {t:"Salah", e:"❌", correct: q.answer===false}]
@@ -718,7 +852,6 @@
             });
         } 
         else if (q.type === "order") {
-            // Logika Urutan (Algoritma)
             const hint = document.createElement("p");
             hint.className = "text-center text-sm font-bold text-brand-inkSoft mb-2";
             hint.textContent = "Ketuk kotak di bawah sesuai urutan yang benar (1, 2, 3)";
@@ -727,7 +860,6 @@
             const grid = document.createElement("div");
             grid.className = "flex flex-col gap-3";
             
-            // Acak pilihan
             let shuffled = q.steps.map((text, i) => ({ text, orig: i }));
             shuffled.sort(() => Math.random() - 0.5);
 
@@ -764,7 +896,6 @@
             container.dataset.locked = "1";
             btn.classList.add("correct");
             
-            // Matikan tombol lain
             Array.from(container.children).forEach(c => {
                 if (c !== btn && c.tagName === 'BUTTON') c.disabled = true;
             });
@@ -867,7 +998,7 @@
     });
 
     function showFinal() {
-        document.getElementById("cert-name").textContent = state.name || "Pahlawan Hebat";
+        document.getElementById("cert-name").innerHTML = `${state.avatar} ${state.name || "Anak Hebat"}`;
         const badgeWrap = document.getElementById("cert-badges");
         badgeWrap.innerHTML = "";
         ISLANDS.forEach(isl => {
@@ -882,8 +1013,18 @@
         showScreen("screen-final");
     }
 
+    // Interaksi Tombol UI Awal
+    const avatarBtns = document.querySelectorAll(".avatar-btn");
+    avatarBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            playClick();
+            avatarBtns.forEach(b => b.classList.remove("selected"));
+            e.currentTarget.classList.add("selected");
+            state.avatar = e.currentTarget.dataset.avatar;
+        });
+    });
+
     document.getElementById("btn-start").addEventListener("click", () => {
-        // PENTING: Inisialisasi Audio dan BGM saat interaksi pertama
         ensureAudio(); 
         startBgMusic();
 
@@ -896,17 +1037,13 @@
         showScreen("screen-map");
     });
 
-    document.getElementById("btn-home").addEventListener("click", () => {
-        playClick();
-        window.speechSynthesis.cancel();
-        renderMap();
-        showScreen("screen-map");
-    });
-
-    document.getElementById("btn-sound").addEventListener("click", (e) => {
+    // Menyatukan tombol sound global dan start
+    const soundToggleFn = (e) => {
         ensureAudio();
         state.soundOn = !state.soundOn;
-        e.currentTarget.textContent = state.soundOn ? "🔊" : "🔇";
+        const txt = state.soundOn ? "🔊" : "🔇";
+        document.getElementById("btn-sound").textContent = txt;
+        document.getElementById("btn-sound-start").textContent = txt;
         
         if (state.soundOn) {
             playClick();
@@ -916,6 +1053,16 @@
             window.speechSynthesis.cancel();
         }
         saveState();
+    };
+
+    document.getElementById("btn-sound").addEventListener("click", soundToggleFn);
+    document.getElementById("btn-sound-start").addEventListener("click", soundToggleFn);
+
+    document.getElementById("btn-home").addEventListener("click", () => {
+        playClick();
+        window.speechSynthesis.cancel();
+        // Kembali ke start
+        showScreen("screen-start");
     });
 
     document.getElementById("btn-replay").addEventListener("click", () => {
@@ -924,8 +1071,7 @@
         state.stars = 0;
         updateStarUI();
         saveState();
-        renderMap();
-        showScreen("screen-map");
+        showScreen("screen-start");
     });
 
     // Inisialisasi Pertama
@@ -934,10 +1080,18 @@
         if (state.name) {
             document.getElementById("input-name").value = state.name;
         }
-        // Atur UI Sound sesuai state
-        document.getElementById("btn-sound").textContent = state.soundOn ? "🔊" : "🔇";
+        if (state.avatar) {
+            avatarBtns.forEach(b => {
+                b.classList.remove("selected");
+                if(b.dataset.avatar === state.avatar) b.classList.add("selected");
+            });
+        }
+
+        const sndTxt = state.soundOn ? "🔊" : "🔇";
+        document.getElementById("btn-sound").textContent = sndTxt;
+        document.getElementById("btn-sound-start").textContent = sndTxt;
         
-        // Mulai di layar awal
+        // Memulai selalu di layar start 
         showScreen("screen-start");
     });
 
