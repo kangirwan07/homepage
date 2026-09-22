@@ -1,1 +1,1120 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kuis Jujur Anak Hebat - Pendidikan Anti Korupsi</title>
 
+  <!-- Google Fonts & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            baloo: ['"Baloo 2"', 'cursive', 'sans-serif'],
+            fredoka: ['"Fredoka"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              cream: '#FFF9F0',
+              orange: '#FF8A00',
+              orangeDark: '#E06D00',
+              yellow: '#FFD13B',
+              green: '#4CAF50',
+              greenDark: '#388E3C',
+              blue: '#29B6F6',
+              blueDark: '#0288D1',
+              pink: '#FF6090',
+              purple: '#AB47BC',
+              darkBg: '#1E1B18',
+              darkCard: '#2A241E',
+            }
+          },
+          boxShadow: {
+            '3d-orange': '0 6px 0 #D86000',
+            '3d-blue': '0 6px 0 #0277BD',
+            '3d-green': '0 6px 0 #2E7D32',
+            '3d-purple': '0 6px 0 #7B1FA2',
+            '3d-gray': '0 6px 0 #9E9E9E',
+            'card-playful': '0 12px 24px -6px rgba(255, 138, 0, 0.15), 0 8px 0 rgba(74, 55, 40, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Baloo 2', system-ui, -apple-system, sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Custom Blob Background Animations */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(40px);
+      z-index: 0;
+      opacity: 0.6;
+      pointer-events: none;
+      animation: floatBlob 12s ease-in-out infinite alternate;
+    }
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.08); }
+      100% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* Bounce Keyframe */
+    .animate-bounce-gentle {
+      animation: bounceGentle 2s infinite;
+    }
+    @keyframes bounceGentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-pop {
+      animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .animate-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    /* Confetti Particle Styling */
+    .confetti-piece {
+      position: fixed;
+      top: -20px;
+      font-size: 24px;
+      z-index: 99;
+      pointer-events: none;
+      animation: fallDown linear forwards;
+    }
+    @keyframes fallDown {
+      to {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0.9;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #FFD13B; border-radius: 10px; }
+
+    /* Print styles for Certificate */
+    @media print {
+      body * { visibility: hidden; }
+      #printable-certificate, #printable-certificate * { visibility: visible; }
+      #printable-certificate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-brand-cream dark:bg-brand-darkBg text-stone-800 dark:text-amber-100 min-h-full flex flex-col justify-between relative overflow-x-hidden transition-colors duration-300">
+
+  <!-- Ambient Animated Blobs -->
+  <div class="blob w-72 h-72 bg-amber-200 dark:bg-amber-900/30 -top-10 -left-10"></div>
+  <div class="blob w-80 h-80 bg-emerald-200 dark:bg-emerald-900/30 -bottom-10 -right-10" style="animation-delay: -4s;"></div>
+  <div class="blob w-64 h-64 bg-sky-200 dark:bg-sky-900/30 top-1/2 -right-20" style="animation-delay: -8s;"></div>
+
+  <!-- Main Container Wrapper -->
+  <div class="relative z-10 w-full max-w-lg mx-auto min-h-screen flex flex-col p-4 sm:p-6 justify-between">
+
+    <!-- Top Navigation Controls -->
+    <header class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🌟</span>
+        <span class="font-bold text-lg tracking-wide text-brand-orange dark:text-amber-300 font-fredoka">Anak Jujur</span>
+      </div>
+      
+      <div class="flex items-center gap-2">
+        <!-- Audio FX Toggle -->
+        <button id="btnToggleSound" class="p-2.5 rounded-2xl bg-white dark:bg-brand-darkCard border-2 border-amber-200 dark:border-amber-800 shadow-sm text-xl hover:scale-105 active:scale-95 transition" title="Suara Efek">
+          🔊
+        </button>
+        <!-- Speech Voiceover Toggle -->
+        <button id="btnToggleTTS" class="p-2.5 rounded-2xl bg-white dark:bg-brand-darkCard border-2 border-amber-200 dark:border-amber-800 shadow-sm text-xl hover:scale-105 active:scale-95 transition" title="Pembaca Suara">
+          🗣️
+        </button>
+        <!-- Theme Toggle -->
+        <button id="btnToggleTheme" class="p-2.5 rounded-2xl bg-white dark:bg-brand-darkCard border-2 border-amber-200 dark:border-amber-800 shadow-sm text-xl hover:scale-105 active:scale-95 transition" title="Mode Gelap/Terang">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= SCREEN 1: WELCOME & AVATAR SELECT ================= -->
+    <main id="screen-welcome" class="flex-1 flex flex-col justify-center my-auto py-2">
+      <div class="text-center mb-4">
+        <span class="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-900/50 text-brand-orangeDark dark:text-amber-300 font-bold text-xs sm:text-sm rounded-full mb-2 tracking-wider uppercase border border-amber-300 dark:border-amber-700">
+          Pendidikan Anti Korupsi · Bab II Kejujuran
+        </span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-orangeDark dark:text-amber-400 font-fredoka drop-shadow-sm">
+          Kuis Jujur Anak Hebat! 🛡️
+        </h1>
+        <p class="text-stone-600 dark:text-stone-300 text-sm sm:text-base font-medium mt-1">
+          Ayo uji kebaikanmu dan kumpulkan bintang kejujuran!
+        </p>
+      </div>
+
+      <!-- Mascot & Interactive Speech -->
+      <div class="flex flex-col items-center my-3">
+        <div id="welcomeSpeech" class="bg-white dark:bg-brand-darkCard border-2 border-amber-200 dark:border-amber-700/60 rounded-2xl px-4 py-2.5 shadow-md text-stone-700 dark:text-amber-200 font-semibold text-center text-sm sm:text-base max-w-xs relative mb-3 animate-bounce-gentle">
+          Halo sahabat hebat! Pilih karaktermu & tulis namamu yuk!
+          <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-brand-darkCard border-b-2 border-r-2 border-amber-200 dark:border-amber-700/60 rotate-45"></div>
+        </div>
+        
+        <div id="selectedAvatarDisplay" class="text-7xl sm:text-8xl filter drop-shadow-md hover:scale-110 transition duration-300 cursor-pointer">
+          🧒
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="bg-white dark:bg-brand-darkCard rounded-3xl p-5 shadow-card-playful border-2 border-amber-100 dark:border-amber-900/40">
+        
+        <!-- Avatar Selector Carousel -->
+        <label class="block text-stone-700 dark:text-amber-200 font-bold text-sm text-center mb-2">
+          Pilih Karakter Favoritmu:
+        </label>
+        <div class="flex justify-center items-center gap-2 mb-4 overflow-x-auto pb-1" id="avatarGrid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Name Input -->
+        <div class="mb-4">
+          <label for="inputName" class="block text-stone-700 dark:text-amber-200 font-bold text-sm text-center mb-1.5">
+            Siapa Namamu?
+          </label>
+          <input type="text" id="inputName" maxlength="20" placeholder="Tulis namamu di sini..." 
+            class="w-full text-center text-xl font-bold font-fredoka py-3 px-4 rounded-2xl bg-amber-50 dark:bg-stone-800 text-stone-800 dark:text-amber-100 border-3 border-amber-300 dark:border-amber-600 focus:border-brand-orange focus:outline-none transition placeholder:font-normal placeholder:text-stone-400 placeholder:text-base">
+        </div>
+
+        <!-- Category Selector -->
+        <div class="mb-5">
+          <label class="block text-stone-700 dark:text-amber-200 font-bold text-xs text-center mb-2 uppercase tracking-wider">
+            Pilih Topik Kuis:
+          </label>
+          <div class="grid grid-cols-2 gap-2" id="categorySelector">
+            <button data-cat="all" class="cat-btn active py-2 px-3 rounded-xl border-2 text-xs font-bold transition flex items-center justify-center gap-1.5 bg-amber-400 border-amber-500 text-stone-900 shadow-sm">
+              🌈 Semua Soal (10)
+            </button>
+            <button data-cat="sekolah" class="cat-btn py-2 px-3 rounded-xl border-2 border-stone-200 dark:border-stone-700 text-xs font-bold transition flex items-center justify-center gap-1.5 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300">
+              🏫 Di Sekolah
+            </button>
+            <button data-cat="rumah" class="cat-btn py-2 px-3 rounded-xl border-2 border-stone-200 dark:border-stone-700 text-xs font-bold transition flex items-center justify-center gap-1.5 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300">
+              🏡 Di Rumah
+            </button>
+            <button data-cat="teman" class="cat-btn py-2 px-3 rounded-xl border-2 border-stone-200 dark:border-stone-700 text-xs font-bold transition flex items-center justify-center gap-1.5 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300">
+              🤝 Pergaulan
+            </button>
+          </div>
+        </div>
+
+        <!-- Start Quiz Button -->
+        <button id="btnStartQuiz" class="w-full py-4 px-6 bg-brand-orange hover:bg-brand-orangeDark text-white font-fredoka font-bold text-xl sm:text-2xl rounded-2xl shadow-3d-orange hover:translate-y-0.5 active:translate-y-1 transition duration-150 flex items-center justify-center gap-3">
+          <span>🚀</span> MULAI PETUALANGAN!
+        </button>
+      </div>
+
+      <!-- High Score & History Bar -->
+      <div class="mt-4 flex justify-between items-center px-2">
+        <button id="btnShowHistory" class="text-xs font-bold text-stone-500 dark:text-stone-400 hover:text-brand-orange flex items-center gap-1 bg-white/60 dark:bg-stone-800/60 px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700">
+          📜 Riwayat Bintang
+        </button>
+        <span class="text-xs text-stone-400 dark:text-stone-500 font-medium">Versi 2.0 Interaktif</span>
+      </div>
+    </main>
+
+    <!-- ================= SCREEN 2: QUIZ INTERACTIVE ================= -->
+    <main id="screen-quiz" class="hidden flex-1 flex flex-col justify-between py-2">
+      <!-- Quiz Header: Progress & Stars -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <button id="btnQuitQuiz" class="text-xs font-bold text-stone-400 hover:text-red-500 flex items-center gap-1">
+            ❌ Keluar
+          </button>
+          <div class="text-xs sm:text-sm font-bold text-brand-orangeDark dark:text-amber-300 font-fredoka bg-amber-100 dark:bg-amber-900/50 px-3 py-1 rounded-full border border-amber-300 dark:border-amber-700" id="quizCounterText">
+            Soal 1 dari 10
+          </div>
+          <button id="btnSpeakQuestion" class="p-1.5 bg-amber-100 dark:bg-amber-900/50 rounded-xl text-base hover:scale-110 active:scale-95 transition" title="Dengarkan Soal">
+            🔊
+          </button>
+        </div>
+
+        <!-- Progress Star Bar -->
+        <div class="flex justify-center items-center gap-1 sm:gap-1.5 my-2" id="starProgressContainer">
+          <!-- Star slots populated via JS -->
+        </div>
+
+        <!-- Custom Visual Progress Bar -->
+        <div class="w-full bg-stone-200 dark:bg-stone-700 h-2.5 rounded-full overflow-hidden mb-4">
+          <div id="progressBarFill" class="bg-gradient-to-r from-amber-400 to-brand-orange h-full w-0 transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- Mascot Expression Row -->
+      <div class="flex items-center justify-center gap-3 my-1">
+        <span id="quizMascot" class="text-5xl sm:text-6xl filter drop-shadow-sm transition-transform duration-300">
+          😊
+        </span>
+        <div id="quizSpeechBubble" class="bg-white dark:bg-brand-darkCard border-2 border-amber-200 dark:border-amber-800 rounded-2xl px-3.5 py-1.5 text-xs sm:text-sm font-bold text-stone-700 dark:text-amber-200 shadow-sm max-w-xs">
+          Yuk baca pertanyaan dengan teliti ya!
+        </div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="bg-white dark:bg-brand-darkCard rounded-3xl p-5 shadow-card-playful border-2 border-amber-100 dark:border-amber-900/40 my-auto">
+        <div class="text-center mb-4">
+          <span id="scenarioEmoji" class="text-5xl block mb-2 animate-bounce-gentle">🤝</span>
+          <h2 id="questionText" class="text-lg sm:text-xl font-bold text-stone-800 dark:text-amber-100 leading-snug font-fredoka">
+            Memuat pertanyaan...
+          </h2>
+        </div>
+
+        <!-- Options Container -->
+        <div id="optionsContainer" class="space-y-3">
+          <!-- Option Buttons inserted via JS -->
+        </div>
+
+        <!-- Feedback & Moral Explanation Box -->
+        <div id="moralFeedbackBox" class="hidden mt-4 p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-300 dark:border-emerald-800 animate-pop">
+          <div class="flex items-start gap-2.5">
+            <span class="text-2xl" id="moralIcon">💡</span>
+            <div>
+              <p class="font-bold text-xs sm:text-sm text-emerald-800 dark:text-emerald-300 font-fredoka" id="moralTitle">
+                Pesan Moral Kejujuran:
+              </p>
+              <p class="text-xs sm:text-sm text-emerald-700 dark:text-emerald-200 mt-0.5 leading-relaxed" id="moralText">
+                Penjelasan singkat kejujuran.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Next Button Area -->
+      <div class="mt-4 min-h-[56px]">
+        <button id="btnNextQuestion" class="hidden w-full py-3.5 px-6 bg-brand-blue hover:bg-brand-blueDark text-white font-fredoka font-bold text-lg sm:text-xl rounded-2xl shadow-3d-blue hover:translate-y-0.5 active:translate-y-1 transition duration-150 flex items-center justify-center gap-2">
+          LANJUTKAN ➡️
+        </button>
+      </div>
+    </main>
+
+    <!-- ================= SCREEN 3: RESULT & CERTIFICATE ================= -->
+    <main id="screen-result" class="hidden flex-1 flex flex-col justify-between py-2">
+      <div class="text-center mb-3">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-brand-orangeDark dark:text-amber-300 font-fredoka">
+          HEBAT! KAMU SELESAI! 🎉
+        </h1>
+        <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-medium">
+          Inilah bukti penghargaan kejujuran untukmu!
+        </p>
+      </div>
+
+      <!-- Printable Certificate Card -->
+      <div id="printable-certificate" class="bg-amber-50 dark:bg-stone-800 border-4 border-dashed border-amber-400 dark:border-amber-600 rounded-3xl p-5 shadow-card-playful text-center relative overflow-hidden my-auto">
+        
+        <!-- Corner Decorative Badges -->
+        <div class="absolute -top-6 -left-6 w-16 h-16 bg-amber-300/40 rounded-full blur-sm"></div>
+        <div class="absolute -bottom-6 -right-6 w-16 h-16 bg-emerald-300/40 rounded-full blur-sm"></div>
+
+        <div class="text-xs font-bold tracking-widest text-stone-500 dark:text-amber-300/70 uppercase">
+          ★ SERTIFIKAT KEJUJURAN ANAK HEBAT ★
+        </div>
+
+        <div class="my-2">
+          <p class="text-xs text-stone-600 dark:text-stone-300">Diberikan dengan bangga kepada:</p>
+          <h2 id="certPlayerName" class="text-2xl sm:text-3xl font-extrabold text-brand-orangeDark dark:text-amber-400 font-fredoka my-1 drop-shadow-sm">
+            Nama Anak
+          </h2>
+        </div>
+
+        <!-- Trophy/Badge Emoji -->
+        <div class="relative inline-block my-2">
+          <div id="certBadgeEmoji" class="text-6xl sm:text-7xl animate-bounce-gentle filter drop-shadow-md">
+            🏆
+          </div>
+        </div>
+
+        <h3 id="certBadgeTitle" class="text-lg sm:text-xl font-bold text-stone-800 dark:text-amber-100 font-fredoka">
+          Pahlawan Kejujuran!
+        </h3>
+        
+        <p id="certBadgeDesc" class="text-xs sm:text-sm text-stone-600 dark:text-stone-300 mt-1 max-w-xs mx-auto leading-relaxed">
+          Kamu selalu berkata jujur dan bertindak amanah!
+        </p>
+
+        <!-- Final Score Pill -->
+        <div class="inline-flex items-center gap-2 bg-white dark:bg-stone-900 border-2 border-amber-300 dark:border-amber-700 px-4 py-1.5 rounded-full mt-3 shadow-sm">
+          <span class="text-amber-500 text-lg">⭐</span>
+          <span id="certScoreText" class="font-bold text-sm sm:text-base text-stone-800 dark:text-amber-200 font-fredoka">
+            Bintang: 10 / 10
+          </span>
+        </div>
+
+        <!-- Official Stamp & Date Footprint -->
+        <div class="mt-4 pt-3 border-t border-amber-200 dark:border-stone-700 flex justify-between items-center text-[10px] text-stone-500 dark:text-stone-400">
+          <span>📅 Tanggal: <strong id="certDate">22/09/2026</strong></span>
+          <span class="font-bold text-emerald-600 dark:text-emerald-400">VERIFIED HONEST KID ✔️</span>
+        </div>
+      </div>
+
+      <!-- Result Action Buttons -->
+      <div class="space-y-2.5 mt-4">
+        <button id="btnPrintCert" class="w-full py-3.5 px-6 bg-brand-green hover:bg-brand-greenDark text-white font-fredoka font-bold text-lg rounded-2xl shadow-3d-green hover:translate-y-0.5 active:translate-y-1 transition duration-150 flex items-center justify-center gap-2">
+          🖨️ CETAK / SIMPAN SERTIFIKAT
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button id="btnReplayQuiz" class="py-3 px-4 bg-brand-orange hover:bg-brand-orangeDark text-white font-fredoka font-bold text-base rounded-2xl shadow-3d-orange hover:translate-y-0.5 active:translate-y-1 transition flex items-center justify-center gap-1.5">
+            🔁 MAIN LAGI
+          </button>
+          <button id="btnShareCertificate" class="py-3 px-4 bg-brand-purple hover:bg-purple-700 text-white font-fredoka font-bold text-base rounded-2xl shadow-3d-purple hover:translate-y-0.5 active:translate-y-1 transition flex items-center justify-center gap-1.5">
+            📋 SALIN SKOR
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ================= MODAL: HISTORY & HALL OF FAME ================= -->
+    <div id="modalHistory" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-pop">
+      <div class="bg-white dark:bg-brand-darkCard rounded-3xl max-w-sm w-full p-5 shadow-2xl border-2 border-amber-200 dark:border-amber-800">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="font-fredoka font-bold text-lg text-brand-orangeDark dark:text-amber-300 flex items-center gap-1.5">
+            📜 Riwayat Bintang Kejujuran
+          </h3>
+          <button id="btnCloseHistory" class="text-stone-400 hover:text-stone-600 dark:hover:text-amber-200 text-xl font-bold">
+            ✕
+          </button>
+        </div>
+
+        <div id="historyListContainer" class="max-h-60 overflow-y-auto space-y-2 pr-1 my-3 text-xs sm:text-sm">
+          <!-- Populated by JS -->
+        </div>
+
+        <button id="btnClearHistory" class="w-full py-2 bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400 font-bold text-xs rounded-xl hover:bg-red-50 hover:text-red-600 transition">
+          🗑️ Hapus Riwayat
+        </button>
+      </div>
+    </div>
+
+    <!-- Notification Toast Box -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden bg-stone-900 text-white dark:bg-amber-100 dark:text-stone-900 font-bold px-4 py-2 rounded-2xl shadow-xl text-xs sm:text-sm animate-pop">
+      Toast message!
+    </div>
+
+    <!-- Footer Credit -->
+    <footer class="text-center text-[11px] text-stone-500 dark:text-stone-400 mt-3 pt-2 border-t border-stone-200/50 dark:border-stone-800/50">
+      Sesuai Materi Pendidikan Anti Korupsi · Kejujuran Adalah Kunci
+    </footer>
+  </div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    (function() {
+      "use strict";
+
+      /* ---------------- 1. AUDIO SYNTHESIS & SOUND FX ---------------- */
+      var audioCtx = null;
+      var soundEnabled = true;
+      var ttsEnabled = true;
+
+      function getAudioContext() {
+        if (!audioCtx) {
+          try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          } catch(e) {
+            audioCtx = null;
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playTone(freq, start, dur, type, vol) {
+        if (!soundEnabled) return;
+        var ctx = getAudioContext();
+        if (!ctx) return;
+        try {
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.type = type || "sine";
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
+          gain.gain.setValueAtTime(0, ctx.currentTime + start);
+          gain.gain.linearRampToValueAtTime(vol || 0.15, ctx.currentTime + start + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + start + dur);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + start);
+          osc.stop(ctx.currentTime + start + dur + 0.03);
+        } catch(e){}
+      }
+
+      function sfxClick() {
+        playTone(580, 0, 0.06, "square", 0.08);
+      }
+
+      function sfxCorrect() {
+        playTone(523.25, 0, 0.12, "triangle", 0.18); // C5
+        playTone(659.25, 0.08, 0.12, "triangle", 0.18); // E5
+        playTone(783.99, 0.16, 0.20, "triangle", 0.22); // G5
+        playTone(1046.50, 0.26, 0.30, "triangle", 0.25); // C6
+      }
+
+      function sfxWrong() {
+        playTone(280, 0, 0.15, "sawtooth", 0.12);
+        playTone(220, 0.12, 0.25, "sawtooth", 0.12);
+      }
+
+      function sfxFanfare() {
+        var notes = [523.25, 659.25, 783.99, 880.00, 1046.50];
+        notes.forEach(function(f, i) {
+          playTone(f, i * 0.1, 0.22, "triangle", 0.18);
+        });
+      }
+
+      /* Web Speech API - Text to Speech */
+      function speakText(text) {
+        if (!ttsEnabled || !('speechSynthesis' in window)) return;
+        try {
+          window.speechSynthesis.cancel(); // Stop current speech
+          var utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'id-ID';
+          utterance.rate = 0.95; // Friendly, articulate speed
+          utterance.pitch = 1.1; // Slightly higher, cheerful pitch for kids
+          window.speechSynthesis.speak(utterance);
+        } catch(e) {}
+      }
+
+      /* ---------------- 2. QUESTION BANK ---------------- */
+      var questionBank = [
+        {
+          id: 1,
+          category: "sekolah",
+          emoji: "🗣️",
+          text: "Berbicara dan bertindak sesuai dengan kenyataan sebenarnya disebut sikap...",
+          moral: "Jujur berarti hati, ucapan, dan perbuatan kita sama-sama menyampaikan kebenaran!",
+          options: [
+            { t: "Jujur dan Terpercaya", e: "🤝", ok: true },
+            { t: "Bohong atau Curang", e: "🤥", ok: false },
+            { t: "Suka Pamer", e: "🦚", ok: false }
+          ]
+        },
+        {
+          id: 2,
+          category: "sekolah",
+          emoji: "📝",
+          text: "Saat ulangan di sekolah, Adi mengerjakan sendiri tanpa mencontek. Sikap Adi adalah...",
+          moral: "Mencontek itu perbuatan curang. Hasil karya sendiri jauh lebih membanggakan!",
+          options: [
+            { t: "Hebat dan Jujur", e: "🌟", ok: true },
+            { t: "Sangat Rugi", e: "😩", ok: false },
+            { t: "Anak yang Aneh", e: "🤨", ok: false }
+          ]
+        },
+        {
+          id: 3,
+          category: "rumah",
+          emoji: "💰",
+          text: "Bela diberi uang belanja oleh Ibu dan ada sisa kembalian. Tindakan jujur Bela adalah...",
+          moral: "Mengembalikan uang sisa kembalian adalah bentuk menjaga amanah dari orang tua.",
+          options: [
+            { t: "Serahkan sisa uang ke Ibu", e: "🤲", ok: true },
+            { t: "Sembunyikan untuk jajan", e: "🤫", ok: false },
+            { t: "Pura-pura uangnya hilang", e: "🙈", ok: false }
+          ]
+        },
+        {
+          id: 4,
+          category: "teman",
+          emoji: "⚽",
+          text: "Budi tidak sengaja merusakkan mainan teman. Apa yang seharusnya Budi lakukan?",
+          moral: "Berani mengakui kesalahan dan meminta maaf adalah ciri anak hebat yang jujur!",
+          options: [
+            { t: "Jujur mengaku & minta maaf", e: "🙏", ok: true },
+            { t: "Lari dan pura-pura tidak tahu", e: "🏃", ok: false },
+            { t: "Menyalahkan teman lain", e: "👉", ok: false }
+          ]
+        },
+        {
+          id: 5,
+          category: "sekolah",
+          emoji: "🏫",
+          text: "Kamu menemukan dompet jatuh di halaman sekolah. Tindakan paling jujur adalah...",
+          moral: "Barang milik orang lain yang kita temukan wajib dikembalikan atau diserahkan ke Guru.",
+          options: [
+            { t: "Berikan ke Bapak/Ibu Guru", e: "🧑‍🏫", ok: true },
+            { t: "Ambil isinya lalu buang", e: "🗑️", ok: false },
+            { t: "Simpan untuk diri sendiri", e: "🎒", ok: false }
+          ]
+        },
+        {
+          id: 6,
+          category: "rumah",
+          emoji: "📚",
+          text: "Kamu belum sempat mengerjakan PR karena tertidur. Apa yang kamu katakan ke Guru?",
+          moral: "Kejujuran membina rasa percaya dari Guru dan Orang Tua meskipun kita sedang bersalah.",
+          options: [
+            { t: "Bercerita jujur & minta maaf", e: "🙇", ok: true },
+            { t: "Beralasan buku PR tertinggal", e: "🤐", ok: false },
+            { t: "Pura-pura sakit perut", e: "🤒", ok: false }
+          ]
+        },
+        {
+          id: 7,
+          category: "teman",
+          emoji: "🎨",
+          text: "Sinta ingin meminjam pensil warna milik Rian. Sikap yang sopan dan jujur adalah...",
+          moral: "Menggunakan barang milik orang lain harus meminta izin terlebih dahulu.",
+          options: [
+            { t: "Meminta izin baik-baik", e: "💬", ok: true },
+            { t: "Mengambil tanpa bertanya", e: "🥷", ok: false },
+            { t: "Sembunyi-sembunyi menyegelnya", e: "📦", ok: false }
+          ]
+        },
+        {
+          id: 8,
+          category: "rumah",
+          emoji: "🤔",
+          text: "Bolehkah kita berbohong sedikit agar tidak dimarahi oleh Orang Tua?",
+          moral: "Berbohong akan membuat kita ingin berbohong lagi. Selalu utamakan kejujuran!",
+          options: [
+            { t: "Tidak boleh, harus jujur", e: "🙅", ok: true },
+            { t: "Boleh asal tidak ketahuan", e: "🤫", ok: false },
+            { t: "Boleh kapan saja", e: "🙆", ok: false }
+          ]
+        },
+        {
+          id: 9,
+          category: "teman",
+          emoji: "💖",
+          text: "Apa manfaat paling utama jika kita selalu bersikap jujur?",
+          moral: "Orang yang jujur selalu dicintai, memiliki banyak teman, dan hidupnya tenang.",
+          options: [
+            { t: "Disayang & dipercaya teman", e: "🥰", ok: true },
+            { t: "Dijauhi oleh semua orang", e: "😢", ok: false },
+            { t: "Tidak ada manfaatnya", e: "🤷", ok: false }
+          ]
+        },
+        {
+          id: 10,
+          category: "sekolah",
+          emoji: "⚠️",
+          text: "Orang yang suka berbohong akan mengalami kerugian, yaitu...",
+          moral: "Sekali kita berbohong, orang lain akan sulit mempercayai ucapan kita lagi.",
+          options: [
+            { t: "Kehilangan kepercayaan teman", e: "💔", ok: true },
+            { t: "Makin disukai banyak orang", e: "🎉", ok: false },
+            { t: "Mendapat hadiah bintang", e: "⭐", ok: false }
+          ]
+        }
+      ];
+
+      /* Avatars List */
+      var avatars = [
+        { e: "🧒", name: "Budi" },
+        { e: "👧", name: "Siti" },
+        { e: "🦁", name: "Leo" },
+        { e: "🐰", name: "Kelinci" },
+        { e: "🤖", name: "Robby" },
+        { e: "🦊", name: "Mimi" },
+        { e: "🐼", name: "Panda" }
+      ];
+
+      /* ---------------- 3. APP STATE ---------------- */
+      var state = {
+        playerName: "Anak Hebat",
+        selectedAvatar: "🧒",
+        category: "all",
+        currentIndex: 0,
+        starsEarned: 0,
+        activeQuestions: [],
+        firstAttempt: true,
+        history: []
+      };
+
+      /* Praise & Encourage Words */
+      var praiseList = [
+        "Luar biasa! Kamu jujur sekali! 🎉",
+        "Hebat! Jawabanmu sangat tepat! 🌟",
+        "Pintar! Bintang jujur untukmu! 👏",
+        "Keren banget! Lanjutkan ya! 🚀",
+        "Mantap! Kamu anak terpercaya! 💖"
+      ];
+
+      var tryAgainList = [
+        "Yuk pikirkan lagi pilihan paling jujur! 🤔",
+        "Hampir tepat! Coba pilih sekali lagi ya 😊",
+        "Anak hebat tidak menyerah, ayo tebak lagi! 💪"
+      ];
+
+      /* ---------------- 4. DOM ELEMENTS ---------------- */
+      var screens = {
+        welcome: document.getElementById("screen-welcome"),
+        quiz: document.getElementById("screen-quiz"),
+        result: document.getElementById("screen-result")
+      };
+
+      var inputName = document.getElementById("inputName");
+      var avatarGrid = document.getElementById("avatarGrid");
+      var selectedAvatarDisplay = document.getElementById("selectedAvatarDisplay");
+      var categorySelector = document.getElementById("categorySelector");
+      var modalHistory = document.getElementById("modalHistory");
+
+      /* Helper: Switch Screens */
+      function showScreen(screenKey) {
+        Object.keys(screens).forEach(function(k) {
+          if (k === screenKey) {
+            screens[k].classList.remove("hidden");
+            screens[k].classList.add("animate-pop");
+          } else {
+            screens[k].classList.add("hidden");
+          }
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      /* Helper: Shuffle Array */
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+        }
+        return a;
+      }
+
+      /* Helper: Toast Notification */
+      function showToast(msg) {
+        var toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.remove("hidden");
+        setTimeout(function() {
+          toast.classList.add("hidden");
+        }, 2500);
+      }
+
+      /* ---------------- 5. INITIALIZATION & SETUP ---------------- */
+      function initApp() {
+        // Render Avatar Options
+        avatarGrid.innerHTML = "";
+        avatars.forEach(function(av) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "avatar-btn p-2 rounded-2xl border-2 text-2xl transition hover:scale-110 active:scale-95 " + 
+            (av.e === state.selectedAvatar ? "bg-amber-300 border-amber-500 shadow-sm" : "bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700");
+          btn.textContent = av.e;
+          btn.title = av.name;
+          btn.addEventListener("click", function() {
+            sfxClick();
+            state.selectedAvatar = av.e;
+            selectedAvatarDisplay.textContent = av.e;
+            document.querySelectorAll(".avatar-btn").forEach(function(b) {
+              b.className = "avatar-btn p-2 rounded-2xl border-2 text-2xl transition hover:scale-110 active:scale-95 bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700";
+            });
+            btn.className = "avatar-btn p-2 rounded-2xl border-2 text-2xl transition hover:scale-110 active:scale-95 bg-amber-300 border-amber-500 shadow-sm";
+          });
+          avatarGrid.appendChild(btn);
+        });
+
+        // Load History from LocalStorage
+        try {
+          var saved = localStorage.getItem("kuis_jujur_history");
+          if (saved) state.history = JSON.parse(saved);
+        } catch(e) {}
+
+        // Set Current Date in Cert
+        var today = new Date();
+        document.getElementById("certDate").textContent = today.toLocaleDateString('id-ID', {
+          day: 'numeric', month: 'short', year: 'numeric'
+        });
+      }
+
+      /* ---------------- 6. EVENT LISTENERS ---------------- */
+
+      // Category Selector Buttons
+      categorySelector.querySelectorAll(".cat-btn").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          sfxClick();
+          categorySelector.querySelectorAll(".cat-btn").forEach(function(b) {
+            b.className = "cat-btn py-2 px-3 rounded-xl border-2 border-stone-200 dark:border-stone-700 text-xs font-bold transition flex items-center justify-center gap-1.5 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300";
+          });
+          btn.className = "cat-btn active py-2 px-3 rounded-xl border-2 text-xs font-bold transition flex items-center justify-center gap-1.5 bg-amber-400 border-amber-500 text-stone-900 shadow-sm";
+          state.category = btn.getAttribute("data-cat");
+        });
+      });
+
+      // Sound & Theme Toggles
+      document.getElementById("btnToggleSound").addEventListener("click", function() {
+        soundEnabled = !soundEnabled;
+        this.textContent = soundEnabled ? "🔊" : "🔇";
+        showToast(soundEnabled ? "Suara Efek Dinyalakan 🔊" : "Suara Efek Dimatikan 🔇");
+        if (soundEnabled) sfxClick();
+      });
+
+      document.getElementById("btnToggleTTS").addEventListener("click", function() {
+        ttsEnabled = !ttsEnabled;
+        this.textContent = ttsEnabled ? "🗣️" : "🤫";
+        showToast(ttsEnabled ? "Pembaca Suara Dinyalakan 🗣️" : "Pembaca Suara Dimatikan 🤫");
+        if (soundEnabled) sfxClick();
+      });
+
+      document.getElementById("btnToggleTheme").addEventListener("click", function() {
+        sfxClick();
+        document.documentElement.classList.toggle("dark");
+        var isDark = document.documentElement.classList.contains("dark");
+        this.textContent = isDark ? "☀️" : "🌙";
+      });
+
+      // Start Quiz Button
+      document.getElementById("btnStartQuiz").addEventListener("click", function() {
+        getAudioContext();
+        sfxClick();
+
+        var val = inputName.value.trim();
+        state.playerName = val.length > 0 ? val : "Kak Hebat";
+
+        // Filter & Shuffle Questions
+        var filtered = questionBank.filter(function(q) {
+          return state.category === "all" || q.category === state.category;
+        });
+
+        if (filtered.length === 0) filtered = questionBank;
+
+        state.activeQuestions = shuffle(filtered).map(function(q) {
+          return {
+            id: q.id,
+            emoji: q.emoji,
+            text: q.text,
+            moral: q.moral,
+            options: shuffle(q.options)
+          };
+        });
+
+        state.currentIndex = 0;
+        state.starsEarned = 0;
+
+        renderStarProgressBar();
+        renderQuestion();
+        showScreen("quiz");
+      });
+
+      // Quit Quiz
+      document.getElementById("btnQuitQuiz").addEventListener("click", function() {
+        sfxClick();
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        showScreen("welcome");
+      });
+
+      // Speak Question Button
+      document.getElementById("btnSpeakQuestion").addEventListener("click", function() {
+        sfxClick();
+        var q = state.activeQuestions[state.currentIndex];
+        if (q) speakText(q.text);
+      });
+
+      /* ---------------- 7. QUIZ RENDER & LOGIC ---------------- */
+
+      function renderStarProgressBar() {
+        var container = document.getElementById("starProgressContainer");
+        container.innerHTML = "";
+        for (var i = 0; i < state.activeQuestions.length; i++) {
+          var star = document.createElement("span");
+          star.id = "star-slot-" + i;
+          star.className = "text-lg opacity-30 transition duration-300 transform scale-90";
+          star.textContent = "⭐";
+          container.appendChild(star);
+        }
+      }
+
+      function updateStarSlot(index) {
+        var slot = document.getElementById("star-slot-" + index);
+        if (slot) {
+          slot.className = "text-xl opacity-100 transition duration-300 transform scale-125 animate-pop";
+        }
+      }
+
+      function renderQuestion() {
+        var total = state.activeQuestions.length;
+        var q = state.activeQuestions[state.currentIndex];
+        state.firstAttempt = true;
+
+        // Progress Text & Fill Bar
+        document.getElementById("quizCounterText").textContent = "Soal " + (state.currentIndex + 1) + " dari " + total;
+        var percent = ((state.currentIndex) / total) * 100;
+        document.getElementById("progressBarFill").style.width = percent + "%";
+
+        // Scenario & Text
+        document.getElementById("scenarioEmoji").textContent = q.emoji;
+        document.getElementById("questionText").textContent = q.text;
+
+        // Mascot Default
+        document.getElementById("quizMascot").textContent = state.selectedAvatar;
+        document.getElementById("quizSpeechBubble").textContent = "Yuk, pilih tindakan paling jujur ya!";
+        document.getElementById("quizSpeechBubble").className = "bg-white dark:bg-brand-darkCard border-2 border-amber-200 dark:border-amber-800 rounded-2xl px-3.5 py-1.5 text-xs sm:text-sm font-bold text-stone-700 dark:text-amber-200 shadow-sm max-w-xs";
+
+        // Hide Moral Feedback & Next Button
+        document.getElementById("moralFeedbackBox").classList.add("hidden");
+        document.getElementById("btnNextQuestion").classList.add("hidden");
+
+        // Options Render
+        var optionsContainer = document.getElementById("optionsContainer");
+        optionsContainer.innerHTML = "";
+
+        q.options.forEach(function(opt) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "opt-btn w-full p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-800 border-3 border-stone-200 dark:border-stone-700 hover:border-brand-orange text-left font-bold text-stone-800 dark:text-amber-100 flex items-center gap-3 shadow-sm hover:translate-y-[-2px] active:translate-y-[1px] transition duration-150";
+          
+          btn.innerHTML = '<span class="text-3xl flex-shrink-0">' + opt.e + '</span>' +
+                          '<span class="text-sm sm:text-base leading-snug font-fredoka">' + opt.t + '</span>';
+
+          btn.addEventListener("click", function() {
+            handleAnswerSelect(btn, opt, q);
+          });
+
+          optionsContainer.appendChild(btn);
+        });
+
+        // Auto Speak Question if TTS enabled
+        speakText(q.text);
+      }
+
+      function handleAnswerSelect(selectedBtn, optionData, questionData) {
+        var allBtns = document.querySelectorAll("#optionsContainer .opt-btn");
+
+        if (optionData.ok) {
+          // Correct Answer
+          sfxCorrect();
+          allBtns.forEach(function(b) { b.disabled = true; });
+
+          selectedBtn.className = "opt-btn w-full p-3.5 rounded-2xl bg-emerald-100 dark:bg-emerald-900/60 border-3 border-emerald-500 text-left font-bold text-emerald-900 dark:text-emerald-100 flex items-center gap-3 shadow-md animate-pop";
+          
+          document.getElementById("quizMascot").textContent = "🎉";
+          var praiseMsg = praiseList[Math.floor(Math.random() * praiseList.length)];
+          document.getElementById("quizSpeechBubble").textContent = praiseMsg;
+          document.getElementById("quizSpeechBubble").className = "bg-emerald-100 dark:bg-emerald-900 border-2 border-emerald-400 rounded-2xl px-3.5 py-1.5 text-xs sm:text-sm font-bold text-emerald-800 dark:text-emerald-200 shadow-sm max-w-xs animate-pop";
+
+          // Award Star if first attempt
+          if (state.firstAttempt) {
+            state.starsEarned++;
+            updateStarSlot(state.currentIndex);
+            spawnConfetti(6);
+          }
+
+          // Show Moral Explanation
+          document.getElementById("moralText").textContent = questionData.moral;
+          document.getElementById("moralFeedbackBox").classList.remove("hidden");
+
+          // Show Next Button
+          document.getElementById("btnNextQuestion").classList.remove("hidden");
+          speakText(praiseMsg + " " + questionData.moral);
+
+        } else {
+          // Wrong Answer
+          sfxWrong();
+          selectedBtn.disabled = true;
+          selectedBtn.className = "opt-btn w-full p-3.5 rounded-2xl bg-red-100 dark:bg-red-950/50 border-3 border-red-400 text-left font-bold text-red-800 dark:text-red-200 flex items-center gap-3 opacity-60 animate-shake";
+
+          document.getElementById("quizMascot").textContent = "🤔";
+          var tryMsg = tryAgainList[Math.floor(Math.random() * tryAgainList.length)];
+          document.getElementById("quizSpeechBubble").textContent = tryMsg;
+          document.getElementById("quizSpeechBubble").className = "bg-red-100 dark:bg-red-900 border-2 border-red-400 rounded-2xl px-3.5 py-1.5 text-xs sm:text-sm font-bold text-red-800 dark:text-red-200 shadow-sm max-w-xs animate-pop";
+
+          state.firstAttempt = false;
+          speakText(tryMsg);
+        }
+      }
+
+      // Next Question Event
+      document.getElementById("btnNextQuestion").addEventListener("click", function() {
+        sfxClick();
+        state.currentIndex++;
+        if (state.currentIndex >= state.activeQuestions.length) {
+          showResultScreen();
+        } else {
+          renderQuestion();
+        }
+      });
+
+      /* ---------------- 8. CONFETTI ANIMATION ENGINE ---------------- */
+      var confettiEmojis = ["🎉", "⭐", "✨", "🎈", "🏆", "🌟", "💛"];
+      function spawnConfetti(count) {
+        for (var i = 0; i < count; i++) {
+          var p = document.createElement("div");
+          p.className = "confetti-piece";
+          p.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+          p.style.left = (Math.random() * 90 + 5) + "vw";
+          p.style.animationDuration = (1.8 + Math.random() * 1.5) + "s";
+          document.body.appendChild(p);
+
+          (function(node) {
+            setTimeout(function() {
+              if (node && node.parentNode) node.parentNode.removeChild(node);
+            }, 3200);
+          })(p);
+        }
+      }
+
+      /* ---------------- 9. RESULT & CERTIFICATE GENERATOR ---------------- */
+      function showResultScreen() {
+        sfxFanfare();
+        spawnConfetti(22);
+
+        var total = state.activeQuestions.length;
+        var ratio = state.starsEarned / total;
+
+        document.getElementById("certPlayerName").textContent = state.selectedAvatar + " " + state.playerName;
+        document.getElementById("certScoreText").textContent = "Bintang: " + state.starsEarned + " / " + total;
+
+        var tier = { emoji: "🏅", title: "Anak Jujur Bintang!", desc: "Kamu paham pentingnya sikap jujur. Pertahankan terus ya!" };
+
+        if (ratio >= 0.9) {
+          tier = { emoji: "🏆", title: "Pahlawan Kejujuran!", desc: "Luar biasa! Kamu adalah contoh teladan anak yang selalu berkata dan bertindak jujur!" };
+        } else if (ratio >= 0.7) {
+          tier = { emoji: "🥇", title: "Anak Jujur Hebat!", desc: "Bagus sekali! Kamu sudah sangat baik dalam memahami kejujuran di kehidupan sehari-hari." };
+        } else if (ratio >= 0.5) {
+          tier = { emoji: "🥈", title: "Sahabat Kejujuran!", desc: "Kamu sudah mulai paham arti kejujuran. Terus berlatih berani jujur ya!" };
+        } else {
+          tier = { emoji: "🌱", title: "Bintang Pembelajar!", desc: "Jangan berkecil hati, ayo pelajari materi kuis ini sekali lagi bersama teman!" };
+        }
+
+        document.getElementById("certBadgeEmoji").textContent = tier.emoji;
+        document.getElementById("certBadgeTitle").textContent = tier.title;
+        document.getElementById("certBadgeDesc").textContent = tier.desc;
+
+        // Save Record to LocalStorage
+        saveRecordToHistory(tier.title);
+
+        showScreen("result");
+        speakText("Selamat " + state.playerName + "! Kamu mendapatkan gelar " + tier.title);
+      }
+
+      function saveRecordToHistory(badgeTitle) {
+        var record = {
+          name: state.playerName,
+          avatar: state.selectedAvatar,
+          stars: state.starsEarned,
+          total: state.activeQuestions.length,
+          title: badgeTitle,
+          date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
+        };
+
+        state.history.unshift(record);
+        if (state.history.length > 10) state.history.pop();
+
+        try {
+          localStorage.setItem("kuis_jujur_history", JSON.stringify(state.history));
+        } catch(e) {}
+      }
+
+      /* Printable Certificate Handler */
+      document.getElementById("btnPrintCert").addEventListener("click", function() {
+        sfxClick();
+        window.print();
+      });
+
+      /* Replay Button */
+      document.getElementById("btnReplayQuiz").addEventListener("click", function() {
+        sfxClick();
+        showScreen("welcome");
+      });
+
+      /* Share Score Button */
+      document.getElementById("btnShareCertificate").addEventListener("click", function() {
+        sfxClick();
+        var shareMsg = "🌟 " + state.playerName + " meraih " + state.starsEarned + " Bintang Kejujuran di Kuis Jujur Anak Hebat! 🏆 Ayo uji kejujuranmu juga!";
+        
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(shareMsg).then(function() {
+            showToast("Skor disalin ke Clipboard! 📋");
+          }).catch(function() {
+            showToast("Skor: " + state.starsEarned + " Bintang ⭐");
+          });
+        } else {
+          showToast("Skor: " + state.starsEarned + " Bintang ⭐");
+        }
+      });
+
+      /* ---------------- 10. HISTORY MODAL HANDLERS ---------------- */
+      document.getElementById("btnShowHistory").addEventListener("click", function() {
+        sfxClick();
+        renderHistoryList();
+        modalHistory.classList.remove("hidden");
+      });
+
+      document.getElementById("btnCloseHistory").addEventListener("click", function() {
+        sfxClick();
+        modalHistory.classList.add("hidden");
+      });
+
+      document.getElementById("btnClearHistory").addEventListener("click", function() {
+        sfxClick();
+        state.history = [];
+        try { localStorage.removeItem("kuis_jujur_history"); } catch(e){}
+        renderHistoryList();
+        showToast("Riwayat dibersihkan! 🗑️");
+      });
+
+      function renderHistoryList() {
+        var container = document.getElementById("historyListContainer");
+        container.innerHTML = "";
+
+        if (state.history.length === 0) {
+          container.innerHTML = '<p class="text-center text-stone-400 py-4 italic">Belum ada riwayat kuis.</p>';
+          return;
+        }
+
+        state.history.forEach(function(item) {
+          var div = document.createElement("div");
+          div.className = "flex items-center justify-between p-2.5 bg-stone-50 dark:bg-stone-800/80 rounded-xl border border-stone-200 dark:border-stone-700";
+          div.innerHTML = '<div class="flex items-center gap-2">' +
+                            '<span class="text-2xl">' + (item.avatar || '🧒') + '</span>' +
+                            '<div>' +
+                              '<div class="font-bold text-stone-800 dark:text-amber-100 font-fredoka text-xs sm:text-sm">' + item.name + '</div>' +
+                              '<div class="text-[10px] text-stone-500 dark:text-stone-400">' + item.title + ' • ' + item.date + '</div>' +
+                            '</div>' +
+                          '</div>' +
+                          '<div class="font-bold text-brand-orange text-xs sm:text-sm font-fredoka flex items-center gap-1">' +
+                            '<span>⭐</span>' + item.stars + '/' + item.total +
+                          '</div>';
+          container.appendChild(div);
+        });
+      }
+
+      // Initialize on Load
+      window.onload = function() {
+        initApp();
+      };
+
+    })();
+  </script>
+</body>
+</html>
