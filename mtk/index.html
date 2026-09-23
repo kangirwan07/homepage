@@ -1,823 +1,587 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Matematika Ceria!</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>Kuis Interaktif Matematika</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'baloo': ['"Baloo 2"', 'cursive'],
-                        'fredoka': ['Fredoka', 'sans-serif'],
-                    },
-                    colors: {
-                        'fun-yellow': '#FFD166',
-                        'fun-orange': '#F4A261',
-                        'fun-green': '#06D6A0',
-                        'fun-blue': '#118AB2',
-                        'fun-red': '#EF476F',
-                        'fun-bg': '#F8F9FA'
-                    },
-                    boxShadow: {
-                        'btn-3d': '0 6px 0px 0px rgba(0,0,0,0.2)',
-                        'btn-3d-active': '0 2px 0px 0px rgba(0,0,0,0.2)',
-                    }
-                }
-            }
-        }
-    </script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Fredoka', sans-serif;
-            background-color: #E0F7FA;
-            background-image: radial-gradient(#B2EBF2 20%, transparent 20%),
-                              radial-gradient(#B2EBF2 20%, transparent 20%);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Baloo 2', cursive;
-        }
-
-        /* Tombol 3D Effect */
-        .btn-3d {
-            transition: all 0.1s ease-in-out;
-            box-shadow: 0 6px 0px 0px rgba(0,0,0,0.15);
-            transform: translateY(0);
-        }
+        body { font-family: 'Fredoka', sans-serif; }
+        .font-baloo { font-family: 'Baloo 2', cursive; }
         
+        /* Tombol 3D Pop-up */
+        .btn-3d {
+            transition: all 0.1s;
+            box-shadow: 0 6px 0px #d97706; /* orange-600 */
+        }
         .btn-3d:active {
-            box-shadow: 0 2px 0px 0px rgba(0,0,0,0.15);
             transform: translateY(4px);
+            box-shadow: 0 2px 0px #d97706;
+        }
+        .btn-3d-blue {
+            box-shadow: 0 6px 0px #2563eb; 
+        }
+        .btn-3d-blue:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0px #2563eb;
+        }
+        .btn-3d-green {
+            box-shadow: 0 6px 0px #16a34a; 
+        }
+        .btn-3d-green:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0px #16a34a;
         }
 
-        /* Animasi Transisi Layar */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in forwards;
+        /* Avatar Selection */
+        .avatar-option {
+            transition: all 0.2s ease-in-out;
+            filter: grayscale(40%);
+        }
+        .avatar-option.selected {
+            filter: grayscale(0%);
+            transform: scale(1.15);
+            border-color: #fbbf24; /* yellow-400 */
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Animasi Pantulan */
-        .bounce-slight {
-            animation: bounceSlight 2s infinite ease-in-out;
-        }
-
-        @keyframes bounceSlight {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Confetti Container */
-        #confetti-container {
+        /* Custom Audio Toggle */
+        #audio-toggle {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
+            top: 1rem;
+            right: 1rem;
+            z-index: 50;
         }
 
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 20px;
-            background-color: #f00;
-            opacity: 0;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Ilustrasi CSS Sederhana */
-        .flower { display: inline-block; font-size: 2rem; margin: 0 5px; }
-        .red-flower { color: #EF476F; }
-        .yellow-flower { color: #FFD166; text-shadow: 1px 1px 0 #d4a72c; }
+        /* Modal Overlay Background */
+        .modal-bg { background-color: rgba(0, 0, 0, 0.5); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="bg-gradient-to-br from-yellow-50 via-orange-50 to-blue-50 min-h-screen text-gray-800 overflow-x-hidden selection:bg-orange-300 selection:text-white">
 
-    <main id="app-container" class="flex-grow flex items-center justify-center p-4">
+    <!-- Audio & TTS Controls -->
+    <button id="audio-toggle" onclick="toggleAudio()" class="bg-white p-3 rounded-full shadow-lg text-2xl hover:bg-gray-100 transition-colors">
+        🔇
+    </button>
+
+    <!-- ================= SCREEN 1: WELCOME ================= -->
+    <section id="screen-welcome" class="min-h-screen flex flex-col items-center justify-center p-4">
         
-        <!-- ==================== SCREEN 1: WELCOME & PROFIL ==================== -->
-        <div id="screen-welcome" class="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl border-4 border-fun-blue text-center fade-in">
-            <h1 class="text-4xl md:text-5xl font-bold text-fun-blue mb-2 bounce-slight">Halo Teman!</h1>
-            <p class="text-lg text-gray-600 mb-6">Yuk, kita bermain dan belajar matematika bersama!</p>
+        <!-- Header / Title -->
+        <div class="text-center mb-4 mt-8 animate-fade-in-down">
+            <span class="bg-yellow-100 text-yellow-700 px-4 py-1.5 rounded-full text-sm font-bold shadow-sm border border-yellow-300">
+                Uji Pemahaman Materi
+            </span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-orange-500 mt-5 mb-2 font-baloo drop-shadow-sm">
+                Kuis Matematika 🚀
+            </h1>
+            <p class="text-gray-600 font-medium">Pilih karaktermu dan mulai petualangan!</p>
+        </div>
+
+        <!-- BIG AVATAR DISPLAY (Luar Kotak Putih) -->
+        <div class="mb-6 transform transition-all duration-300 hover:scale-105 animate-bounce-slow">
+            <div id="big-avatar-display" class="text-7xl md:text-8xl drop-shadow-xl bg-gradient-to-t from-orange-200 to-transparent p-4 rounded-full">
+                👦
+            </div>
+        </div>
+
+        <!-- MAIN CARD -->
+        <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-2xl w-full max-w-md border-2 border-white">
             
-            <div class="mb-6">
-                <label class="block text-xl font-medium text-fun-orange mb-3">Pilih Avatar Kamu:</label>
-                <div class="flex justify-center gap-4 flex-wrap" id="avatar-selection">
-                    <button class="avatar-btn text-4xl p-2 rounded-2xl bg-gray-100 border-4 border-transparent hover:border-fun-yellow transition-all" data-avatar="🦁">🦁</button>
-                    <button class="avatar-btn text-4xl p-2 rounded-2xl bg-gray-100 border-4 border-transparent hover:border-fun-yellow transition-all" data-avatar="🐶">🐶</button>
-                    <button class="avatar-btn text-4xl p-2 rounded-2xl bg-gray-100 border-4 border-transparent hover:border-fun-yellow transition-all" data-avatar="🐱">🐱</button>
-                    <button class="avatar-btn text-4xl p-2 rounded-2xl bg-gray-100 border-4 border-transparent hover:border-fun-yellow transition-all" data-avatar="🐰">🐰</button>
+            <p class="text-center text-gray-700 font-bold mb-4">Pilih Karakter:</p>
+            
+            <!-- Avatar Options -->
+            <div class="flex justify-center gap-3 md:gap-4 mb-6">
+                <button onclick="selectAvatar(this, '👦')" class="avatar-option selected bg-gray-50 border-4 border-transparent p-2 md:p-3 rounded-2xl text-3xl md:text-4xl shadow-sm hover:bg-gray-100">👦</button>
+                <button onclick="selectAvatar(this, '👧')" class="avatar-option bg-gray-50 border-4 border-transparent p-2 md:p-3 rounded-2xl text-3xl md:text-4xl shadow-sm hover:bg-gray-100">👧</button>
+                <button onclick="selectAvatar(this, '🤖')" class="avatar-option bg-gray-50 border-4 border-transparent p-2 md:p-3 rounded-2xl text-3xl md:text-4xl shadow-sm hover:bg-gray-100">🤖</button>
+                <button onclick="selectAvatar(this, '🦸‍♂️')" class="avatar-option bg-gray-50 border-4 border-transparent p-2 md:p-3 rounded-2xl text-3xl md:text-4xl shadow-sm hover:bg-gray-100">🦸‍♂️</button>
+            </div>
+
+            <!-- Name Input -->
+            <input type="text" id="player-name" placeholder="Tulis namamu..." class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-center text-lg font-bold text-gray-700 focus:outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all mb-6 placeholder-gray-400">
+
+            <!-- Start Button -->
+            <button onclick="startQuiz()" class="btn-3d w-full bg-orange-500 hover:bg-orange-400 text-white font-baloo text-xl font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2">
+                <span>MULAI UJIAN!</span>
+            </button>
+        </div>
+        
+        <p class="mt-8 text-xs text-gray-400">Sesuai Materi Matematika Kelas 1 SD</p>
+    </section>
+
+    <!-- ================= SCREEN 2: PILIHAN GANDA ================= -->
+    <section id="screen-mcq" class="hidden min-h-screen flex-col items-center p-4 pt-16 md:p-8">
+        <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-6 md:p-8 border-t-8 border-blue-400">
+            <!-- Header Progress -->
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <div class="flex items-center gap-3">
+                    <div id="mcq-avatar" class="text-3xl bg-blue-50 p-2 rounded-xl">👦</div>
+                    <span id="mcq-name" class="font-bold text-gray-700 text-lg">Nama</span>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs font-bold text-blue-400 uppercase tracking-wider">PILIHAN GANDA</p>
+                    <p class="text-xl font-baloo font-bold text-gray-700" id="mcq-progress">1 / 3</p>
                 </div>
             </div>
 
+            <!-- Question Area -->
             <div class="mb-8">
-                <label for="player-name" class="block text-xl font-medium text-fun-green mb-2">Siapa namamu?</label>
-                <input type="text" id="player-name" placeholder="Ketik namamu di sini..." 
-                       class="w-full text-center text-xl p-4 border-4 border-gray-200 rounded-2xl focus:border-fun-green focus:outline-none focus:ring-0 transition-colors placeholder-gray-300">
+                <div class="flex gap-2 mb-4">
+                    <button onclick="readAloud(document.getElementById('mcq-question-text').innerText)" class="bg-blue-100 text-blue-600 p-2 rounded-full hover:bg-blue-200 transition-colors" title="Bacakan Soal">🔊</button>
+                    <h2 id="mcq-question-text" class="text-2xl font-baloo font-bold text-gray-800 leading-snug">Memuat soal...</h2>
+                </div>
             </div>
 
-            <button id="btn-start" class="btn-3d w-full bg-fun-red hover:bg-rose-500 text-white text-2xl font-bold py-4 px-6 rounded-2xl">
-                Mulai Bermain! 🚀
-            </button>
-            
-            <p id="welcome-error" class="text-red-500 mt-4 hidden font-medium">Ups! Pilih avatar dan isi namamu dulu ya.</p>
+            <!-- Options Grid -->
+            <div id="mcq-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected via JS -->
+            </div>
         </div>
+    </section>
 
-        <!-- ==================== SCREEN 2: PILIHAN GANDA (Asesmen Sumatif 2 A) ==================== -->
-        <div id="screen-pg" class="w-full max-w-2xl bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-fun-yellow hidden flex-col">
-            <div class="flex justify-between items-center mb-6">
+    <!-- ================= SCREEN 4: B. ISIAN SINGKAT ================= -->
+    <section id="screen-isian" class="hidden min-h-screen flex-col items-center p-4 pt-16 md:p-8">
+        <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-6 md:p-8 border-t-8 border-green-400">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
                 <div class="flex items-center gap-3">
-                    <span id="display-avatar-pg" class="text-3xl bg-gray-100 p-2 rounded-xl">👦</span>
-                    <span id="display-name-pg" class="text-xl font-bold text-gray-700">Nama</span>
+                    <div class="display-avatar text-3xl bg-green-50 p-2 rounded-xl">👦</div>
                 </div>
                 <div class="text-right">
-                    <p class="text-sm font-bold text-gray-500 uppercase">Bagian A: Pilihan Ganda</p>
-                    <p class="text-2xl font-bold text-fun-blue"><span id="pg-current">1</span> / <span id="pg-total">10</span></p>
+                    <p class="text-xs font-bold text-green-500 uppercase tracking-wider">ISIAN SINGKAT</p>
+                    <p class="text-xl font-baloo font-bold text-gray-700" id="isian-progress">1 / 3</p>
                 </div>
             </div>
 
-            <!-- Progress Bar -->
-            <div class="w-full bg-gray-200 rounded-full h-4 mb-8 border-2 border-gray-300 overflow-hidden">
-                <div id="pg-progress" class="bg-fun-green h-full rounded-full transition-all duration-300 ease-out w-0"></div>
+            <div class="flex gap-2 mb-6 justify-center text-center">
+                <button onclick="readAloud(document.getElementById('isian-question-text').innerText)" class="bg-green-100 text-green-600 p-2 rounded-full hover:bg-green-200 transition-colors self-start">🔊</button>
+                <h2 id="isian-question-text" class="text-3xl font-baloo font-bold text-gray-800">Soal</h2>
             </div>
 
-            <div class="flex-grow flex flex-col justify-center min-h-[250px]">
-                <!-- Kontainer Visual Soal (Bintang laut dll) -->
-                <div id="pg-visual-container" class="mb-4 text-center text-4xl flex justify-center gap-2 flex-wrap min-h-[50px]">
-                    <!-- Emoji akan di-inject disini -->
+            <div class="flex flex-col items-center gap-4">
+                <input type="number" id="isian-input" placeholder="Ketik angka..." class="w-full max-w-xs text-center text-3xl font-bold bg-gray-50 border-4 border-gray-200 rounded-2xl py-4 focus:border-green-400 focus:outline-none focus:ring-4 focus:ring-green-100 transition-all">
+                <button onclick="checkIsian()" class="btn-3d-green w-full max-w-xs bg-green-500 hover:bg-green-400 text-white font-baloo text-xl font-bold py-3 rounded-xl mt-4">Jawab!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SCREEN 5: HOTS ================= -->
+    <section id="screen-hots" class="hidden min-h-screen flex-col items-center p-4 pt-16 md:p-8">
+        <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-6 md:p-8 border-t-8 border-purple-400">
+            <div class="flex justify-between items-center mb-4 border-b pb-4">
+                <p class="text-xs font-bold text-purple-500 uppercase tracking-wider">HOTS (Higher Order Thinking)</p>
+            </div>
+
+            <!-- Custom Visual: Anak bawa daun -->
+            <div class="bg-purple-50 rounded-2xl p-6 flex flex-col items-center mb-6 border-2 border-purple-100">
+                <div class="text-6xl mb-2 flex items-center justify-center gap-4">
+                    <span class="text-4xl">🌿🌿🌿</span>
+                    👧
+                    <span class="text-4xl">🌿🌿🌿</span>
                 </div>
-                
-                <h2 id="pg-question-text" class="text-2xl md:text-3xl font-semibold text-gray-800 text-center mb-8 leading-relaxed">
-                    Pertanyaan muncul di sini...
-                </h2>
+                <p class="text-gray-500 text-sm font-medium mt-2">Ibu membeli 3 bunga mawar dan 3 bunga melati.</p>
             </div>
 
-            <div id="pg-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-auto">
-                <!-- Pilihan jawaban di-inject via JS -->
+            <div class="flex gap-2 mb-4">
+                <button onclick="readAloud('Buatlah cerita penjumlahan berdasarkan gambar di atas.')" class="bg-purple-100 text-purple-600 p-2 rounded-full hover:bg-purple-200 transition-colors h-10 w-10 shrink-0">🔊</button>
+                <h2 class="text-xl font-baloo font-bold text-gray-800">Buatlah cerita penjumlahan berdasarkan gambar di atas.</h2>
             </div>
+
+            <textarea id="hots-input" rows="3" placeholder="Contoh: Ada 3 bunga di tangan kiri dan..." class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl p-4 font-medium focus:border-purple-400 focus:outline-none mb-4"></textarea>
+            <button onclick="nextToAkm()" class="btn-3d w-full bg-purple-500 hover:bg-purple-400 text-white font-baloo text-xl font-bold py-3 rounded-xl">Kirim Jawaban</button>
+        </div>
+    </section>
+
+    <!-- ================= SCREEN 6: AKM 2 ================= -->
+    <section id="screen-akm" class="hidden min-h-screen flex-col items-center p-4 pt-8 md:p-8">
+        <div class="w-full max-w-3xl bg-white rounded-3xl shadow-xl p-6 md:p-8 border-t-8 border-rose-400">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-baloo font-bold text-gray-800 text-rose-600">Latihan AKM 2</h2>
+                <p class="text-gray-600 flex items-center justify-center gap-2 mt-2">
+                    <button onclick="readAloud('Perhatikan gambar makanan dan minuman yang disajikan.')" class="bg-rose-100 text-rose-600 p-1.5 rounded-full text-sm">🔊</button>
+                    Makanan, Buah, dan Minuman yang Disajikan
+                </p>
+            </div>
+
+            <!-- Grid Visual Mobile Friendly -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 bg-rose-50 p-4 rounded-2xl border-2 border-rose-100">
+                <div class="bg-white p-3 rounded-xl shadow-sm text-center">
+                    <div class="text-3xl mb-1">🍰🍰🍰<br>🍰🍰</div>
+                    <p class="font-bold text-gray-700">5 Kue</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl shadow-sm text-center">
+                    <div class="text-3xl mb-1">🍩🍩🍩<br>🍩🍩</div>
+                    <p class="font-bold text-gray-700">5 Donat</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl shadow-sm text-center">
+                    <div class="text-3xl mb-1">🧃🧃🧃</div>
+                    <p class="font-bold text-gray-700">3 Sirop Stroberi</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl shadow-sm text-center">
+                    <div class="text-3xl mb-1">🍈🍈</div>
+                    <p class="font-bold text-gray-700">2 Sirop Melon</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 border-2 border-gray-200 p-4 rounded-xl mb-6">
+                <div class="flex gap-2 mb-3">
+                     <button onclick="readAloud('Jumlah donat dan kue yang disajikan ada berapa?')" class="bg-gray-200 text-gray-600 p-1.5 rounded-full text-sm">🔊</button>
+                     <p class="font-bold text-lg text-gray-800">Jumlah donat dan kue yang disajikan ada...</p>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="checkAkm(false)" class="bg-white border-2 border-gray-200 py-3 rounded-lg font-bold hover:bg-rose-50 hover:border-rose-300">5</button>
+                    <button onclick="checkAkm(true)" class="bg-white border-2 border-gray-200 py-3 rounded-lg font-bold hover:bg-rose-50 hover:border-rose-300">10</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SCREEN 3: HASIL & SERTIFIKAT ================= -->
+    <section id="screen-result" class="hidden min-h-screen flex-col items-center justify-center p-4">
+        <div id="certificate" class="w-full max-w-2xl bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center border-8 border-double border-orange-400 relative overflow-hidden">
+            <!-- Confetti visual background via CSS/Emojis -->
+            <div class="absolute inset-0 opacity-10 text-5xl pointer-events-none" style="background-image: radial-gradient(#d97706 2px, transparent 2px); background-size: 30px 30px;"></div>
             
-            <!-- Feedback Overlay -->
-            <div id="pg-feedback" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-6xl font-bold rounded-3xl p-8 shadow-2xl z-50 text-white bg-opacity-90 transition-all">
-                <!-- Benar/Salah Text -->
-            </div>
-        </div>
-
-        <!-- ==================== SCREEN 3: ISIAN SINGKAT (Asesmen Sumatif 2 B) ==================== -->
-        <div id="screen-isian" class="w-full max-w-2xl bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-fun-green hidden flex-col">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3">
-                    <span id="display-avatar-isian" class="text-3xl bg-gray-100 p-2 rounded-xl">👦</span>
-                </div>
-                <div class="text-right">
-                    <p class="text-sm font-bold text-gray-500 uppercase">Bagian B: Isian Singkat</p>
-                    <p class="text-2xl font-bold text-fun-green"><span id="isian-current">1</span> / <span id="isian-total">4</span></p>
-                </div>
-            </div>
-
-            <div class="w-full bg-gray-200 rounded-full h-4 mb-8 border-2 border-gray-300 overflow-hidden">
-                <div id="isian-progress" class="bg-fun-orange h-full rounded-full transition-all duration-300 ease-out w-0"></div>
-            </div>
-
-            <div class="flex-grow flex flex-col justify-center items-center py-8">
-                <h2 id="isian-question-text" class="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-8">
-                    Hasil dari 4 + 2 adalah ...
-                </h2>
+            <div class="relative z-10">
+                <h1 class="text-4xl md:text-5xl font-baloo font-extrabold text-orange-500 mb-2">SERTIFIKAT PENGHARGAAN</h1>
+                <p class="text-gray-500 font-medium mb-6 uppercase tracking-widest text-sm">Diberikan Kepada:</p>
                 
-                <input type="number" id="isian-input" placeholder="Ketik angka" 
-                       class="w-32 md:w-48 text-center text-4xl p-4 border-4 border-gray-300 rounded-2xl focus:border-fun-orange focus:outline-none">
-            </div>
-
-            <button id="btn-submit-isian" class="btn-3d w-full mt-6 bg-fun-orange hover:bg-orange-500 text-white text-2xl font-bold py-4 px-6 rounded-2xl">
-                Jawab! 🎯
-            </button>
-        </div>
-
-        <!-- ==================== SCREEN 4: HOTS ==================== -->
-        <div id="screen-hots" class="w-full max-w-2xl bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-fun-red hidden flex-col">
-            <div class="text-center mb-4">
-                <span class="inline-block bg-fun-red text-white px-4 py-1 rounded-full font-bold uppercase tracking-wider text-sm mb-2">Soal HOTS</span>
-                <h2 class="text-2xl font-bold text-gray-800">Perhatikan gambar berikut.</h2>
-            </div>
-
-            <!-- Visualisasi Gambar HOTS (Anak pegang mangga) -->
-            <div class="bg-blue-50 rounded-2xl p-6 flex justify-center items-end gap-4 mb-6 border-2 border-blue-100 min-h-[200px] relative">
-                <!-- Tangan Kiri -->
-                <div class="flex flex-col items-center">
-                    <div class="text-5xl mb-2">🥭🥭</div>
-                    <div class="text-sm font-bold text-gray-500">Tangan Kanan</div>
+                <div class="flex flex-col items-center justify-center mb-6">
+                    <div class="display-avatar text-7xl bg-orange-100 p-4 rounded-full shadow-inner mb-4 border-4 border-white">👦</div>
+                    <h2 id="result-name" class="text-4xl font-baloo font-bold text-gray-800 border-b-4 border-orange-200 pb-2 px-8 inline-block">Nama Anak</h2>
                 </div>
-                <!-- Anak -->
-                <div class="text-8xl z-10">👧</div>
-                <!-- Tangan Kanan -->
-                <div class="flex flex-col items-center">
-                    <div class="text-5xl mb-2">🥭🥭🥭</div>
-                    <div class="text-sm font-bold text-gray-500">Tangan Kiri</div>
+
+                <p class="text-gray-600 mb-2 text-lg">Telah menyelesaikan Kuis Matematika dengan skor:</p>
+                <div class="text-6xl font-baloo font-black text-green-500 mb-8 drop-shadow-md">
+                    <span id="result-score">100</span>
                 </div>
-            </div>
 
-            <p class="text-xl font-medium text-center text-gray-700 mb-4">Buatlah cerita penjumlahan berdasarkan gambar di atas!</p>
-            
-            <textarea id="hots-input" rows="3" placeholder="Ketik ceritamu di sini..." 
-                      class="w-full text-lg p-4 border-4 border-gray-200 rounded-2xl focus:border-fun-red focus:outline-none resize-none mb-6"></textarea>
-
-            <button id="btn-submit-hots" class="btn-3d w-full bg-fun-red hover:bg-rose-500 text-white text-2xl font-bold py-4 px-6 rounded-2xl">
-                Kirim Cerita! 📝
-            </button>
-        </div>
-
-        <!-- ==================== SCREEN 5: AKM 2 ==================== -->
-        <div id="screen-akm" class="w-full max-w-3xl bg-white rounded-3xl p-4 md:p-8 shadow-xl border-4 border-purple-500 hidden flex-col h-[95vh] md:h-auto">
-            <div class="text-center mb-2 flex-shrink-0">
-                <h2 class="text-2xl font-baloo font-bold text-purple-600">Latihan AKM 2</h2>
-                <p class="text-sm text-gray-600">Perhatikan gambar makanan dan minuman ini untuk menjawab!</p>
-            </div>
-
-            <!-- Visualisasi Meja AKM -->
-            <div class="bg-green-50 rounded-2xl p-4 mb-4 border-2 border-green-200 relative overflow-hidden flex-shrink-0">
-                <h3 class="text-center font-bold text-red-500 mb-2">Makanan, Buah, dan Minuman yang Disajikan</h3>
-                
-                <div class="relative w-full max-w-md mx-auto aspect-[16/9] bg-gradient-to-b from-blue-100 to-green-200 rounded-xl flex items-center justify-center">
-                    <!-- Meja -->
-                    <div class="absolute bottom-[20%] w-[80%] h-[30%] bg-pink-300 rounded-[50%] border-4 border-pink-400 z-0"></div>
-                    <div class="absolute bottom-[5%] w-[15%] h-[20%] bg-pink-400 rounded-b-xl z-0"></div>
-                    
-                    <!-- Item di Meja (Absolute Positioning) -->
-                    <div class="absolute z-10 w-full h-full flex flex-col items-center justify-center pointer-events-none">
-                         <!-- Manggis -->
-                         <div class="absolute top-[35%] left-[20%] text-2xl bg-white/50 p-1 rounded-full">🧄🧄🧄<br>🧄🧄🧄<span class="text-xs block text-center">(6)</span></div>
-                         <!-- Kue -->
-                         <div class="absolute top-[25%] left-[45%] text-2xl bg-white/50 p-1 rounded-full">🍰🍰🍰<br>🍰🍰<span class="text-xs block text-center">(5)</span></div>
-                         <!-- Jeruk -->
-                         <div class="absolute top-[35%] right-[20%] text-2xl bg-white/50 p-1 rounded-full">🍊🍊<br>🍊🍊<span class="text-xs block text-center">(4)</span></div>
-                         <!-- Donat -->
-                         <div class="absolute top-[45%] left-[45%] text-2xl bg-white/50 p-1 rounded-full">🍩🍩🍩<br>🍩🍩<span class="text-xs block text-center">(5)</span></div>
-                         <!-- Minuman -->
-                         <div class="absolute bottom-[25%] flex gap-2">
-                             <div class="bg-white/50 px-2 rounded-full">🥤🥤🥤<br><span class="text-xs text-center block w-full">(Stroberi 3)</span></div>
-                             <div class="bg-white/50 px-2 rounded-full">🧃🧃<br><span class="text-xs text-center block w-full">(Melon 2)</span></div>
-                         </div>
-                    </div>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <button onclick="window.print()" class="btn-3d-blue bg-blue-500 hover:bg-blue-400 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2">
+                        🖨️ Cetak Sertifikat
+                    </button>
+                    <button onclick="location.reload()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-6 rounded-xl transition-colors">
+                        🔄 Main Lagi
+                    </button>
                 </div>
-            </div>
-
-            <!-- Area Soal AKM (Scrollable on small screens) -->
-            <div class="flex-grow overflow-y-auto pr-2 pb-4">
-                <div id="akm-question-container" class="space-y-4">
-                    <!-- Pertanyaan di-inject via JS -->
-                </div>
-            </div>
-
-            <div class="mt-4 flex justify-between items-center flex-shrink-0 pt-2 border-t-2">
-                <span class="text-lg font-bold text-purple-600">Soal: <span id="akm-current">1</span>/5</span>
-                <button id="btn-akm-next" class="btn-3d bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-xl">
-                    Selanjutnya ➡️
-                </button>
             </div>
         </div>
+    </section>
 
-        <!-- ==================== SCREEN 6: HASIL & SERTIFIKAT ==================== -->
-        <div id="screen-result" class="w-full max-w-3xl bg-white rounded-3xl p-8 shadow-2xl border-8 border-fun-yellow hidden flex-col items-center text-center relative overflow-hidden">
-            <!-- Dekorasi background sertifikat -->
-            <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" 
-                 style="background-image: url('data:image/svg+xml;utf8,<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M20 3.33331L25.15 13.7833L36.6667 15.4666L28.3333 23.5833L30.3 35L20 29.5833L9.7 35L11.6667 23.5833L3.33333 15.4666L14.85 13.7833L20 3.33331Z\" fill=\"%23FFD166\"/></svg>');">
-            </div>
-
-            <h1 class="text-4xl md:text-5xl font-bold text-fun-blue mb-2 relative z-10">Luar Biasa! 🎉</h1>
-            <p class="text-xl text-gray-600 mb-8 relative z-10">Kamu telah menyelesaikan semua tantangan.</p>
-
-            <div class="bg-yellow-50 border-4 border-fun-yellow rounded-3xl p-8 w-full max-w-xl relative z-10 mb-8 shadow-inner">
-                <div class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Sertifikat Prestasi</div>
-                <div class="text-6xl mb-4" id="cert-avatar">👦</div>
-                <h2 class="text-4xl font-baloo text-gray-800 mb-2" id="cert-name">Nama Anak</h2>
-                <p class="text-lg text-gray-600 mb-6">Telah menjadi juara matematika hari ini dengan skor:</p>
-                <div class="text-6xl font-bold text-fun-red font-baloo bounce-slight">
-                    <span id="cert-score">100</span>
-                </div>
-            </div>
-
-            <div class="flex gap-4 relative z-10 w-full md:w-auto">
-                <button id="btn-restart" class="btn-3d flex-1 bg-fun-green hover:bg-emerald-500 text-white text-xl font-bold py-3 px-6 rounded-2xl flex items-center justify-center gap-2">
-                    <span>🔄</span> Main Lagi
-                </button>
-                <button id="btn-print" class="btn-3d flex-1 bg-fun-blue hover:bg-blue-600 text-white text-xl font-bold py-3 px-6 rounded-2xl flex items-center justify-center gap-2">
-                    <span>🖨️</span> Cetak
-                </button>
-            </div>
+    <!-- ================= MODAL FEEDBACK ================= -->
+    <div id="feedback-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-bg backdrop-blur-sm">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-transform scale-95" id="feedback-card">
+            <div id="feedback-icon" class="text-6xl mb-4">✅</div>
+            <h3 id="feedback-title" class="text-3xl font-baloo font-bold mb-2">Hebat!</h3>
+            <p id="feedback-desc" class="text-gray-600 mb-6 font-medium text-lg">Penjelasan ada disini.</p>
+            <button onclick="closeFeedback()" id="feedback-btn" class="btn-3d w-full bg-blue-500 text-white font-bold py-3 rounded-xl text-xl">Lanjut 🚀</button>
         </div>
+    </div>
 
-    </main>
 
-    <!-- Tempat Confetti -->
-    <div id="confetti-container"></div>
-
+    <!-- ================= JAVASCRIPT ================= -->
     <script>
-        // --- DATA SOAL ---
+        // --- State Management ---
+        let playerName = "";
+        let playerAvatar = "👦";
+        let score = 0;
+        let audioContext = null;
+        let isAudioEnabled = false;
+        let currentScreen = 'screen-welcome';
+        let bgmOscillator = null;
 
-        // Asesmen Sumatif 2 Bagian A (Pilihan Ganda) - Dari Gambar 3 (MTK 1.jpeg)
-        const pgData = [
-            { q: "3 bola + 6 bola = ... bola", visual: "⚽⚽⚽ + ⚽⚽⚽⚽⚽⚽", options: ["9", "6", "3"], answer: 0 },
-            { q: "Adik mempunyai 1 kelereng. Kakak beri adik 3 kelereng lagi. Banyak kelereng adik sekarang adalah ...", visual: "🔵 + 🔵🔵🔵", options: ["2", "4", "5"], answer: 1 },
-            { q: "5 + 3 = ...", visual: "", options: ["6", "7", "8"], answer: 2 },
-            { q: "1 + 5 = ...", visual: "", options: ["6", "7", "8"], answer: 0 },
-            { q: "7 + 3 = ...", visual: "", options: ["8", "9", "10"], answer: 2 },
-            { q: "6 + ... = 7<br>Bilangan yang tepat untuk mengisi titik-titik adalah ...", visual: "", options: ["1", "2", "3"], answer: 0 },
-            { q: "Perhatikan bintang laut berikut!<br>⭐⭐⭐⭐ + ⭐⭐ = ...", visual: "", options: ["4 bintang laut", "5 bintang laut", "6 bintang laut"], answer: 2 },
-            { q: "Ani membeli 3 roti cokelat dan 2 roti keju. Banyak roti Ani semua adalah ...", visual: "🍞🍞🍞 + 🥖🥖", options: ["4", "5", "7"], answer: 1 },
-            { q: "2 + 5 = ...", visual: "", options: ["6", "7", "8"], answer: 1 },
-            { q: "6 + ... = 9<br>Bilangan yang tepat untuk mengisi titik-titik adalah ...", visual: "", options: ["1", "2", "3"], answer: 2 }
+        // Data Soal Pilihan Ganda (Dari Gambar MTK 1)
+        const mcqData = [
+            { q: "3 bola + 6 bola = ... bola", opts: ["9", "6", "3"], ans: "9", exp: "Jika kamu punya 3 bola, lalu ditambah 6 bola lagi, totalnya ada 9 bola!" },
+            { q: "5 + 3 = ...", opts: ["6", "7", "8"], ans: "8", exp: "5 ditambah 3 sama dengan 8. Jari lima di tangan kiri, tiga di tangan kanan!" },
+            { q: "Ani membeli 3 roti cokelat dan 2 roti keju. Banyak roti Ani semua adalah ...", opts: ["4", "5", "7"], ans: "5", exp: "3 roti cokelat ditambah 2 roti keju sama dengan 5 roti." }
         ];
+        let currentMcqIndex = 0;
 
-        // Asesmen Sumatif 2 Bagian B (Isian Singkat) - Dari Gambar 3 bawah
+        // Data Soal Isian Singkat (Dari Gambar MTK 1)
         const isianData = [
-            { q: "Hasil dari 4 + 2 adalah ...", answer: 6 },
-            { q: "Hasil dari 4 + 6 adalah ...", answer: 10 },
-            { q: "Hasil dari 5 + 5 adalah ...", answer: 10 },
-            { q: "3 + ... = 9<br>Bilangan yang tepat untuk mengisi titik-titik adalah ...", answer: 6 }
+            { q: "Hasil dari 4 + 2 adalah ...", ans: "6", exp: "4 ditambah 2 sama dengan 6." },
+            { q: "Hasil dari 5 + 5 adalah ...", ans: "10", exp: "Lima jari tangan kanan ditambah lima jari tangan kiri sama dengan sepuluh!" }
         ];
+        let currentIsianIndex = 0;
+        let activeCallback = null;
 
-        // Latihan AKM 2 - Dari Gambar 2 (MTK 3.jpeg)
-        // Note: Kita adaptasi interaksinya. Soal 1 (Centang/Silang) jadi True/False.
-        const akmData = [
-            { 
-                type: "tf", 
-                q: "Beri tanda Benar atau Salah: Buah manggis lebih banyak dari buah jeruk.", 
-                fact: "(Manggis 6, Jeruk 4)",
-                answer: true // 6 > 4
-            },
-            { 
-                type: "tf", 
-                q: "Beri tanda Benar atau Salah: Kue lebih banyak dari donat.", 
-                fact: "(Kue 5, Donat 5)",
-                answer: false // Sama banyak
-            },
-            { 
-                type: "tf", 
-                q: "Beri tanda Benar atau Salah: Sirop stroberi lebih sedikit dari sirop melon.", 
-                fact: "(Stroberi 3, Melon 2)",
-                answer: false // 3 tidak lebih sedikit dari 2
-            },
-            {
-                type: "mc",
-                q: "Jumlah donat dan kue di atas meja ada ....",
-                options: ["8", "10", "12"],
-                answer: 1 // 5 + 5 = 10
-            },
-            {
-                type: "mc",
-                q: "Tulislah bentuk penjumlahan dari buah manggis dan buah jeruk.",
-                options: ["6 + 4", "5 + 5", "6 + 3"],
-                answer: 0
+        // --- Audio System (Web Audio API) ---
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
-        ];
+        }
 
-        // --- STATE APLIKASI ---
-        let state = {
-            player: { name: "", avatar: "👦", score: 0 },
-            currentScreen: "welcome",
-            pgIndex: 0,
-            isianIndex: 0,
-            akmIndex: 0,
-            audioEnabled: false,
-            audioCtx: null
-        };
+        function playTone(freq, type, duration, vol = 0.1) {
+            if (!isAudioEnabled || !audioContext) return;
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+            gain.gain.setValueAtTime(vol, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.start();
+            osc.stop(audioContext.currentTime + duration);
+        }
 
-        // --- AUDIO SYSTEM (Web Audio API Synthesizer) ---
-        const AudioSys = {
-            init: function() {
-                if (!state.audioCtx) {
-                    const AudioContext = window.AudioContext || window.webkitAudioContext;
-                    state.audioCtx = new AudioContext();
-                }
-            },
-            playTone: function(freq, type, duration, vol=0.1) {
-                if (!state.audioCtx) return;
-                const osc = state.audioCtx.createOscillator();
-                const gain = state.audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.setValueAtTime(freq, state.audioCtx.currentTime);
-                
-                gain.gain.setValueAtTime(vol, state.audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, state.audioCtx.currentTime + duration);
-                
-                osc.connect(gain);
-                gain.connect(state.audioCtx.destination);
-                
-                osc.start();
-                osc.stop(state.audioCtx.currentTime + duration);
-            },
-            playClick: () => AudioSys.playTone(600, 'sine', 0.1),
-            playCorrect: () => {
-                AudioSys.playTone(523.25, 'triangle', 0.1); // C5
-                setTimeout(() => AudioSys.playTone(659.25, 'triangle', 0.2), 100); // E5
-                setTimeout(() => AudioSys.playTone(783.99, 'triangle', 0.3), 200); // G5
-            },
-            playWrong: () => {
-                AudioSys.playTone(300, 'sawtooth', 0.2);
-                setTimeout(() => AudioSys.playTone(250, 'sawtooth', 0.3), 150);
-            },
-            playFanfare: () => {
-                const notes = [523.25, 659.25, 783.99, 1046.50];
-                notes.forEach((n, i) => {
-                    setTimeout(() => AudioSys.playTone(n, 'square', 0.2, 0.05), i * 150);
-                });
-                setTimeout(() => AudioSys.playTone(1046.50, 'square', 0.6, 0.05), notes.length * 150);
-            },
-            // Simple BGM loop pattern
-            bgmInterval: null,
-            startBGM: function() {
-                if (this.bgmInterval) return;
-                const melody = [261.63, 329.63, 392.00, 329.63]; // C, E, G, E
-                let noteIdx = 0;
-                this.bgmInterval = setInterval(() => {
-                    if(state.audioCtx && state.audioCtx.state === 'running') {
-                        this.playTone(melody[noteIdx], 'sine', 0.2, 0.02);
-                        noteIdx = (noteIdx + 1) % melody.length;
-                    }
-                }, 500);
-            },
-            stopBGM: function() {
-                clearInterval(this.bgmInterval);
-                this.bgmInterval = null;
-            }
-        };
-
-        // --- CORE FUNCTIONS ---
-        const $ = (id) => document.getElementById(id);
-        
-        function switchScreen(screenId) {
-            // Hide all screens
-            ['screen-welcome', 'screen-pg', 'screen-isian', 'screen-hots', 'screen-akm', 'screen-result'].forEach(id => {
-                $(id).classList.add('hidden');
-                $(id).classList.remove('flex');
+        // SFX: Click/Pop (Untuk klik Avatar)
+        function playPop() { playTone(600, 'sine', 0.1, 0.2); }
+        function playClick() { playTone(800, 'sine', 0.1, 0.1); }
+        function playCorrectSFX() {
+            if(!isAudioEnabled) return;
+            playTone(523.25, 'triangle', 0.1, 0.1); // C5
+            setTimeout(() => playTone(659.25, 'triangle', 0.2, 0.1), 100); // E5
+            setTimeout(() => playTone(783.99, 'triangle', 0.3, 0.1), 200); // G5
+        }
+        function playWrongSFX() { playTone(150, 'sawtooth', 0.4, 0.2); }
+        function playFanfare() {
+            if(!isAudioEnabled) return;
+            [523, 523, 523, 659, 783, 659, 783].forEach((f, i) => {
+                setTimeout(() => playTone(f, 'square', 0.2, 0.1), i * 150);
             });
-            // Show target
-            $(screenId).classList.remove('hidden');
-            $(screenId).classList.add('flex', 'fade-in');
-            state.currentScreen = screenId;
-            window.scrollTo(0,0);
         }
 
-        function createConfetti() {
-            const container = $('confetti-container');
-            const colors = ['#FFD166', '#F4A261', '#06D6A0', '#118AB2', '#EF476F'];
-            for(let i=0; i<30; i++) {
-                const conf = document.createElement('div');
-                conf.classList.add('confetti-piece');
-                conf.style.left = Math.random() * 100 + 'vw';
-                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                conf.style.animationDuration = (Math.random() * 2 + 1) + 's';
-                conf.style.animationDelay = (Math.random() * 0.5) + 's';
-                container.appendChild(conf);
-            }
-            setTimeout(() => { container.innerHTML = ''; }, 3000);
-        }
-
-        function showFeedback(isCorrect, parentEl) {
-            const fb = document.createElement('div');
-            fb.className = `absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-5xl md:text-6xl font-bold rounded-3xl p-8 shadow-2xl z-50 text-white fade-in flex items-center gap-4`;
-            
-            if(isCorrect) {
-                fb.classList.add('bg-fun-green');
-                fb.innerHTML = `<span>⭐</span> Hebat!`;
-                AudioSys.playCorrect();
-                createConfetti();
-                state.player.score += 10; // Simple scoring
+        function toggleAudio() {
+            isAudioEnabled = !isAudioEnabled;
+            const btn = document.getElementById('audio-toggle');
+            if (isAudioEnabled) {
+                initAudio();
+                btn.innerHTML = '🎵';
+                playPop();
             } else {
-                fb.classList.add('bg-fun-red');
-                fb.innerHTML = `<span>💡</span> Ups, Coba Lagi!`;
-                AudioSys.playWrong();
-            }
-
-            parentEl.appendChild(fb);
-            parentEl.classList.add('relative'); // Ensure parent is relative
-
-            setTimeout(() => {
-                fb.remove();
-                if(isCorrect) proceedToNext();
-            }, 1500);
-        }
-
-        function proceedToNext() {
-            if (state.currentScreen === 'screen-pg') {
-                state.pgIndex++;
-                if (state.pgIndex < pgData.length) {
-                    renderPG();
-                } else {
-                    switchScreen('screen-isian');
-                    renderIsian();
-                }
-            } 
-            else if (state.currentScreen === 'screen-isian') {
-                state.isianIndex++;
-                if (state.isianIndex < isianData.length) {
-                    renderIsian();
-                } else {
-                    switchScreen('screen-hots');
-                }
-            }
-            else if (state.currentScreen === 'screen-hots') {
-                // HOTS tidak dinilai otomatis, langsung lanjut
-                switchScreen('screen-akm');
-                renderAKM();
-            }
-            else if (state.currentScreen === 'screen-akm') {
-                state.akmIndex++;
-                if (state.akmIndex < akmData.length) {
-                    renderAKM();
-                } else {
-                    showResult();
-                }
+                btn.innerHTML = '🔇';
             }
         }
 
-        // --- RENDER FUNCTIONS ---
-        function renderPG() {
-            const q = pgData[state.pgIndex];
-            $('pg-current').innerText = state.pgIndex + 1;
-            $('pg-total').innerText = pgData.length;
-            $('pg-progress').style.width = `${((state.pgIndex) / pgData.length) * 100}%`;
+        // --- Text to Speech ---
+        function readAloud(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.9; 
+                utterance.pitch = 1.2; // Suara agak ramah/tinggi
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // --- UI & Navigation ---
+        function switchScreen(newScreenId) {
+            document.getElementById(currentScreen).classList.add('hidden');
+            document.getElementById(newScreenId).classList.remove('hidden');
+            document.getElementById(newScreenId).classList.add('flex');
+            currentScreen = newScreenId;
+            window.scrollTo(0, 0);
+        }
+
+        // --- Flow 1: Welcome ---
+        function selectAvatar(btn, avatarEmoji) {
+            playPop(); // Mainkan suara pop saat avatar dipilih
+            document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected', 'border-yellow-400'));
+            btn.classList.add('selected', 'border-yellow-400');
+            playerAvatar = avatarEmoji;
             
-            $('pg-question-text').innerHTML = q.q;
-            $('pg-visual-container').innerHTML = q.visual;
+            // Update display besar di atas
+            const bigDisplay = document.getElementById('big-avatar-display');
+            bigDisplay.innerText = avatarEmoji;
+            
+            // Animasi kecil saat ganti
+            bigDisplay.style.transform = 'scale(0.8)';
+            setTimeout(() => { bigDisplay.style.transform = 'scale(1)'; }, 150);
+        }
 
-            const optsContainer = $('pg-options');
+        function startQuiz() {
+            playClick();
+            const nameInput = document.getElementById('player-name').value.trim();
+            if (!nameInput) {
+                alert("Tulis namamu dulu ya!");
+                return;
+            }
+            playerName = nameInput;
+            
+            // Update semua elemen UI yang butuh nama/avatar
+            document.getElementById('mcq-name').innerText = playerName;
+            document.querySelectorAll('.display-avatar').forEach(el => el.innerText = playerAvatar);
+            document.getElementById('mcq-avatar').innerText = playerAvatar;
+            
+            initAudio(); // Initialize audio context on first user interaction
+            loadMcq();
+            switchScreen('screen-mcq');
+        }
+
+        // --- Flow 2: MCQ ---
+        function loadMcq() {
+            if (currentMcqIndex >= mcqData.length) {
+                currentIsianIndex = 0;
+                loadIsian();
+                switchScreen('screen-isian');
+                return;
+            }
+            const qData = mcqData[currentMcqIndex];
+            document.getElementById('mcq-progress').innerText = `${currentMcqIndex + 1} / ${mcqData.length}`;
+            document.getElementById('mcq-question-text').innerText = qData.q;
+            
+            const optsContainer = document.getElementById('mcq-options');
             optsContainer.innerHTML = '';
             
-            q.options.forEach((optText, index) => {
+            qData.opts.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'btn-3d bg-white border-4 border-gray-200 hover:border-fun-blue rounded-2xl p-4 text-2xl font-bold text-gray-700 transition-colors text-center';
-                btn.innerHTML = optText;
-                btn.onclick = () => {
-                    AudioSys.playClick();
-                    const isCorrect = (index === q.answer);
-                    if(isCorrect) {
-                        btn.classList.add('border-fun-green', 'bg-green-50', 'text-fun-green');
-                    } else {
-                        btn.classList.add('border-fun-red', 'bg-red-50', 'text-fun-red');
-                    }
-                    // Disable all buttons
-                    Array.from(optsContainer.children).forEach(b => b.disabled = true);
-                    showFeedback(isCorrect, $('screen-pg'));
-                    
-                    // Jika salah, reset button state setelah delay sebentar agar bisa dicoba lagi (karena ini utk anak-anak, beri kesempatan)
-                    if(!isCorrect) {
-                        setTimeout(() => {
-                            Array.from(optsContainer.children).forEach(b => {
-                                b.disabled = false;
-                                b.className = 'btn-3d bg-white border-4 border-gray-200 hover:border-fun-blue rounded-2xl p-4 text-2xl font-bold text-gray-700 transition-colors text-center';
-                            });
-                        }, 1600);
-                    }
-                };
+                btn.className = "bg-gray-50 border-4 border-gray-200 hover:border-orange-400 hover:bg-orange-50 text-2xl font-bold text-gray-700 py-4 rounded-2xl transition-all btn-3d active:translate-y-1";
+                btn.innerText = opt;
+                btn.onclick = () => checkMcq(opt, qData.ans, qData.exp);
                 optsContainer.appendChild(btn);
             });
         }
 
-        function renderIsian() {
-            const q = isianData[state.isianIndex];
-            $('isian-current').innerText = state.isianIndex + 1;
-            $('isian-total').innerText = isianData.length;
-            $('isian-progress').style.width = `${((state.isianIndex) / isianData.length) * 100}%`;
-            
-            $('isian-question-text').innerHTML = q.q;
-            const input = $('isian-input');
-            input.value = '';
-            input.focus();
-
-            // Lepas event listener lama
-            const oldBtn = $('btn-submit-isian');
-            const newBtn = oldBtn.cloneNode(true);
-            oldBtn.parentNode.replaceChild(newBtn, oldBtn);
-
-            $('btn-submit-isian').onclick = () => {
-                const ans = parseInt($('isian-input').value);
-                if (isNaN(ans)) return; // Jangan lakukan apa2 jika kosong
-
-                AudioSys.playClick();
-                const isCorrect = (ans === q.answer);
-                
-                showFeedback(isCorrect, $('screen-isian'));
-
-                if(!isCorrect) {
-                   $('isian-input').value = '';
-                   $('isian-input').focus();
-                }
-            };
-        }
-
-        function renderAKM() {
-            const q = akmData[state.akmIndex];
-            $('akm-current').innerText = state.akmIndex + 1;
-            const container = $('akm-question-container');
-            container.innerHTML = ''; // Clear
-
-            const qEl = document.createElement('p');
-            qEl.className = 'text-xl font-medium text-gray-800 mb-2';
-            qEl.innerHTML = q.q;
-            container.appendChild(qEl);
-
-            if(q.fact) {
-                const fEl = document.createElement('p');
-                fEl.className = 'text-sm text-gray-500 mb-4 italic';
-                fEl.innerHTML = q.fact;
-                container.appendChild(fEl);
-            }
-
-            const optsDiv = document.createElement('div');
-            optsDiv.className = 'flex gap-4 justify-center';
-
-            let answeredCorrectly = false;
-
-            if (q.type === 'tf') {
-                const btnTrue = createAKMButton('Benar', 'bg-green-100 border-green-500 text-green-700');
-                const btnFalse = createAKMButton('Salah', 'bg-red-100 border-red-500 text-red-700');
-                
-                btnTrue.onclick = () => handleAKMAnswer(true, q.answer, optsDiv);
-                btnFalse.onclick = () => handleAKMAnswer(false, q.answer, optsDiv);
-
-                optsDiv.appendChild(btnTrue);
-                optsDiv.appendChild(btnFalse);
-            } else if (q.type === 'mc') {
-                optsDiv.classList.add('flex-col');
-                q.options.forEach((opt, idx) => {
-                    const btn = createAKMButton(opt, 'bg-gray-50 border-gray-300 text-gray-700');
-                    btn.onclick = () => handleAKMAnswer(idx, q.answer, optsDiv);
-                    optsDiv.appendChild(btn);
+        function checkMcq(selected, correct, explanation) {
+            if (selected === correct) {
+                score += 15;
+                showFeedback(true, "Benar Sekali!", explanation, () => {
+                    currentMcqIndex++;
+                    loadMcq();
+                });
+            } else {
+                showFeedback(false, "Ups, Hampir Benar!", "Coba hitung pelan-pelan lagi ya. " + explanation, () => {
+                    // Coba lagi, tidak pindah soal
                 });
             }
+        }
 
-            container.appendChild(optsDiv);
+        // --- Flow 3: Isian ---
+        function loadIsian() {
+            if (currentIsianIndex >= isianData.length) {
+                switchScreen('screen-hots');
+                return;
+            }
+            const qData = isianData[currentIsianIndex];
+            document.getElementById('isian-progress').innerText = `${currentIsianIndex + 1} / ${isianData.length}`;
+            document.getElementById('isian-question-text').innerText = qData.q;
+            document.getElementById('isian-input').value = '';
+            document.getElementById('isian-input').focus();
+        }
 
-            function createAKMButton(text, colorClasses) {
-                const btn = document.createElement('button');
-                btn.className = `btn-3d flex-1 py-3 px-4 border-4 rounded-xl font-bold text-lg transition-all ${colorClasses}`;
-                btn.innerText = text;
-                return btn;
+        function checkIsian() {
+            const input = document.getElementById('isian-input').value.trim();
+            const qData = isianData[currentIsianIndex];
+            
+            if (input === "") {
+                playClick();
+                return; // Jangan lakukan apa2 jika kosong
             }
 
-            function handleAKMAnswer(userAns, correctAns, containerDiv) {
-                if(answeredCorrectly) return;
-                AudioSys.playClick();
-                const isCorrect = (userAns === correctAns);
-                
-                // Visual feedback on buttons
-                Array.from(containerDiv.children).forEach(btn => btn.style.opacity = '0.5');
-                event.target.style.opacity = '1';
-
-                if(isCorrect) {
-                    event.target.classList.add('ring-4', 'ring-fun-green', 'ring-offset-2');
-                    AudioSys.playCorrect();
-                    createConfetti();
-                    answeredCorrectly = true;
-                    state.player.score += 10;
-                    $('btn-akm-next').classList.add('animate-pulse', 'bg-green-500');
-                } else {
-                    event.target.classList.add('ring-4', 'ring-fun-red', 'ring-offset-2');
-                    AudioSys.playWrong();
-                    setTimeout(() => {
-                        Array.from(containerDiv.children).forEach(btn => {
-                            btn.style.opacity = '1';
-                            btn.className = btn.className.replace(/ring-4 ring-fun-red ring-offset-2/g, '');
-                        });
-                    }, 1000);
-                }
-            }
-
-            // Next button logic
-            $('btn-akm-next').onclick = () => {
-                if(!answeredCorrectly) {
-                    // Paksa jawab benar dulu, ini mode latihan
-                    const notice = document.createElement('div');
-                    notice.className = 'text-red-500 text-center font-bold mt-2 text-sm';
-                    notice.innerText = 'Pilih jawaban yang tepat dulu ya!';
-                    container.appendChild(notice);
-                    setTimeout(() => notice.remove(), 2000);
-                    return;
-                }
-                AudioSys.playClick();
-                $('btn-akm-next').classList.remove('animate-pulse', 'bg-green-500');
-                proceedToNext();
+            if (input === qData.ans) {
+                score += 20;
+                showFeedback(true, "Wah, Kamu Pintar!", qData.exp, () => {
+                    currentIsianIndex++;
+                    loadIsian();
+                });
+            } else {
+                showFeedback(false, "Belum Tepat", "Ayo coba hitung lagi menggunakan jari! " + qData.exp, () => {});
             }
         }
 
+        // --- Flow 4: HOTS ---
+        function nextToAkm() {
+            playClick();
+            const input = document.getElementById('hots-input').value.trim();
+            if(input.length > 5) score += 15; // Apapun jawabannya jika cukup panjang kasih nilai
+            switchScreen('screen-akm');
+        }
+
+        // --- Flow 5: AKM ---
+        function checkAkm(isCorrect) {
+            if (isCorrect) {
+                score += 15;
+                showFeedback(true, "Sempurna!", "Totalnya ada 5 donat + 5 kue, jadi semuanya ada 10!", showResult);
+            } else {
+                showFeedback(false, "Coba Hitung Lagi", "Gabungkan jumlah donat (5) dan jumlah kue (5).", () => {});
+            }
+        }
+
+        // --- Flow 6: Result ---
         function showResult() {
-            switchScreen('screen-result');
-            $('cert-avatar').innerText = state.player.avatar;
-            $('cert-name').innerText = state.player.name;
+            playFanfare();
+            document.getElementById('result-name').innerText = playerName;
             
-            // Animasi skor
-            let currentScore = 0;
-            const targetScore = state.player.score; // Max 100 (10 PG + 4 Isian + 5 AKM = 190 total possible, tapi kita set max visual aja)
-            // Normalisasi ke 100 untuk sertifikat agar terlihat bagus
-            const maxScore = (pgData.length + isianData.length + akmData.length) * 10;
-            const normalizedScore = Math.round((targetScore / maxScore) * 100);
-
-            const scoreInt = setInterval(() => {
-                currentScore++;
-                $('cert-score').innerText = currentScore;
-                if(currentScore >= normalizedScore) {
-                    clearInterval(scoreInt);
-                    $('cert-score').innerText = normalizedScore;
-                    AudioSys.playFanfare();
-                }
-            }, 20);
+            // Score capping
+            if (score > 100) score = 100;
+            document.getElementById('result-score').innerText = score;
+            
+            switchScreen('screen-result');
         }
 
-        // --- EVENT LISTENERS ---
-        document.addEventListener('DOMContentLoaded', () => {
+        // --- Modal Feedback System ---
+        function showFeedback(isCorrect, title, desc, callback) {
+            const modal = document.getElementById('feedback-modal');
+            const icon = document.getElementById('feedback-icon');
+            const titleEl = document.getElementById('feedback-title');
+            const descEl = document.getElementById('feedback-desc');
+            const btn = document.getElementById('feedback-btn');
             
-            // Pemilihan Avatar
-            document.querySelectorAll('.avatar-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    document.querySelectorAll('.avatar-btn').forEach(b => b.classList.remove('border-fun-yellow', 'bg-yellow-50'));
-                    e.target.classList.add('border-fun-yellow', 'bg-yellow-50');
-                    state.player.avatar = e.target.dataset.avatar;
-                });
-            });
+            activeCallback = callback;
+            
+            if (isCorrect) {
+                playCorrectSFX();
+                icon.innerText = '⭐';
+                titleEl.innerText = title;
+                titleEl.className = 'text-3xl font-baloo font-bold mb-2 text-green-500';
+                btn.className = 'btn-3d-green w-full bg-green-500 hover:bg-green-400 text-white font-bold py-3 rounded-xl text-xl mt-4';
+                btn.innerText = 'Lanjut 🚀';
+            } else {
+                playWrongSFX();
+                icon.innerText = '💡';
+                titleEl.innerText = title;
+                titleEl.className = 'text-3xl font-baloo font-bold mb-2 text-red-500';
+                btn.className = 'btn-3d w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-3 rounded-xl text-xl mt-4';
+                btn.innerText = 'Coba Lagi';
+            }
+            
+            descEl.innerText = desc;
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Create mini confetti for correct answer
+            if (isCorrect) createConfetti();
+        }
 
-            // Tombol Mulai
-            $('btn-start').addEventListener('click', () => {
-                const name = $('player-name').value.trim();
-                if (!name || !state.player.avatar) {
-                    $('welcome-error').classList.remove('hidden');
-                    return;
-                }
+        function closeFeedback() {
+            playClick();
+            document.getElementById('feedback-modal').classList.add('hidden');
+            // Remove old confetti
+            document.querySelectorAll('.confetti-piece').forEach(e => e.remove());
+            
+            if (activeCallback) activeCallback();
+        }
+
+        // --- Visual Effects ---
+        function createConfetti() {
+            const colors = ['#fde047', '#fb923c', '#60a5fa', '#4ade80', '#c084fc'];
+            for(let i=0; i<30; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti-piece fixed z-40 pointer-events-none rounded-full';
+                conf.style.width = Math.random() * 10 + 5 + 'px';
+                conf.style.height = conf.style.width;
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.top = '-10px';
                 
-                // Inisialisasi Audio saat interaksi pertama user (Syarat browser)
-                AudioSys.init();
-                AudioSys.playClick();
-                AudioSys.startBGM();
-
-                state.player.name = name;
-                $('display-name-pg').innerText = name;
-                $('display-avatar-pg').innerText = state.player.avatar;
-                $('display-avatar-isian').innerText = state.player.avatar;
-
-                // Mulai Alur
-                switchScreen('screen-pg');
-                renderPG();
-            });
-
-            // Tombol Submit HOTS
-            $('btn-submit-hots').addEventListener('click', () => {
-                const text = $('hots-input').value.trim();
-                if(text.length < 5) {
-                    AudioSys.playWrong();
-                    alert("Ceritanya dipanjangkan sedikit lagi yuk! Minimal 5 huruf.");
-                    return;
-                }
-                AudioSys.playClick();
-                showFeedback(true, $('screen-hots')); // Anggap selalu benar karena essay
-                // Override proceedToNext logic temporarily just for visual feedback delay
-                setTimeout(() => proceedToNext(), 1500); 
-            });
-
-            // Tombol Main Lagi
-            $('btn-restart').addEventListener('click', () => {
-                AudioSys.playClick();
-                // Reset State
-                state.pgIndex = 0;
-                state.isianIndex = 0;
-                state.akmIndex = 0;
-                state.player.score = 0;
-                $('isian-input').value = '';
-                $('hots-input').value = '';
+                // Animasi jatuhnya (simple manual animation)
+                const speed = Math.random() * 3 + 2;
+                conf.style.transition = `top ${speed}s linear, transform ${speed}s ease-in`;
                 
-                // Kembali ke PG, lewati input nama agar cepat
-                switchScreen('screen-pg');
-                renderPG();
-            });
-
-            // Tombol Cetak
-            $('btn-print').addEventListener('click', () => {
-                window.print();
-            });
-        });
+                document.body.appendChild(conf);
+                
+                setTimeout(() => {
+                    conf.style.top = '100vh';
+                    conf.style.transform = `rotate(${Math.random() * 360}deg) translateX(${Math.random() * 100 - 50}px)`;
+                }, 50);
+            }
+        }
     </script>
 </body>
 </html>
