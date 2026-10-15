@@ -9,711 +9,212 @@
 <meta name="keywords" content="Irwan Saputra, Digital Marketing, Meta Ads Expert, Freelance Marketer Jakarta, Funnel Optimization">
 <meta name="author" content="Irwan Saputra">
 
-<!-- Open Graph / WhatsApp / Social Media Preview Cards -->
-<meta property="og:title" content="Irwan Saputra | Digital Marketing Specialist & Meta Ads Expert">
-<meta property="og:description" content="6+ years turning ad budgets into revenue. Proven track record in scaling Meta Ads funnels. Let's talk!">
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Irwan Saputra | Digital Marketing Specialist &amp; Meta Ads Expert</title>
+<meta name="description" content="Irwan Saputra, Digital Marketing Specialist dan Meta Ads Expert di Jakarta. Funnel iklan, audit akun, dashboard laporan, dan landing page yang fokus ke hasil.">
+<meta name="theme-color" content="#F4F6FA">
+<meta property="og:title" content="Irwan Saputra | Digital Marketing Specialist &amp; Meta Ads Expert">
+<meta property="og:description" content="Budget iklan kamu harusnya balik jadi cuan, bukan cuma angka reach yang bagus di laporan.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://irwansaputra.my.id/">
-<meta property="og:image" content="https://irwansaputra.my.id/profile.jpg">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <style>
-  :root {
-    --bg: #0A0D11;
-    --surface: #12161C;
-    --surface-2: #181D25;
-    --border: #252B34;
-    --text: #E9EDF1;
-    --muted: #7C8794;
-    --dim: #4A5460;
-    --green: #4ADE80;
-    --green-dim: #1D3B2A;
-    --amber: #F0B849;
-    --red: #FF6B6B;
-    --frame-w: 400px;
-    --page-bg: #000;
-    color-scheme: dark;
-  }
-
-  [data-theme="light"] {
-    --bg: #F7F7F5;
-    --surface: #FFFFFF;
-    --surface-2: #EFEFEC;
-    --border: #DEDED8;
-    --text: #14171B;
-    --muted: #6B7278;
-    --dim: #A2A8AD;
-    --green: #1F9D55;
-    --green-dim: #E3F5EA;
-    --amber: #B3760F;
-    --red: #D64545;
-    --page-bg: #e9e9e6;
-    color-scheme: light;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  html, body {
-    background: var(--page-bg);
-    font-family: 'Roboto Mono', monospace;
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  .frame {
-    width: 100%;
-    max-width: var(--frame-w);
-    background: var(--bg);
-    min-height: 100vh;
-    transition: background 0.3s ease;
-    box-shadow: 0 0 40px rgba(0,0,0,0.2);
-    position: relative;
-    padding-bottom: 50px;
-  }
-
-  @media (max-width: 430px) {
-    .frame { box-shadow: none; min-width: 100%; }
-  }
-
-  ::selection { background: var(--green); color: #000; }
-
-  .sticky-header {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 50;
-    background: var(--bg);
-    transition: background 0.3s ease;
-  }
-
-  .titlebar {
-    display: flex; align-items: center; gap: 10px;
-    padding: 14px 18px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    z-index: 20;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  .dots { display: flex; gap: 6px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; cursor: pointer; transition: opacity 0.2s ease; }
-  .dot:hover { opacity: 0.7; }
-  .dot.r { background: #FF5F57; }
-  .dot.y { background: #FEBC2E; }
-  .dot.g { background: #28C840; }
-
-  .filename {
-    font-size: 12px; color: var(--muted); letter-spacing: 0.02em;
-    flex: 1; text-align: center;
-  }
-
-  .theme-toggle {
-    display: flex; align-items: center; gap: 3px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 3px;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  .theme-toggle button {
-    display: flex; align-items: center; justify-content: center;
-    width: 24px; height: 24px;
-    border: none; border-radius: 50%;
-    background: transparent;
-    color: var(--dim);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .theme-toggle button.active {
-    background: var(--bg);
-    color: var(--green);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  }
-  .theme-toggle svg { width: 14px; height: 14px; }
-
-  .pill {
-    display: flex; background: var(--surface-2);
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 2px; gap: 2px;
-  }
-  .pill button {
-    border: none; background: transparent; color: var(--muted);
-    font-family: 'Roboto Mono', monospace; font-size: 11px; font-weight: 600;
-    padding: 3px 8px; border-radius: 999px; cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .pill button.active { background: var(--bg); color: var(--green); }
-
-  .btn {
-    font-family: 'Roboto Mono', monospace; font-size: 12px; text-decoration: none;
-    padding: 12px 16px; border-radius: 8px; display: inline-flex;
-    align-items: center; justify-content: center; gap: 8px;
-    border: 1px solid var(--border); cursor: pointer; font-weight: 600;
-    transition: all 0.2s ease;
-  }
-  .btn.primary { background: var(--green); color: #000; border-color: var(--green); }
-  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2); }
-  .btn.secondary { background: var(--surface-2); color: var(--text); }
-  .btn.secondary:hover { border-color: var(--dim); }
-  .btn.full { width: 100%; }
-
-  .card {
-    margin: 16px 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-
-  .code-header {
-    font-size: 10px; color: var(--dim); letter-spacing: 0.14em; text-transform: uppercase;
-    margin-bottom: 14px;
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .hero h2 { font-size: 16px; line-height: 1.5; margin: 0 0 12px 0; font-weight: 700; color: var(--text); }
-  .hero p { font-size: 12.5px; line-height: 1.65; color: var(--muted); margin: 0 0 16px 0; }
-
-  .stat-section { margin: 16px 20px; }
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-  }
-  .stat-card.full-width { grid-column: span 2; }
-  .stat-num { font-size: 20px; font-weight: 700; color: var(--green); line-height: 1.1; margin-bottom: 4px; }
-  .stat-cap { font-size: 10.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
-  .stat-bar { height: 4px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
-  .stat-bar-fill { height: 100%; background: var(--green); border-radius: 2px; }
-
-  .services-list { display: flex; flex-direction: column; gap: 8px; }
-  .service-item {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 8px; overflow: hidden;
-  }
-  .service-head {
-    width: 100%; display: flex; align-items: center; gap: 10px;
-    background: none; border: none; padding: 12px;
-    font-family: 'Roboto Mono', monospace; color: var(--text); cursor: pointer; text-align: left;
-  }
-  .service-icon {
-    flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px;
-    background: var(--green-dim); color: var(--green);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .service-icon svg { width: 14px; height: 14px; }
-  .service-head strong { flex: 1; font-size: 12px; font-weight: 600; }
-  .chevron { width: 14px; height: 14px; color: var(--dim); flex-shrink: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-  .service-item.open .chevron { transform: rotate(180deg); color: var(--green); }
-  
-  /* Smooth Accordion Fix */
-  .service-body {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0 12px 0 48px; /* Fixed horizontal padding */
-  }
-  .service-body > div { 
-    overflow: hidden; 
-  }
-  .service-item.open .service-body { 
-    grid-template-rows: 1fr; 
-    opacity: 1; 
-    padding-bottom: 14px; /* Transition only the bottom padding */
-  }
-  .service-body p { margin: 0; font-size: 11.5px; line-height: 1.6; color: var(--muted); }
-
-  .case { margin-bottom: 20px; }
-  .case:last-child { margin-bottom: 0; }
-  .case-image {
-    width: 100%;
-    aspect-ratio: 535 / 320;
-    border: 1px dashed var(--border);
-    border-radius: 8px;
-    background: var(--surface-2);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-  
-  /* Carousel CSS */
-  .carousel-track {
-    display: flex; width: 100%; height: 100%;
-    transition: transform 0.3s ease-in-out;
-  }
-  .carousel-slide {
-    min-width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 6px;
-    color: var(--dim); position: relative;
-  }
-  .carousel-slide img {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
-  }
-  .carousel-slide span { font-size: 10.5px; z-index: 1; }
-  .carousel-slide svg { z-index: 1; }
-  
-  .carousel-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(0,0,0,0.6); color: white; border: none;
-    width: 28px; height: 28px; border-radius: 50%; cursor: pointer; z-index: 10;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s, transform 0.2s;
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  }
-  .carousel-btn:hover { background: rgba(0,0,0,0.9); transform: translateY(-50%) scale(1.05); }
-  .carousel-btn.prev { left: 8px; }
-  .carousel-btn.next { right: 8px; }
-  
-  .carousel-dots {
-    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 5px; z-index: 10;
-  }
-  .carousel-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(255,255,255,0.4); transition: background 0.2s;
-  }
-  .carousel-dot.active { background: white; box-shadow: 0 0 2px rgba(0,0,0,0.5); }
-
-  .case-file { font-size: 12px; color: var(--green); margin-bottom: 6px; font-weight: 700; }
-  .case p { font-size: 12px; line-height: 1.6; color: var(--muted); margin: 0 0 8px 0; }
-  .case ul { margin: 0; padding-left: 16px; display: flex; flex-direction: column; gap: 5px; }
-  .case li { font-size: 11.5px; line-height: 1.55; color: var(--text); }
-
-  .ai-badge {
-    display: flex; align-items: center; gap: 12px;
-    background: var(--surface-2); border: 1px solid var(--border);
-    padding: 12px 16px; border-radius: 8px; margin-bottom: 12px;
-    width: 100%;
-  }
-  .ai-badge-icon {
-    width: 26px; height: 26px; border-radius: 6px; background: var(--green-dim);
-    color: var(--green); display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .ai-badge-text { display: flex; flex-direction: column; gap: 2px; }
-  .ai-badge-title { font-size: 12px; font-weight: 700; color: var(--text); }
-  .ai-badge-sub { font-size: 9.5px; color: var(--dim); letter-spacing: 0.05em; text-transform: uppercase; }
-
-  .why p { font-size: 12px; line-height: 1.7; color: var(--muted); margin: 0; }
-
-  .footer-cta p { font-size: 12.5px; line-height: 1.6; margin: 0 0 14px 0; color: var(--text); }
-  .cta-row { display: flex; gap: 8px; }
-  .contact-btn { flex: 1; justify-content: center; padding: 12px; }
-
-  .signature {
-    text-align: center; font-size: 10.5px; font-weight: 600;
-    letter-spacing: 0.1em; color: var(--dim); padding: 20px 0 10px 0;
-  }
-  .signature span { display: inline-block; margin-top: 4px; }
-
-  .fab-wrap {
-    position: fixed; left: max(16px, calc(50vw - (var(--frame-w) / 2) + 16px)); bottom: 16px;
-    display: flex; flex-direction: column; align-items: flex-start; gap: 8px; z-index: 50;
-  }
-  .fab-menu {
-    display: flex; flex-direction: column; gap: 6px;
-    opacity: 0; transform: translateY(6px) scale(0.98); pointer-events: none;
-    transition: opacity 0.15s ease, transform 0.15s ease; margin-bottom: 2px;
-  }
-  .fab-menu.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-  .fab-item {
-    font-family: 'Roboto Mono', monospace; font-size: 11.5px; font-weight: 500;
-    background: var(--surface); border: 1px solid var(--border); color: var(--text);
-    padding: 8px 14px; border-radius: 8px; text-decoration: none; cursor: pointer; white-space: nowrap;
-  }
-  .fab-item:hover { border-color: var(--green); background: var(--surface-2); }
-  .fab-item.hide-btn { color: var(--dim); }
-  .fab-main {
-    width: 42px; height: 42px; border-radius: 50%;
-    background: var(--green); color: #000; border: none;
-    font-size: 16px; font-weight: 700; cursor: pointer;
-    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.3); font-family: 'Roboto Mono', monospace;
-  }
-  .fab-main:hover { transform: scale(1.05); }
-  .fab-mini {
-    display: none; width: 14px; height: 14px; border-radius: 50%;
-    background: var(--green); opacity: 0.55; border: none; cursor: pointer;
-  }
-  .fab-wrap.minimized .fab-main, .fab-wrap.minimized .fab-menu { display: none; }
-  .fab-wrap.minimized .fab-mini { display: block; }
+body{margin:0}
+html{background:var(--bg)}
+a{color:var(--lk)}
+[data-theme=light]{--bg:#F4F6FA;--pn:#FFFFFF;--tb:#EDF0F6;--ln:#DCE2EC;--tx:#0F1B2D;--mu:#4A5A70;--ac:#0A7A52;--abt:#FFFFFF;--lk:#1D4FD8}
+[data-theme=dark]{--bg:#0B0F14;--pn:#111820;--tb:#0E141B;--ln:#1F2A37;--tx:#E6EDF3;--mu:#A8B5C6;--ac:#58E6A9;--abt:#0B0F14;--lk:#6EA8FE}
+.w{background:var(--pn);border:1px solid var(--ln);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .2s}
+.hv:hover{border-color:var(--ac);transform:translateY(-2px)}
+.tb{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--ln);background:var(--tb);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mu)}
+.d{width:10px;height:10px;border-radius:50%;display:inline-block}
+.k{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mu);margin:0 0 12px}
+.mo{font-family:'JetBrains Mono',monospace}
+.bt{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;padding:12px 18px;border-radius:10px}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:var(--tb);color:var(--ac);flex:none}
+.rb{display:flex;align-items:center;gap:14px;background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--tx);transition:border-color .2s}
+.rb:hover{border-color:var(--ac)}
+button{font:inherit;color:inherit;cursor:pointer}
+.tgl{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:0;border:1px solid transparent;background:transparent;color:var(--mu);transition:background .15s,color .15s,border-color .15s}
+.tgl[aria-pressed="true"]{background:var(--pn);color:var(--ac);border-color:var(--ac)}
+.dbtn{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:16px;background:var(--pn);border:2px solid var(--ln);border-radius:12px;text-align:left;transition:border-color .15s}
+.dbtn[aria-pressed="true"]{border-color:var(--ac)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.hv:hover{transform:none}}
 </style>
 </head>
 <body>
+<div style="box-sizing: border-box; background: var(--bg); color: var(--tx); font-family: 'Plus Jakarta Sans',sans-serif; padding: 0 0 96px; transition: background .2s; position: relative">
 
-<div class="frame">
-  
-  <div class="sticky-header">
-    <div class="titlebar">
-      <div class="dots">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-      </div>
-      <div class="filename">irwan_saputra.home</div>
-      <div class="theme-toggle" role="group" aria-label="Theme toggle">
-        <button type="button" data-theme-btn="dark" class="active" aria-label="Dark mode">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-        </button>
-        <button type="button" data-theme-btn="light" aria-label="Light mode">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
+<div style="position:sticky;top:0;z-index:5;background:var(--tb);border-bottom:1px solid var(--ln)">
+<div style="max-width:960px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:10px;box-sizing:border-box">
+<span class="d" style="background:#FF5F57"></span><span class="d" style="background:#FEBC2E"></span><span class="d" style="background:#28C840"></span>
+<span class="mo" style="font-size:13px;margin-left:10px">irwan_saputra.home</span>
+<span style="flex:1"></span>
+<div role="group" aria-label="Tema" style="display:inline-flex;align-items:center;gap:2px;height:36px;box-sizing:border-box;padding:2px;background:var(--bg);border:1px solid var(--ln);border-radius:999px"><button id="theme-dark" class="tgl" type="button" aria-pressed="false" aria-label="Ganti ke mode gelap" title="Mode gelap"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></button><button id="theme-light" class="tgl" type="button" aria-pressed="true" aria-label="Ganti ke mode terang" title="Mode terang"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg></button></div>
+<div role="group" aria-label="Bahasa / Language" style="display:inline-flex;align-items:center;gap:2px;height:36px;box-sizing:border-box;padding:3px;background:var(--bg);border:1px solid var(--ln);border-radius:999px"><button aria-pressed="true" aria-label="Bahasa Indonesia" style="height:28px;padding:0 12px;border:0;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em;background:var(--ac);color:var(--abt)">ID</button><button disabled="" aria-disabled="true" aria-label="English (belum aktif)" title="Bahasa Inggris belum aktif" style="height:28px;padding:0 12px;border:0;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em;background:transparent;color:var(--mu);opacity:.45;cursor:not-allowed">EN</button></div>
 
-  <section class="card hero">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-      <div class="code-header" style="margin-bottom:0;">// intro.md</div>
-      <div class="pill" id="langPill">
-        <button data-lang-btn="id" class="active">ID</button>
-        <button data-lang-btn="en">EN</button>
-      </div>
-    </div>
-    <h2 data-i18n="hero_headline">Budget iklan kamu harusnya balik jadi cuan, bukan cuma angka reach yang bagus di laporan.</h2>
-    <p data-i18n="hero_sub">Udah 6+ tahun gonta-ganti industri — dari travel, jam tangan mewah, wedding venue, sampai produk digital. Yang saya pelajari: settingan iklan yang "kelihatan bagus" dan yang "beneran menghasilkan" itu dua hal berbeda. Pernah scale satu funnel sampai 44.5x ROAS — dan saya bisa cerita gimana caranya.</p>
-    <a class="btn primary full" href="https://wa.me/628979906686?text=Hi%20Irwan%2C%20saya%20tertarik%20diskusi%20soal%20Meta%20Ads.">
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.24 0 4.35.87 5.93 2.46a8.24 8.24 0 0 1 2.43 5.88c0 4.57-3.72 8.29-8.32 8.29a8.3 8.3 0 0 1-4.22-1.15l-.3-.18-3.14.82.84-3.06-.2-.32a8.19 8.19 0 0 1-1.28-4.42c0-4.58 3.72-8.32 8.26-8.32M8.53 6.85c-.17 0-.45.06-.68.32-.23.25-.9.87-.9 2.13 0 1.25.92 2.46 1.04 2.63.13.17 1.78 2.85 4.4 3.89 2.18.86 2.62.69 3.09.65.48-.04 1.55-.63 1.77-1.24.22-.6.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.6.13-.17.26-.68.85-.83 1.02-.15.17-.3.2-.57.07-.26-.13-1.11-.41-2.11-1.31-.78-.7-1.31-1.55-1.46-1.82-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.43.09-.17.04-.33-.02-.46-.06-.13-.6-1.47-.83-2.01-.22-.53-.44-.46-.6-.47z"/></svg>
-      <span data-i18n="cta_talk">Ngobrol dulu yuk</span>
-    </a>
-  </section>
+</div>
+</div>
 
-  <div class="stat-section">
-    <div class="code-header">// results.log</div>
-    <div class="stat-grid">
-      <div class="stat-card full-width">
-        <div class="stat-num">Rp 16.06 Miliar</div>
-        <div class="stat-cap" data-i18n="metric2">Revenue yang saya bantu hasilkan, FY2024</div>
-        <div class="stat-bar"><div class="stat-bar-fill" style="width:100%"></div></div>
-      </div>
-      <div class="stat-card full-width">
-        <div class="stat-num">44.5x</div>
-        <div class="stat-cap" data-i18n="metric1">Peak ROAS — paket Umrah</div>
-        <div class="stat-bar"><div class="stat-bar-fill" style="width:78%"></div></div>
-      </div>
-    </div>
-  </div>
+<main style="max-width:960px;margin:0 auto;padding:0 24px;box-sizing:border-box;display:grid;gap:28px">
 
-  <section class="card">
-    <div class="code-header">services.config</div>
-    <div class="services-list">
-      <div class="service-item open">
-        <button class="service-head">
-          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span>
-          <strong data-i18n="svc1_title">Bangun Funnel dari Nol</strong>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="service-body"><div><p data-i18n="svc1_desc">Dari riset audience sampai struktur TOF/MOF/BOF yang beneran nyambung satu sama lain, bukan campaign yang jalan sendiri-sendiri.</p></div></div>
-      </div>
-      <div class="service-item">
-        <button class="service-head">
-          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-          <strong data-i18n="svc2_title">Audit Akun yang Udah Jalan</strong>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="service-body"><div><p data-i18n="svc2_desc">Kadang budget bocor bukan karena strateginya salah total, tapi ada satu-dua hal kecil yang kelewat. Saya bantu cari itu.</p></div></div>
-      </div>
-      <div class="service-item">
-        <button class="service-head">
-          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="20" x2="4" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="20" y1="20" x2="20" y2="14"/></svg></span>
-          <strong data-i18n="svc3_title">Dashboard & Laporan</strong>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="service-body"><div><p data-i18n="svc3_desc">Nggak perlu bolak-balik buka Ads Manager tiap hari buat tahu campaign mana yang jalan. Saya biasa bikinin dashboard sendiri buat ini.</p></div></div>
-      </div>
-      <div class="service-item">
-        <button class="service-head">
-          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
-          <strong data-i18n="svc4_title">Copy & Landing Page</strong>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="service-body"><div><p data-i18n="svc4_desc">Iklan bagus tapi landing page-nya nggak nyambung ya percuma. Saya pegang dua-duanya biar satu alur.</p></div></div>
-      </div>
-      <div class="service-item">
-        <button class="service-head">
-          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
-          <strong data-i18n="svc5_title">Bikin Website dari Nol</strong>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="service-body"><div><p data-i18n="svc5_desc">Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard ini? Saya bisa bikinin, termasuk deploy-nya.</p></div></div>
-      </div>
-      <div class="service-item">
-        <button class="service-head">
-          <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
-          <strong data-i18n="svc6_title">Strategi Konten & Sosmed</strong>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="service-body"><div><p data-i18n="svc6_desc">Selain nulis copy, saya juga bantu susun content pillar dan arah strategi kontennya — biar postingan sosmed nggak asal jalan tanpa tujuan yang jelas.</p></div></div>
-      </div>
-    </div>
-  </section>
+<section style="padding-top:56px;display:flex;flex-wrap:wrap;gap:40px;align-items:center">
+<div style="flex:1 1 440px">
+<p class="k">// intro.md</p>
+<h1 class="mo" style="font-size: 35px; line-height: 1.3; font-weight: 700; margin: 0 0 18px; letter-spacing: -.01em; font-family: Plus Jakarta Sans">Budget iklan kamu harusnya balik jadi <span style="color:var(--ac)">cuan</span>, bukan cuma angka reach yang bagus di laporan.</h1>
+<p style="font-size:16px;line-height:1.7;color:var(--mu);margin:0 0 26px">Udah 6+ tahun gonta-ganti industri, dari luxury watches, MICE, travel umroh sampai produk digital. Yang saya pelajari: settingan iklan yang "kelihatan bagus" dan yang "beneran menghasilkan" itu dua hal berbeda. Pernah scale satu funnel sampai 44.5x ROAS, dan saya bisa cerita gimana caranya.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<a class="bt" href="https://wa.me/628979906686?text=Hi%20Irwan%2C%20saya%20baru%20lihat%20websitemu%20dan%20ingin%20ngobrol%20lebih%20lanjut.%20Bisa%20kapan%3F" style="background:var(--ac);color:var(--abt)"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><span style="font-family: Plus Jakarta Sans">Ngobrol dulu yuk</span></a>
+<a class="bt" href="#hasil" style="border:1px solid var(--ln);background:var(--pn);color:var(--tx)"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect width="20" height="14" x="2" y="6" rx="2"></rect></svg><span style="font-family: Plus Jakarta Sans">Lihat Portfolio</span></a>
+</div>
+</div>
+<div style="flex:0 1 280px;margin:0 auto">
+<div style="width:280px;max-width:100%;aspect-ratio:4/5;box-sizing:border-box;border:2px dashed var(--ln);border-radius:20px;background:var(--pn);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--mu);position:relative"><img src="foto-profil.png" alt="Foto Irwan Saputra" decoding="async" fetchpriority="high" onerror="this.remove()" style="position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);object-fit:cover;border-radius:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="width:72px;height:72px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"></path></svg>
+<span class="mo" aria-hidden="true" style="font-size:12px">[ foto profil ]</span>
+</div>
+</div>
+</section>
 
-  <section class="card">
-    <div class="code-header">case_studies/</div>
-    
-    <!-- Portfolio 1: Jannah Travel -->
-    <div class="case">
-      <div class="case-image">
-        <div class="carousel-track">
-          <div class="carousel-slide">
-            <img src="screenshot_jannah.png" alt="" onerror="this.style.display='none'">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
-            <span data-i18n="case1_img_label">[ screenshot_jannah.png ]</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-file">jannah-travel.log</div>
-      <p data-i18n="case1_desc">Ini salah satu yang paling saya banggain. Pegang full-funnel Meta Ads buat paket Umrah, dari orang lihat iklan sampai beneran daftar dan bayar.</p>
-      <ul>
-        <li data-i18n="case1_b1">Rp614 juta booking cuma dari Rp15.7 juta ad spend (Feb–Mar 2026)</li>
-        <li data-i18n="case1_b2">ROAS rata-rata ~39x, pernah nyentuh 44.5x</li>
-        <li data-i18n="case1_b3">CPA serendah Rp867rb-an, dan 88% lead yang masuk memang qualified — bukan cuma ramai doang</li>
-      </ul>
-      
-      <!-- Tombol Download Jannah -->
-      <a href="Case Study-Meta-Ads-2026-Umroh.pdf" download class="btn secondary full" style="margin-top: 14px;">
-        <span class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-        </span>
-        <span data-i18n="btn_detail">Lihat Detail</span>
-      </a>
-    </div>
+<section id="hasil" class="w">
+<div class="tb">results.log</div>
+<div style="padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px">
+<div class="hv" style="border:1px solid var(--ln);border-radius:12px;padding:18px;transition:border-color .2s,transform .2s">
+<div style="display:flex;align-items:center;gap:10px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">MICE</span></div>
+<div class="mo" style="font-size:12px;color:var(--ac);margin-top:16px">&gt; revenue</div>
+<div class="mo" style="font-size: 26px; font-weight: 700; margin-top: 4px; font-family: Plus Jakarta Sans">Rp49,8 M</div><div style="font-size: 12px; color: var(--mu); margin-top: 10px; font-family: JetBrains Mono">Revenue tim yang saya dukung</div>
+</div>
+<div class="hv" style="border:1px solid var(--ln);border-radius:12px;padding:18px;transition:border-color .2s,transform .2s">
+<div style="display:flex;align-items:center;gap:10px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">Produk Digital</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+<div><div class="mo" style="font-size:12px;color:var(--ac)">&gt; roas</div><div class="mo" style="font-size: 26px; font-weight: 700; margin-top: 4px; font-family: Plus Jakarta Sans">4.83x</div></div>
+<div><div class="mo" style="font-size:12px;color:var(--ac)">&gt; revenue</div><div class="mo" style="font-size: 23px; font-weight: 700; margin-top: 10px; font-family: Plus Jakarta Sans">Rp32,5 JT</div></div>
+</div>
+<div style="font-size: 12px; color: var(--mu); margin-top: 10px; font-family: JetBrains Mono">Budget iklan Rp6.626.000</div></div>
+<div class="hv" style="border:1px solid var(--ln);border-radius:12px;padding:18px;transition:border-color .2s,transform .2s">
+<div style="display:flex;align-items:center;gap:10px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">Paket Umroh</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+<div><div class="mo" style="font-size:12px;color:var(--ac)">&gt; roas</div><div class="mo" style="font-size: 26px; font-weight: 700; margin-top: 4px; font-family: Plus Jakarta Sans">~39x</div></div>
+<div><div class="mo" style="font-size:12px;color:var(--ac)">&gt; revenue</div><div class="mo" style="font-size: 20px; font-weight: 700; margin-top: 10px; font-family: Plus Jakarta Sans">Rp614 jt</div></div>
+</div>
+<div style="font-size: 12px; color: var(--mu); margin-top: 10px; font-family: JetBrains Mono">Booking, Feb–Mar 2026</div>
+</div>
+</div>
+</section>
 
-    <!-- Portfolio 2: Haydarlens (Slider) -->
-    <div class="case" style="margin-top: 24px;">
-      <div class="case-image" id="slider-digiproduct">
-        <div class="carousel-track">
-          <div class="carousel-slide">
-            <img src="dashboard_digiproduct_1.png" alt="" onerror="this.style.display='none'">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
-            <span data-i18n="case2_img_label_1">[ dashboard_digiproduct_1.png ]</span>
-          </div>
-          <div class="carousel-slide">
-            <img src="dashboard_digiproduct_2.png" alt="" onerror="this.style.display='none'">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
-            <span data-i18n="case2_img_label_2">[ dashboard_digiproduct_2.png ]</span>
-          </div>
-          <div class="carousel-slide">
-            <img src="dashboard_digiproduct_3.png" alt="" onerror="this.style.display='none'">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5-4 4-3-3-6 6"/></svg>
-            <span data-i18n="case2_img_label_3">[ dashboard_digiproduct_3.png ]</span>
-          </div>
-        </div>
-        
-        <!-- Slider Navigation -->
-        <button class="carousel-btn prev" onclick="moveSlide('slider-digiproduct', -1)" aria-label="Previous">
-          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <button class="carousel-btn next" onclick="moveSlide('slider-digiproduct', 1)" aria-label="Next">
-          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-        <div class="carousel-dots">
-          <div class="carousel-dot active"></div>
-          <div class="carousel-dot"></div>
-          <div class="carousel-dot"></div>
-        </div>
-      </div>
-      
-      <div class="case-file">haydarlens-digital-product.log</div>
-      <p data-i18n="case2_desc">Ini project testing funnel buat produk digital seorang KOL. Saya coba beberapa struktur (BOF, MOF, retargeting) buat lihat mana yang paling efisien.</p>
-      <ul>
-        <li data-i18n="case2_b1">Funnel MOF ternyata paling jago — nyumbang ~91% total pembelian di ROAS 4.93x</li>
-        <li data-i18n="case2_b2">Total blended ROAS ~4.6x dari 336 pembelian</li>
-        <li data-i18n="case2_b3">CTR sampai 3.84% di kampanye yang paling top</li>
-      </ul>
-      
-      <!-- Tombol Download Haydarlens -->
-      <a href="Case Study-Meta-Ads-2026-digital product.pdf" download class="btn secondary full" style="margin-top: 14px;">
-        <span class="service-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-        </span>
-        <span data-i18n="btn_detail">Lihat Detail</span>
-      </a>
-    </div>
-  </section>
+<section class="w">
+<div class="tb">services.config</div>
+<div style="padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:14px;align-items:start">
 
-  <section class="card why">
-    <div class="code-header">differentiators.md</div>
-    
-    <div class="ai-badge">
-      <div class="ai-badge-icon">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-      </div>
-      <div class="ai-badge-text">
-        <div class="ai-badge-title">AI-Powered Workflow</div>
-        <div class="ai-badge-sub">Fast Execution · Data-Driven</div>
-      </div>
-    </div>
+<div class="w hv"><div style="width: 100%; display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 14px 16px; text-align: left; padding-bottom: 5px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></svg></span><span class="mo" style="font-size: 14px; font-weight: 700; flex: 1; font-family: Plus Jakarta Sans">Bangun Funnel dari Nol</span></div><p style="margin: 0; padding: 0 16px 16px 70px; font-size: 14px; line-height: 1.65; color: var(--mu); height: 69px">Saya bisa bantu dari riset audience sampai struktur TOF/MOF/BOF yang nyambung satu sama lain, bukan campaign yang jalan sendiri-sendiri.</p>
+</div>
 
-    <p data-i18n="why_me">Jujur aja, saya sekarang kerja pakai AI buat hampir semua hal — bikin laporan, nyusun dashboard, sampai produksi konten. Bukan buat gaya-gayaan, tapi karena itu bikin saya bisa gerak jauh lebih cepat dibanding cara kerja manual biasa. Fokus saya juga lebih ke produk yang harganya besar dan orang butuh mikir dulu sebelum beli (travel, luxury) — itu butuh funnel yang lebih dalam, bukan cuma boost post terus selesai. Dan setiap keputusan budget, saya coba dasarin dari hasil testing, bukan feeling.</p>
-  </section>
+<div class="w hv"><div style="width: 100%; display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 14px 16px; text-align: left; padding-bottom: 5px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="m9 14 2 2 4-4"></path></svg></span><span class="mo" style="font-size: 14px; font-weight: 700; flex: 1; width: 373px; font-family: Plus Jakarta Sans">Audit Akun yang Udah Jalan</span></div>
+<p style="margin:0;padding:0 16px 16px 70px;font-size:14px;line-height:1.65;color:var(--mu)">Kadang budget bocor bukan karena strateginya salah total, tapi ada satu-dua hal kecil yang kelewat. Saya bantu cari itu.</p></div>
 
-  <section class="card footer-cta">
-    <div class="code-header">contact.env</div>
-    <p data-i18n="footer_line">Kalau budget iklan kamu udah jalan tapi hasilnya belum sebanding, mungkin kita perlu ngobrol.</p>
-    <div class="cta-row">
-      <a class="btn primary contact-btn" href="https://wa.me/628979906686">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        WhatsApp
-      </a>
-      <a class="btn secondary contact-btn" href="mailto:Irwankhairy7@gmail.com">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        Email
-      </a>
-    </div>
-  </section>
+<div class="w hv"><div style="width: 100%; display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 14px 16px; text-align: left; padding-bottom: 5px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></span><span class="mo" style="font-size: 14px; font-weight: 700; flex: 1; font-family: Plus Jakarta Sans">Dashboard &amp; Laporan</span></div>
+<p style="margin:0;padding:0 16px 16px 70px;font-size:14px;line-height:1.65;color:var(--mu)">Tidak perlu bolak-balik buka Ads Manager setiap hari buat cek performa campaign. Saya biasa buatin dashboard yang lebih simple.</p></div>
 
-  <div class="signature">
-    IRWAN SAPUTRA<br>
-    <span>🇮🇩 JAKARTA, INDONESIA</span>
-  </div>
+<div class="w hv"><div style="width: 100%; display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 14px 16px; text-align: left; padding-bottom: 5px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><rect width="18" height="7" x="3" y="3" rx="1"></rect><rect width="9" height="7" x="3" y="14" rx="1"></rect><rect width="5" height="7" x="16" y="14" rx="1"></rect></svg></span><span class="mo" style="font-size: 14px; font-weight: 700; flex: 1; font-family: Plus Jakarta Sans">Copy &amp; Landing Page</span></div>
+<p style="margin:0;padding:0 16px 16px 70px;font-size:14px;line-height:1.65;color:var(--mu)">Produk bagus, setting iklan sudah benar tapi isi landing page-nya tidak nyambung ya percuma. Saya pegang dua-duanya biar satu alur.</p></div>
 
-  <div class="fab-wrap" id="fabWrap">
-    <div class="fab-menu" id="fabMenu">
-      <a class="fab-item" href="https://irwansaputra.my.id/resume/">Resume</a>
-      <a class="fab-item" href="https://irwansaputra.my.id/blog/">Blog</a>
-      <button class="fab-item hide-btn" id="hideFab" data-i18n="hide_btn">Sembunyikan</button>
-    </div>
-    <button class="fab-main" id="fabMain">⌘</button>
-    <button class="fab-mini" id="fabMini" aria-label="Show menu"></button>
-  </div>
+<div class="w hv"><div style="width: 100%; display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 14px 16px; text-align: left; padding-bottom: 5px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg></span><span class="mo" style="font-size: 14px; font-weight: 700; flex: 1; font-family: Plus Jakarta Sans">Bikin Website dari Nol</span></div>
+<p style="margin:0;padding:0 16px 16px 70px;font-size:14px;line-height:1.65;color:var(--mu)">Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard buat mantau penjualan? Saya bisa buatin, termasuk deploy-nya.</p></div>
+
+<div class="w hv"><div style="width: 100%; display: flex; align-items: center; gap: 14px; background: none; border: 0; padding: 14px 16px; text-align: left; padding-bottom: 5px"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg></span><span class="mo" style="font-size: 14px; font-weight: 700; flex: 1; font-family: Plus Jakarta Sans">Strategi Konten &amp; Sosmed</span></div>
+<p style="margin:0;padding:0 16px 16px 70px;font-size:14px;line-height:1.65;color:var(--mu)">Saya juga bantu susun content pillar dan arah strategi kontennya, biar postingan sosmed tidak asal jalan tanpa tujuan yang jelas.</p></div>
+
+</div>
+</section>
+
+<section class="w">
+<div class="tb">differentiators.md</div>
+<div style="padding:24px">
+<h2 class="mo" style="font-size: 30px; margin: 0 0 18px; font-family: Plus Jakarta Sans">Kenapa kerja bareng saya</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px">
+<button class="dbtn" type="button" data-d="1" aria-pressed="true"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"></path></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">AI-Powered Workflow</span></button>
+<button class="dbtn" type="button" data-d="2" aria-pressed="false"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">Fast Execution</span></button>
+<button class="dbtn" type="button" data-d="3" aria-pressed="false"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M18 17V9M13 17V5M8 17v-3"></path></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">Data-Driven</span></button>
+<button class="dbtn" type="button" data-d="4" aria-pressed="false"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span><span class="mo" style="font-size: 13px; font-weight: 700; font-family: Plus Jakarta Sans">All-Arounder</span></button>
+</div>
+<div aria-live="polite" style="margin-top:16px;background:var(--tb);border-radius:12px;padding:20px;font-size:15px;line-height:1.7;color:var(--tx)">
+<span class="dtxt" data-d="1" style="font-size:13px">Jujur aja, saya sekarang kerja dibantu AI buat hampir semua hal: buat laporan, buat dashboard interaktif, sampai produksi konten. Bukan buat gaya-gayaan, tapi karena adanya AI membuat saya bisa gerak jauh lebih cepat dibanding cara kerja manual biasa.</span>
+<span class="dtxt" data-d="2" hidden style="font-size:13px">Selain detail saya juga tidak suka menunda-nunda pekerjaan, kalau bisa dikerjakan hari ini kenapa harus menunggu matahari besok pagi untuk mulai mengerjakan.</span>
+<span class="dtxt" data-d="3" hidden style="font-size:13px">Setiap keputusan yang saya ambil berdasarkan data &amp; fakta, bukan 'katanya'.</span>
+<span class="dtxt" data-d="4" hidden style="font-size:13px">Satu pintu untuk semua kebutuhan akuisisi digital. Daripada harus merekrut web developer dan advertiser secara terpisah, saya bisa menangani pembuatan website, strategi kampanye, hingga automasi report secara mandiri.</span>
+</div>
+</div>
+</section>
+
+<section id="blog" class="w">
+<div class="tb">blog/</div>
+<div style="padding:24px">
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:20px"><div><h2 class="mo" style="font-size: 30px; margin: 10px 0 0; font-family: Plus Jakarta Sans">Tulisan terbaru saya</h2></div><a class="bt" href="https://irwansaputra.my.id/blog/" style="border:1px solid var(--ln);background:var(--pn);color:var(--tx)">Semua artikel <svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px">
+<a class="w hv" href="https://irwansaputra.my.id/blog/" style="display:flex;flex-direction:column;gap:14px;padding:14px;text-decoration:none;color:var(--tx)"><div style="position:relative;aspect-ratio:16/9;border:2px dashed var(--ln);border-radius:10px;background:var(--tb);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--mu)"><img src="cover-artikel-1.png" alt="Cover artikel 1" loading="lazy" decoding="async" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px"><span class="mo" style="position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:var(--abt);font-size:11px;font-weight:700;letter-spacing:.04em;padding:6px 10px;border-radius:999px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:13px;height:13px"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Rp [XX]</span><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:32px;height:32px"><rect width="18" height="18" x="3" y="3" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"></path></svg><span class="mo" aria-hidden="true" style="font-size:11px">[ gambar cover ]</span></div><span class="mo" style="align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--tb);color:var(--ac);padding:6px 10px;border-radius:999px">[Kategori]</span><h3 style="margin: 0; font-size: 20px; line-height: 1.4; position: static">[Judul artikel]</h3><p style="margin:0;font-size:14px;line-height:1.65;color:var(--mu)">[Ringkasan singkat artikel, dua sampai tiga baris.]</p><div class="mo" style="display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--mu);margin-top:auto"><span style="display:inline-flex;align-items:center;gap:6px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>[Tanggal]</span><span style="display:inline-flex;align-items:center;gap:6px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>[X] menit baca</span></div></a>
+<a class="w hv" href="https://irwansaputra.my.id/blog/" style="display:flex;flex-direction:column;gap:14px;padding:14px;text-decoration:none;color:var(--tx)"><div style="position:relative;aspect-ratio:16/9;border:2px dashed var(--ln);border-radius:10px;background:var(--tb);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--mu)"><img src="cover-artikel-2.png" alt="Cover artikel 2" loading="lazy" decoding="async" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px"><span class="mo" style="position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:var(--abt);font-size:11px;font-weight:700;letter-spacing:.04em;padding:6px 10px;border-radius:999px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:13px;height:13px"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Rp [XX]</span><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:32px;height:32px"><rect width="18" height="18" x="3" y="3" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"></path></svg><span class="mo" aria-hidden="true" style="font-size:11px">[ gambar cover ]</span></div><span class="mo" style="align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--tb);color:var(--ac);padding:6px 10px;border-radius:999px">[Kategori]</span><h3 style="margin: 0; font-size: 20px; line-height: 1.4">[Judul artikel]</h3><p style="margin:0;font-size:14px;line-height:1.65;color:var(--mu)">[Ringkasan singkat artikel, dua sampai tiga baris.]</p><div class="mo" style="display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--mu);margin-top:auto"><span style="display:inline-flex;align-items:center;gap:6px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>[Tanggal]</span><span style="display:inline-flex;align-items:center;gap:6px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>[X] menit baca</span></div></a>
+<a class="w hv" href="https://irwansaputra.my.id/blog/" style="display:flex;flex-direction:column;gap:14px;padding:14px;text-decoration:none;color:var(--tx)"><div style="position:relative;aspect-ratio:16/9;border:2px dashed var(--ln);border-radius:10px;background:var(--tb);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--mu)"><img src="cover-artikel-3.png" alt="Cover artikel 3" loading="lazy" decoding="async" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px"><span class="mo" style="position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:var(--abt);font-size:11px;font-weight:700;letter-spacing:.04em;padding:6px 10px;border-radius:999px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:13px;height:13px"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Rp [XX]</span><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:32px;height:32px"><rect width="18" height="18" x="3" y="3" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"></path></svg><span class="mo" aria-hidden="true" style="font-size:11px">[ gambar cover ]</span></div><span class="mo" style="align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--tb);color:var(--ac);padding:6px 10px;border-radius:999px">[Kategori]</span><h3 style="margin: 0; font-size: 20px; line-height: 1.4">[Judul artikel]</h3><p style="margin:0;font-size:14px;line-height:1.65;color:var(--mu)">[Ringkasan singkat artikel, dua sampai tiga baris.]</p><div class="mo" style="display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--mu);margin-top:auto"><span style="display:inline-flex;align-items:center;gap:6px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>[Tanggal]</span><span style="display:inline-flex;align-items:center;gap:6px"><svg class="i" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>[X] menit baca</span></div></a>
+</div>
+</div>
+</section>
+
+
+<section class="w">
+<div class="tb">contact.env</div>
+<div style="padding:32px;display:flex;flex-wrap:wrap;gap:32px;align-items:center">
+<div style="flex:1 1 320px">
+
+<h2 class="mo" style="font-size: 30px; line-height: 1.25; margin: 18px 0 14px; font-family: Plus Jakarta Sans">Ada yang bisa saya bantu?</h2>
+<div style="margin:0 0 24px;font-size:15px;line-height:1.7;color:var(--mu)"><p>Iklan sudah jalan, tapi hasilnya belum sesuai harapan? Yuk! Kita ngobrol bareng dan cari tahu apa yang bisa dioptimalkan.</p></div>
+<a class="bt" href="https://wa.me/628979906686?text=Hi%20Irwan%2C%20saya%20baru%20lihat%20websitemu%20dan%20ingin%20ngobrol%20lebih%20lanjut.%20Bisa%20kapan%3F" style="background: var(--ac); color: var(--abt); font-family: Plus Jakarta Sans"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>Chat WhatsApp</a>
+</div>
+<div style="flex:1 1 320px;display:grid;gap:12px">
+<a class="rb" href="https://wa.me/628979906686?text=Hi%20Irwan%2C%20saya%20baru%20lihat%20websitemu%20dan%20ingin%20ngobrol%20lebih%20lanjut.%20Bisa%20kapan%3F"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span><span style="flex:1"><b style="display:block;font-size:14px">WhatsApp</b><span style="font-size:13px;color:var(--mu)">+62 897-9906-686</span></span><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="rb" href="mailto:Irwankhairy7@gmail.com"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span><span style="flex:1"><b style="display:block;font-size:14px">Email</b><span style="font-size:13px;color:var(--mu)">Irwankhairy7@gmail.com</span></span><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<a class="rb" href="https://www.linkedin.com/in/irwansaputraa"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg></span><span style="flex:1"><b style="display: block; font-size: 14px">LinkedIn</b><span style="font-size: 13px; color: var(--mu)">linkedin.com/in/irwansaputraa</span></span><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<div class="rb"><span class="ib"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg></span><span style="flex:1"><b style="display:block;font-size:14px">Lokasi</b><span style="font-size:13px;color:var(--mu)">Jakarta, Indonesia</span></span></div>
+</div>
+</div>
+</section>
+
+<p class="mo" style="text-align: center; font-size: 12px; color: var(--mu); margin: 12px 0 0; font-family: Plus Jakarta Sans">IRWAN SAPUTRA · ID · JAKARTA, INDONESIA</p>
+</main>
+
+<div style="position:sticky;bottom:16px;display:flex;justify-content:center;margin-top:32px">
 
 </div>
 
+</div>
 <script>
-  const translations = {
-    hero_headline: { id:"Budget iklan kamu harusnya balik jadi cuan, bukan cuma angka reach yang bagus di laporan.", en:"Your ad budget should turn into revenue — not just a nice reach number on a report." },
-    hero_sub: { id:'Udah 6+ tahun gonta-ganti industri — dari travel, jam tangan mewah, wedding venue, sampai produk digital. Yang saya pelajari: settingan iklan yang "kelihatan bagus" dan yang "beneran menghasilkan" itu dua hal berbeda. Pernah scale satu funnel sampai 44.5x ROAS — dan saya bisa cerita gimana caranya.', en:'I\'ve spent 6+ years hopping across industries — travel, luxury watches, wedding venues, digital products. What I\'ve learned: a campaign that "looks good" and one that "actually makes money" are two very different things. I once scaled a funnel to 44.5x ROAS — happy to tell you how.' },
-    cta_talk: { id:"Ngobrol dulu yuk", en:"Let's talk" },
-    metric1: { id:"Peak ROAS — paket Umrah", en:"Peak ROAS — Umrah packages" },
-    metric2: { id:"Revenue yang saya bantu hasilkan, FY2024", en:"Revenue contributed, FY2024" },
-    svc1_title: { id:"Bangun Funnel dari Nol", en:"Build Funnel From Scratch" },
-    svc1_desc: { id:"Dari riset audience sampai struktur TOF/MOF/BOF yang beneran nyambung satu sama lain, bukan campaign yang jalan sendiri-sendiri.", en:"From audience research to a connected TOF/MOF/BOF structure. Not isolated campaigns." },
-    svc2_title: { id:"Audit Akun yang Udah Jalan", en:"Audit Running Accounts" },
-    svc2_desc: { id:"Kadang budget bocor bukan karena strateginya salah total, tapi ada satu-dua hal kecil yang kelewat. Saya bantu cari itu.", en:"Sometimes budget leaks aren't from a broken strategy, just small missed details. I help find them." },
-    svc3_title: { id:"Dashboard & Laporan", en:"Dashboards & Reports" },
-    svc3_desc: { id:"Nggak perlu bolak-balik buka Ads Manager tiap hari buat tahu campaign mana yang jalan. Saya biasa bikinin dashboard sendiri buat ini.", en:"No need to open Ads Manager daily to know what's working. I build custom dashboards for this." },
-    svc4_title: { id:"Copy & Landing Page", en:"Aligned Copy & LPs" },
-    svc4_desc: { id:"Iklan bagus tapi landing page-nya nggak nyambung ya percuma. Saya pegang dua-duanya biar satu alur.", en:"Good ads with mismatched landing pages are useless. I handle both to ensure flow." },
-    svc5_title: { id:"Bikin Website dari Nol", en:"Build Web From Scratch" },
-    svc5_desc: { id:"Butuh landing page, website company profile, atau bahkan tool internal kayak dashboard ini? Saya bisa bikinin, termasuk deploy-nya.", en:"Need a landing page, company profile, or internal tool? I can build and deploy it (no-code)." },
-    svc6_title: { id:"Strategi Konten & Sosmed", en:"Content & Social Media Strategy" },
-    svc6_desc: { id:"Selain nulis copy, saya juga bantu susun content pillar dan arah strategi kontennya — biar postingan sosmed nggak asal jalan tanpa tujuan yang jelas.", en:"Beyond copywriting, I also help map out content pillars and the overall content strategy — so social posts have direction, not just random output." },
-    case1_desc: { id:"Ini salah satu yang paling saya banggain. Pegang full-funnel Meta Ads buat paket Umrah, dari orang lihat iklan sampai beneran daftar dan bayar.", en:"One of my proudest projects. Handled full-funnel Meta Ads for Umrah packages, from viewing ads to actual signup and payment." },
-    case1_b1: { id:"Rp614 juta booking cuma dari Rp15.7 juta ad spend (Feb–Mar 2026)", en:"Rp614M in bookings from just Rp15.7M ad spend (Feb–Mar 2026)" },
-    case1_b2: { id:"ROAS rata-rata ~39x, pernah nyentuh 44.5x", en:"Average ROAS ~39x, peaked at 44.5x" },
-    case1_b3: { id:"CPA serendah Rp867rb-an, dan 88% lead yang masuk memang qualified — bukan cuma ramai doang", en:"CPA as low as Rp867K, and 88% of incoming leads were genuinely qualified" },
-    case2_desc: { id:"Ini project testing funnel buat produk digital seorang KOL. Saya coba beberapa struktur (BOF, MOF, retargeting) buat lihat mana yang paling efisien.", en:"A funnel testing project for a KOL's digital product. Tried several structures (BOF, MOF, retargeting) to see which was most efficient." },
-    case2_b1: { id:"Funnel MOF ternyata paling jago — nyumbang ~91% total pembelian di ROAS 4.93x", en:"The MOF funnel won — driving ~91% of purchases at 4.93x ROAS" },
-    case2_b2: { id:"Total blended ROAS ~4.6x dari 336 pembelian", en:"Total blended ROAS ~4.6x across 336 purchases" },
-    case2_b3: { id:"CTR sampai 3.84% di kampanye yang paling top", en:"CTR up to 3.84% in the top-performing campaign" },
-    why_me: { id:"Jujur aja, saya sekarang kerja pakai AI buat hampir semua hal — bikin laporan, nyusun dashboard, sampai produksi konten. Bukan buat gaya-gayaan, tapi karena itu bikin saya bisa gerak jauh lebih cepat dibanding cara kerja manual biasa. Fokus saya juga lebih ke produk yang harganya besar dan orang butuh mikir dulu sebelum beli (travel, luxury) — itu butuh funnel yang lebih dalam, bukan cuma boost post terus selesai. Dan setiap keputusan budget, saya coba dasarin dari hasil testing, bukan feeling.", en:"Honestly, I use AI for almost everything now — reports, dashboards, and content production. Not to show off, but because it lets me move much faster than manual methods. I also focus on high-ticket products that require consideration before purchase (travel, luxury) — these need deeper funnels, not just boosting a post. And every budget decision is based on test results, not gut feeling." },
-    footer_line: { id:"Kalau budget iklan kamu udah jalan tapi hasilnya belum sebanding, mungkin kita perlu ngobrol.", en:"If your ad budget's running but the results don't add up, maybe we should talk." },
-    case1_img_label: { id:"[ screenshot_jannah.png ]", en:"[ screenshot_jannah.png ]" },
-    case2_img_label_1: { id:"[ dashboard_digiproduct_1.png ]", en:"[ dashboard_digiproduct_1.png ]" },
-    case2_img_label_2: { id:"[ dashboard_digiproduct_2.png ]", en:"[ dashboard_digiproduct_2.png ]" },
-    case2_img_label_3: { id:"[ dashboard_digiproduct_3.png ]", en:"[ dashboard_digiproduct_3.png ]" },
-    hide_btn: { id:"Sembunyikan", en:"Hide" },
-    btn_detail: { id:"Lihat Detail", en:"View Details" }
-  };
-
-  function applyLang(lang){
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if(translations[key]) el.textContent = translations[key][lang];
-    });
-    document.querySelectorAll('#langPill button').forEach(btn=>{
-      btn.classList.toggle('active', btn.dataset.langBtn === lang);
-    });
+(function(){
+  var root=document.documentElement;
+  var bD=document.getElementById('theme-dark'),bL=document.getElementById('theme-light');
+  function setTheme(t,save){
+    root.setAttribute('data-theme',t);
+    bD.setAttribute('aria-pressed',String(t==='dark'));
+    bL.setAttribute('aria-pressed',String(t==='light'));
+    if(save){try{localStorage.setItem('theme',t)}catch(e){}}
   }
-  document.querySelectorAll('#langPill button').forEach(btn=>{
-    btn.addEventListener('click', () => applyLang(btn.dataset.langBtn));
-  });
-
-  const themeBtns = document.querySelectorAll('[data-theme-btn]');
-  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-  
-  function applyTheme(theme){
-    if(theme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
-    themeBtns.forEach(btn=>{
-      btn.classList.toggle('active', btn.dataset.themeBtn === theme);
-    });
-  }
-  themeBtns.forEach(btn=>{
-    btn.addEventListener('click', () => applyTheme(btn.dataset.themeBtn));
-  });
-  applyTheme(prefersLight ? 'light' : 'dark');
-
-  document.querySelectorAll('.service-head').forEach(btn=>{
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.service-item').forEach(other => other.classList.remove('open'));
-      if(!isOpen) item.classList.add('open');
+  setTheme(root.getAttribute('data-theme')==='dark'?'dark':'light',false);
+  bD.addEventListener('click',function(){setTheme('dark',true)});
+  bL.addEventListener('click',function(){setTheme('light',true)});
+  var tabs=document.querySelectorAll('.dbtn'),texts=document.querySelectorAll('.dtxt');
+  tabs.forEach(function(b){
+    b.addEventListener('click',function(){
+      var n=b.getAttribute('data-d');
+      tabs.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+      texts.forEach(function(p){p.hidden=p.getAttribute('data-d')!==n});
     });
   });
-
-  const fabMain = document.getElementById('fabMain');
-  const fabMenu = document.getElementById('fabMenu');
-  const fabWrap = document.getElementById('fabWrap');
-  const hideFab = document.getElementById('hideFab');
-  const fabMini = document.getElementById('fabMini');
-
-  // Slider Logic
-  const slidersData = {};
-  window.moveSlide = function(sliderId, direction) {
-    const slider = document.getElementById(sliderId);
-    if(!slider) return;
-    
-    const track = slider.querySelector('.carousel-track');
-    const dots = slider.querySelectorAll('.carousel-dot');
-    const totalSlides = track.children.length;
-    
-    if(totalSlides <= 1) return;
-    
-    let currentIndex = slidersData[sliderId] || 0;
-    currentIndex += direction;
-    
-    if(currentIndex < 0) currentIndex = totalSlides - 1;
-    if(currentIndex >= totalSlides) currentIndex = 0;
-    
-    slidersData[sliderId] = currentIndex;
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    
-    if(dots.length > 0) {
-      dots.forEach(dot => dot.classList.remove('active'));
-      dots[currentIndex].classList.add('active');
-    }
-  };
-
-  fabMain.addEventListener('click', () => fabMenu.classList.toggle('open'));
-  hideFab.addEventListener('click', () => {
-    fabMenu.classList.remove('open');
-    fabWrap.classList.add('minimized');
-  });
-  fabMini.addEventListener('click', () => fabWrap.classList.remove('minimized'));
-  document.addEventListener('click', (e) => {
-    if(!fabWrap.contains(e.target)) fabMenu.classList.remove('open');
-  });
+})();
 </script>
-
 </body>
 </html>
