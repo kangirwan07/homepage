@@ -169,6 +169,42 @@ select,input[type=date],input[type=text].f{background:var(--card);border:1px sol
 .todo .side{display:flex;align-items:center;gap:6px}
 .todo .acts{gap:2px}
 @media (max-width:560px){.todo{grid-template-columns:22px minmax(0,1fr)}.todo.nc{grid-template-columns:minmax(0,1fr)}.todo .side{grid-column:2;margin-top:8px;flex-wrap:wrap}.todo.nc .side{grid-column:1}}
+.tools{display:flex;gap:8px}
+#wp{position:fixed;inset:0;z-index:80;background:var(--bg);color:var(--ink);overflow:hidden}
+#wp[hidden]{display:none}
+.wpbg{position:absolute;inset:0;overflow:hidden;background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:26px 26px}
+.wpbg i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(90px);opacity:.26;background:var(--accent);left:-14vmax;top:18vh;animation:drift 38s ease-in-out infinite alternate}
+.wpbg i:nth-child(2){background:#1F9D6B;left:auto;right:-12vmax;top:auto;bottom:-18vmax;opacity:.17;animation-duration:46s}
+.wpbg i:nth-child(3){background:#C14F8A;left:34vw;top:-30vmax;opacity:.13;animation-duration:52s}
+@keyframes drift{to{transform:translate(8vmax,-6vmax) scale(1.12)}}
+.wpm{position:relative;height:100vh;overflow:hidden;display:grid;grid-template-columns:1.05fr 1fr;gap:4vw;padding:4vh 4vw}
+.wpl{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.wpclock{font-family:var(--mono);font-weight:500;font-size:min(30vh,14vw);line-height:.95;letter-spacing:-.04em;white-space:nowrap}
+.wpclock .cl{animation:blink 1s steps(1) infinite}
+.wpdate{font-size:min(3.6vh,2.2vw);color:var(--muted);margin-top:1.4vh}
+.wpstat{margin-top:4vh;font-family:var(--mono);font-size:min(2.6vh,1.7vw);line-height:1.5}
+.wpstat b{color:var(--accent);font-weight:500}
+.wpq{list-style:none;margin:3vh 0 0;padding:0;display:grid;gap:1.2vh;font-size:min(2.4vh,1.6vw)}
+.wpq li{display:flex;gap:1vw;align-items:center;min-width:0}
+.wpq span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wpr{display:flex;flex-direction:column;justify-content:center;gap:1.6vh;min-width:0;overflow:hidden}
+.wpc{background:color-mix(in srgb,var(--card) 72%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:1.6vh;padding:1.8vh 1.6vw;min-width:0}
+.wpc small{display:block;font-family:var(--mono);font-size:max(11px,1.5vh);color:var(--muted);margin-bottom:1vh}
+.wpc b{display:block;font-family:var(--mono);font-size:min(5.4vh,3vw);font-weight:500;line-height:1.1;white-space:nowrap}
+.wpc .sub{color:var(--muted);font-size:max(11px,1.7vh);margin-top:.6vh}
+.wpring{display:flex;align-items:center;gap:1.6vw}
+.wpring svg{height:12vh;width:12vh;flex:none}
+.wptiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vh}
+.wptiles b{font-size:min(3.6vh,2vw)}
+.wpm .hm{grid-template-columns:repeat(16,1fr);grid-template-rows:repeat(7,2.3vh);gap:.55vh}
+.wpm .hm i{aspect-ratio:auto}
+.wpp{display:grid;grid-template-columns:minmax(0,34%) 1fr auto;gap:1vw;align-items:center;height:4vh}
+.wpp .tag{display:block;overflow:hidden;text-overflow:ellipsis;justify-self:stretch}
+.wpp .bar{margin:0}
+.wpp .sub{margin:0;white-space:nowrap}
+@media (max-aspect-ratio:5/4){.wpm{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:3vh}.wpclock{font-size:min(16vh,26vw)}.wpq,.wppj{display:none}.wpstat{margin-top:2vh;font-size:min(2.4vh,3.6vw)}.wpdate{font-size:min(3vh,4vw)}.wpc b{font-size:min(5vh,7vw)}.wptiles b{font-size:min(3.6vh,5vw)}.wpring svg{height:11vh;width:11vh}}
+.wpx{position:absolute;top:16px;right:16px;opacity:0;transition:opacity .2s;z-index:2;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:18px}
+#wp:hover .wpx,.wpx:focus-visible{opacity:1}
 @media (hover:none){.del{opacity:1}}
 @media (max-width:560px){.ef{grid-template-columns:1fr}}
 @media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.bento .wide{grid-column:1/-1}.grid2{grid-template-columns:1fr}}
@@ -182,7 +218,7 @@ select,input[type=date],input[type=text].f{background:var(--card);border:1px sol
 <div class="shell">
   <header class="top">
     <div class="brand">irwan_saputra.tracker<i class="cur"></i></div>
-    <button class="ghost ico" id="themeBtn" data-act="theme" aria-label="Ganti tema"></button>
+    <div class="tools"><button class="ghost ico" data-act="wpon" aria-label="Mode wallpaper" title="Mode wallpaper (w)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button><button class="ghost ico" id="themeBtn" data-act="theme" aria-label="Ganti tema"></button></div>
   </header>
   <nav class="tabs" id="tabs" aria-label="Tampilan"></nav>
 
@@ -205,8 +241,9 @@ select,input[type=date],input[type=text].f{background:var(--card);border:1px sol
   <section class="bento" id="bento"></section>
   <div class="chips" id="chips"></div>
   <main id="view"></main>
-  <footer class="foot"><kbd>/</kbd> perintah · <kbd>1</kbd>–<kbd>4</kbd> pindah tab · <kbd>t</kbd> tema · klik dua kali judul untuk mengubah</footer>
+  <footer class="foot"><kbd>/</kbd> perintah · <kbd>1</kbd>–<kbd>4</kbd> pindah tab · <kbd>t</kbd> tema · <kbd>w</kbd> wallpaper · klik dua kali judul untuk mengubah</footer>
 </div>
+<div id="wp" hidden aria-label="Mode wallpaper"><div class="wpbg"><i></i><i></i><i></i></div><button class="ibtn wpx" data-act="wpoff" aria-label="Keluar dari mode wallpaper" title="Keluar (Esc)">×</button><div class="wpm" id="wpm"></div></div>
 <div class="ov" id="ov" hidden></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -403,6 +440,44 @@ function updateClock(){
   document.title=live?"("+clock(secs(live))+") Tracker Harian":"Tracker Harian";
 }
 setInterval(function(){if(state&&state.run)updateClock()},1000);
+
+/* ---------- mode wallpaper ---------- */
+var wpActive=false;
+function wpOn(on){
+  wpActive=on;$("wp").hidden=!on;document.body.style.overflow=on?"hidden":"";
+  if(on){
+    renderWp();
+    try{var el=document.documentElement;if(el.requestFullscreen&&!document.fullscreenElement)el.requestFullscreen().catch(function(){})}catch(e){}
+  }else{try{if(document.fullscreenElement)document.exitFullscreen()}catch(e){}}
+  try{history.replaceState(null,"",on?"#wallpaper":location.pathname+location.search)}catch(e){}
+}
+function renderWp(){
+  var f=filter;filter="all";var d=todayData();filter=f;
+  var act=activity(),now=today0(),C=2*Math.PI*38;
+  var total=d.rs.length+d.focus.length+d.done.length,fin=d.rd+d.done.length,pct=total?fin/total:0;
+  var xp=0;state.tasks.forEach(function(t){if(t.doneAt)xp+=10});state.routines.forEach(function(r){xp+=Object.keys(r.log).length*5});
+  var lvl=Math.floor(xp/100)+1,within=xp%100,streak=0;
+  for(var i=0;i<400;i++){var c=act[dkey(addDays(now,-i))]||0;if(c>0)streak++;else if(i>0)break}
+  var s=addDays(now,-((now.getDay()+6)%7)),ks=dkey(s),kt=dkey(now);
+  var wdone=state.tasks.filter(function(t){return t.doneAt&&t.doneAt>=ks}).length,rT=0,rD=0;
+  state.routines.forEach(function(r){for(var j=0;j<7;j++){var dd=addDays(s,j),k=dkey(dd);if(k>kt)break;if(dueOn(r,dd)){rT++;if(r.log[k])rD++}}});
+  var live=state.run?task(state.run.id):null,tot=totalSecs(),n=new Date();
+  var status=live?'<b>'+clockH(secs(live))+'</b> sedang fokus: '+esc(live.title):(total>0&&fin>=total?'<b>Semua beres hari ini.</b> Waktunya istirahat.':total?'<b>'+(total-fin)+'</b> hal tersisa hari ini':'Belum ada rencana untuk hari ini.');
+  var start=addDays(now,-((now.getDay()+6)%7)-15*7),cells="";
+  for(var q=0;q<112;q++){var x=addDays(start,q),cnt=act[dkey(x)]||0;if(x>now){cells+='<i class="fut"></i>';continue}cells+='<i class="l'+(cnt===0?0:cnt<2?1:cnt<4?2:cnt<6?3:4)+'" title="'+fmt(x,{day:"numeric",month:"short"})+': '+cnt+'"></i>'}
+  var mx=1,rows=state.projects.map(function(p){var ts=state.tasks.filter(function(t){return t.project===p.id}),dn=ts.filter(function(t){return t.doneAt&&t.doneAt>=ks}).length,sc=0;ts.forEach(function(t){sc+=secs(t)});mx=Math.max(mx,dn);return{p:p,dn:dn,sc:sc}});
+  function short(x){var h=Math.floor(x/3600),m=Math.floor(x%3600/60);return h?h+"j "+m+"m":m?m+"m":x+"d"}
+  rows.sort(function(a,b){return b.dn-a.dn||b.sc-a.sc});
+  var next=d.focus.slice(0,3);
+  $("wpm").innerHTML='<div class="wpl"><div class="wpclock">'+pad(n.getHours())+'<span class="cl">:</span>'+pad(n.getMinutes())+'</div><div class="wpdate">'+fmt(n,{weekday:"long",day:"numeric",month:"long",year:"numeric"})+'</div><div class="wpstat">'+status+'</div>'
+   +(next.length?'<ul class="wpq">'+next.map(function(t){return'<li><i class="dot" style="background:'+((proj(t.project)||{}).color||"#888")+'"></i><span>'+esc(t.title)+'</span></li>'}).join("")+'</ul>':"")+'</div>'
+   +'<div class="wpr"><div class="wpc"><small>hari_ini.md</small><div class="wpring"><svg class="ring" viewBox="0 0 92 92" aria-hidden="true"><circle class="trk" cx="46" cy="46" r="38"/><circle class="pg" cx="46" cy="46" r="38" stroke-dasharray="'+C+'" stroke-dashoffset="'+C*(1-pct)+'" style="transition:none"/></svg><div><b>'+fin+'/'+total+'</b><div class="sub">selesai hari ini</div></div></div></div>'
+   +'<div class="wptiles"><div class="wpc"><small>waktu</small><b>'+short(tot)+'</b><div class="sub">total tercatat</div></div><div class="wpc"><small>minggu_ini</small><b>'+wdone+' tugas</b><div class="sub">rutin '+rD+'/'+rT+'</div></div><div class="wpc"><small>level</small><b>Lv '+lvl+'</b><div class="sub">'+streak+' hari beruntun</div></div></div>'
+   +'<div class="wpc"><small>aktivitas_16_minggu</small><div class="hm">'+cells+'</div></div>'
+   +'<div class="wpc wppj"><small>per_proyek (minggu ini)</small>'+rows.slice(0,4).map(function(r){return'<div class="wpp"><span class="tag" style="--c:'+r.p.color+'">'+esc(r.p.name)+'</span><div class="bar"><i style="width:'+Math.round(r.dn/mx*100)+'%;background:'+r.p.color+'"></i></div><span class="sub">'+r.dn+' · '+short(r.sc)+'</span></div>'}).join("")+(rows.length>4?'<div class="sub">+'+(rows.length-4)+' proyek lainnya</div>':"")+'</div></div>';
+}
+setInterval(function(){if(wpActive)renderWp()},1000);
+addEventListener("storage",function(e){if(e.key===KEY){state=load();render();if(wpActive)renderWp()}});
 
 /* ---------- ubah tugas ---------- */
 function openEdit(id){
@@ -669,6 +744,8 @@ document.addEventListener("click",function(e){
     if(!resetAsk){resetAsk=true;a.textContent="Klik lagi untuk reset";setTimeout(function(){resetAsk=false;if(a.isConnected)a.textContent="Reset"},3000)}
     else{resetAsk=false;state.run=null;state.tasks.forEach(function(t){t.secs=0});commit();say("Semua waktu direset")}
   }
+  else if(act==="wpon"){wpOn(true)}
+  else if(act==="wpoff"){wpOn(false)}
   else if(act==="edit"){openEdit(id)}
   else if(act==="closeedit"){closeEdit()}
   else if(act==="edel"){var eid=editId;closeEdit();state.tasks=state.tasks.filter(function(t){return t.id!==eid});commit()}
@@ -698,12 +775,14 @@ document.addEventListener("submit",function(e){
   commit();
 });
 document.addEventListener("keydown",function(e){
+  if(wpActive&&e.key==="Escape"){wpOn(false);return}
   if(editId){if(e.key==="Escape")closeEdit();return}
   var tg=e.target,typing=tg&&(/^(INPUT|SELECT|TEXTAREA)$/.test(tg.tagName)||tg.isContentEditable);
   if(e.key==="Escape"&&typing){tg.blur();return}
   if(typing||e.metaKey||e.ctrlKey||e.altKey)return;
   if(e.key==="/"){e.preventDefault();$("ci").focus()}
   else if(e.key==="t"||e.key==="T")setTheme(getTheme()==="dark"?"light":"dark");
+  else if(e.key==="w"||e.key==="W")wpOn(!wpActive);
   else if(/^[1-4]$/.test(e.key)){view=TABS[+e.key-1][0];render()}
 });
 /* drag and drop */
@@ -730,6 +809,7 @@ document.addEventListener("drop",function(e){
 setTheme(getTheme());
 state=load();
 render();
+if(location.hash==="#wallpaper")wpOn(true);
 })();
 </script>
 </body>
