@@ -211,6 +211,10 @@ select,input[type=date],input[type=text].f{background:var(--card);border:1px sol
 .tgr input[type=color],.tga input[type=color]{width:34px;height:34px;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer}
 .tgr input[type=text],.tga input[type=text]{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:inherit;min-width:0}
 .tgr input[type=text]:focus,.tga input[type=text]:focus{border-color:var(--accent)}
+.ef textarea{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 10px;font:inherit;font-size:14.5px;line-height:1.5;resize:vertical;min-height:120px;width:100%}
+.ef textarea:focus{border-color:var(--accent);outline:0}
+.ef .nbar{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.note{display:block;color:var(--muted);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (hover:none){.del{opacity:1}}
 @media (max-width:560px){.ef{grid-template-columns:1fr}}
 @media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.bento .wide{grid-column:1/-1}.grid2{grid-template-columns:1fr}}
@@ -425,6 +429,8 @@ function ttag(t){
   var s=secs(t);
   return(t.status==="Selesai"&&s>0)?'<span class="tag plain" title="Waktu pengerjaan">beres dalam '+human(s)+'</span>':"";
 }
+function nline(t){var l=(t.note||"").split("\n").map(function(x){return x.trim()}).filter(Boolean);return l[l.length-1]||""}
+function ntag(t){return t.note?'<span class="tag plain" title="'+esc(t.note.slice(0,300))+'">catatan</span>':""}
 function tbtn(t){
   if(t.status==="Selesai")return"";
   var live=!!(state.run&&state.run.id===t.id),s=secs(t),has=s>0||live;
@@ -515,6 +521,7 @@ function openEdit(id){
    +'<label>Prioritas<select id="e-r"><option value="1"'+(t.prio===1?" selected":"")+'>Tinggi</option><option value="2"'+(t.prio===2?" selected":"")+'>Sedang</option><option value="3"'+(t.prio===3?" selected":"")+'>Rendah</option></select></label>'
    +'<label>Deadline<input type="date" id="e-d" value="'+esc(t.due)+'"></label>'
    +'<label class="full">Waktu pengerjaan (menit)<input type="number" id="e-m" min="0" step="1" value="'+mins+'"></label>'
+   +'<label class="full"><span class="nbar"><span>Catatan kerja</span><button type="button" class="ghost" data-act="stamp">+ cap waktu</button></span><textarea id="e-n" rows="5" placeholder="Catat progres, temuan, link, atau langkah berikutnya...">'+esc(t.note||"")+'</textarea></label>'
    +'<div class="fr full"><button class="btn" type="submit">Simpan</button><button type="button" class="ghost" data-act="closeedit">Batal</button><button type="button" class="ghost warn" data-act="edel">Hapus tugas</button></div></div></form>';
   ov.hidden=false;
   $("e-t").focus();$("e-t").select();
@@ -523,7 +530,7 @@ function closeEdit(){editId="";var ov=$("ov");ov.hidden=true;ov.innerHTML=""}
 function saveEdit(){
   var t=task(editId);if(!t){closeEdit();return}
   var title=$("e-t").value.trim();if(!title)return;
-  t.title=title;t.project=$("e-p").value;t.prio=+$("e-r").value;t.due=$("e-d").value;
+  t.title=title;t.project=$("e-p").value;t.prio=+$("e-r").value;t.due=$("e-d").value;t.note=$("e-n").value.trim();
   var m=parseInt($("e-m").value,10);
   if(!isNaN(m)&&m>=0&&m!==+$("ov").dataset.m0){if(state.run&&state.run.id===t.id)state.run.start=Date.now();t.secs=m*60}
   var was=t.status;setStatus(t,$("e-s").value);
@@ -535,7 +542,7 @@ function saveEdit(){
 function trow(t){
   var on=t.status==="Selesai",p=proj(t.project)||{name:"Tanpa proyek",color:"#888"};
   return'<div class="todo'+(on?" done":"")+'"><button class="chk'+(on?" on":"")+'" data-act="tdone" data-id="'+t.id+'" aria-label="Tandai selesai">'+(on?"✓":"")+'</button>'
-   +'<div class="body"><span class="t" data-tid="'+t.id+'">'+esc(t.title)+'</span><div class="meta"><button class="tag" style="--c:'+p.color+'" data-act="cycp" data-id="'+t.id+'" title="Klik untuk ganti proyek">'+esc(p.name)+'</button>'+prtag(t)+dtag(t)+ttag(t)+'</div></div>'
+   +'<div class="body"><span class="t" data-tid="'+t.id+'">'+esc(t.title)+'</span>'+(t.note?'<span class="note">'+esc(nline(t))+'</span>':"")+'<div class="meta"><button class="tag" style="--c:'+p.color+'" data-act="cycp" data-id="'+t.id+'" title="Klik untuk ganti proyek">'+esc(p.name)+'</button>'+prtag(t)+dtag(t)+ttag(t)+'</div></div>'
    +'<div class="side">'+tbtn(t)+acts(t)+'</div></div>';
 }
 function vToday(){
@@ -571,7 +578,7 @@ function vBoard(){
        +'<select data-mv="'+t.id+'" aria-label="Status">'+STATUS.map(function(x){return'<option'+(x===t.status?" selected":"")+'>'+x+'</option>'}).join("")+'</select>'
        +'<span><button class="tag '+(t.prio===1?"late":"plain")+'" data-act="prio" data-id="'+t.id+'" title="Klik untuk ganti prioritas">'+(t.prio===1?"tinggi":t.prio===3?"rendah":"sedang")+'</button></span>'
        +'<input type="date" data-due="'+t.id+'" value="'+esc(t.due)+'" aria-label="Deadline">'
-       +'<span class="tm">'+ttag(t)+tbtn(t,true)+'</span>'
+       +'<span class="tm">'+ntag(t)+ttag(t)+tbtn(t,true)+'</span>'
        +''+acts(t)+'</div>';
     });
     return h+'</section>';
@@ -583,7 +590,7 @@ function vBoard(){
     if(!items.length)h+='<div class="empty">// kosong</div>';
     items.forEach(function(t){
       var p=proj(t.project)||{color:"#888"};
-      h+='<article class="card'+(s==="Selesai"?" done":"")+'" draggable="true" data-id="'+t.id+'" style="--c:'+p.color+'"><div class="t" data-tid="'+t.id+'">'+esc(t.title)+'</div><div class="meta">'+ptag(t.project)+prtag(t)+dtag(t)+ttag(t)+'</div>'
+      h+='<article class="card'+(s==="Selesai"?" done":"")+'" draggable="true" data-id="'+t.id+'" style="--c:'+p.color+'"><div class="t" data-tid="'+t.id+'">'+esc(t.title)+'</div><div class="meta">'+ptag(t.project)+prtag(t)+dtag(t)+ttag(t)+ntag(t)+'</div>'
        +'<div class="cacts"><select data-mv="'+t.id+'" aria-label="Pindah status">'+STATUS.map(function(x){return'<option'+(x===s?" selected":"")+'>'+x+'</option>'}).join("")+'</select>'+psel(t)+'</div>'
        +'<div class="cacts b"><span>'+tbtn(t)+'</span>'+acts(t)+'</div></article>';
     });
@@ -779,6 +786,11 @@ document.addEventListener("click",function(e){
   }
   else if(act==="wpon"){wpOn(true)}
   else if(act==="wpoff"){wpOn(false)}
+  else if(act==="stamp"){
+    var ta=$("e-n"),nw=new Date(),stp="["+fmt(nw,{day:"numeric",month:"short"})+" "+pad(nw.getHours())+":"+pad(nw.getMinutes())+"] ";
+    var v=ta.value,pos=ta.selectionStart==null?v.length:ta.selectionStart,pre=v.slice(0,pos),lead=pre&&!/\n$/.test(pre)?"\n":"";
+    ta.value=pre+lead+stp+v.slice(pos);var np=(pre+lead+stp).length;ta.focus();ta.setSelectionRange(np,np);
+  }
   else if(act==="edit"){openEdit(id)}
   else if(act==="closeedit"){closeEdit()}
   else if(act==="edel"){var eid=editId;closeEdit();state.tasks=state.tasks.filter(function(t){return t.id!==eid});commit()}
