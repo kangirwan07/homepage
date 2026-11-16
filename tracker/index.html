@@ -205,6 +205,12 @@ select,input[type=date],input[type=text].f{background:var(--card);border:1px sol
 @media (max-aspect-ratio:5/4){.wpm{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:3vh}.wpclock{font-size:min(16vh,26vw)}.wpq,.wppj{display:none}.wpstat{margin-top:2vh;font-size:min(2.4vh,3.6vw)}.wpdate{font-size:min(3vh,4vw)}.wpc b{font-size:min(5vh,7vw)}.wptiles b{font-size:min(3.6vh,5vw)}.wpring svg{height:11vh;width:11vh}}
 .wpx{position:absolute;top:16px;right:16px;opacity:0;transition:opacity .2s;z-index:2;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:18px}
 #wp:hover .wpx,.wpx:focus-visible{opacity:1}
+.tgl{display:grid;gap:8px;margin-bottom:14px;max-height:50vh;overflow:auto}
+.tgr{display:grid;grid-template-columns:34px minmax(0,1fr) auto auto;gap:10px;align-items:center}
+.tga{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;padding-top:14px;border-top:1px solid var(--line)}
+.tgr input[type=color],.tga input[type=color]{width:34px;height:34px;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:pointer}
+.tgr input[type=text],.tga input[type=text]{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:inherit;min-width:0}
+.tgr input[type=text]:focus,.tga input[type=text]:focus{border-color:var(--accent)}
 @media (hover:none){.del{opacity:1}}
 @media (max-width:560px){.ef{grid-template-columns:1fr}}
 @media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.bento .wide{grid-column:1/-1}.grid2{grid-template-columns:1fr}}
@@ -226,6 +232,7 @@ select,input[type=date],input[type=text].f{background:var(--card);border:1px sol
     <span class="pr">❯</span>
     <input id="ci" type="text" placeholder="Ketik tugas baru, pilih proyek dan deadline, lalu Enter" aria-label="Perintah cepat">
     <select id="cp" aria-label="Proyek tugas"></select>
+    <button type="button" class="ibtn" data-act="tagmgr" aria-label="Kelola tag proyek" title="Tambah / hapus tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><path d="M7 7h.01"/></svg></button>
     <input type="date" id="cd" aria-label="Deadline tugas" title="Deadline (opsional)">
     <button class="btn" type="submit">Enter</button>
   </form>
@@ -440,6 +447,22 @@ function updateClock(){
   document.title=live?"("+clock(secs(live))+") Tracker Harian":"Tracker Harian";
 }
 setInterval(function(){if(state&&state.run)updateClock()},1000);
+
+/* ---------- kelola tag ---------- */
+var pendingTag="";
+function openTags(){editId="__tags";pendingTag="";renderTags();$("tg-n").focus()}
+function renderTags(){
+  var ov=$("ov"),nx=COLORS[state.projects.length%COLORS.length];
+  ov.innerHTML='<div class="dlg win" role="dialog" aria-modal="true" aria-labelledby="tgt"><h3 class="wt" id="tgt">kelola_tag.md<button type="button" class="ibtn" data-act="closeedit" aria-label="Tutup">×</button></h3><div class="wb"><div class="tgl">'
+   +(state.projects.length?state.projects.map(function(p){
+     var n=state.tasks.filter(function(t){return t.project===p.id}).length,rc=state.routines.filter(function(r){return r.project===p.id}).length,ask=pendingTag===p.id;
+     return'<div class="tgr"><input type="color" data-tc="'+p.id+'" value="'+esc(p.color)+'" aria-label="Warna '+esc(p.name)+'"><input type="text" data-tn="'+p.id+'" value="'+esc(p.name)+'" maxlength="40" aria-label="Nama tag"><span class="mut sm">'+n+' tugas · '+rc+' rutin</span>'
+      +(ask?'<button type="button" class="ghost warn" data-act="tgdel" data-id="'+p.id+'">Hapus beserta isinya?</button>':'<button type="button" class="ibtn dan" data-act="tgdel" data-id="'+p.id+'" aria-label="Hapus tag '+esc(p.name)+'" title="Hapus tag">'+TRASH+'</button>')+'</div>';
+   }).join(""):'<div class="empty">// belum ada tag. tambahkan di bawah.</div>')
+   +'</div><form class="tga" id="tgf"><input type="color" id="tg-c" value="'+nx+'" aria-label="Warna tag baru"><input type="text" id="tg-n" maxlength="40" placeholder="Nama tag baru, mis: Klien Baru" required><button class="btn" type="submit">Tambah</button></form></div></div>';
+  ov.hidden=false;
+}
+function nameTaken(nm,except){return state.projects.some(function(p){return p.id!==except&&p.name.toLowerCase()===nm.toLowerCase()})}
 
 /* ---------- mode wallpaper ---------- */
 var wpActive=false;
@@ -716,7 +739,17 @@ document.addEventListener("click",function(e){
   if(act==="view"){view=a.dataset.v;render()}
   else if(act==="filter"){filter=a.dataset.f;if(filter!=="all")lastProj=filter;pendingDel=null;render()}
   else if(act==="theme"){setTheme(getTheme()==="dark"?"light":"dark")}
-  else if(act==="addp"){$("ci").value="proyek ";$("ci").focus();say("Ketik nama proyek, lalu Enter")}
+  else if(act==="addp"||act==="tagmgr"){openTags()}
+  else if(act==="tgdel"){
+    if(pendingTag!==id){pendingTag=id;renderTags();setTimeout(function(){if(pendingTag===id){pendingTag="";if(editId==="__tags")renderTags()}},3500)}
+    else{
+      state.projects=state.projects.filter(function(p){return p.id!==id});
+      state.tasks=state.tasks.filter(function(t){return t.project!==id});
+      state.routines=state.routines.filter(function(r){return r.project!==id});
+      if(filter===id)filter="all";if(lastProj===id)lastProj="";
+      pendingTag="";pendingDel=null;commit();renderTags();say("Tag dihapus");
+    }
+  }
   else if(act==="delp"){
     if(pendingDel===id){
       state.projects=state.projects.filter(function(p){return p.id!==id});
@@ -752,6 +785,14 @@ document.addEventListener("click",function(e){
 });
 document.addEventListener("change",function(e){
   if(e.target.id==="cp"){lastProj=e.target.value;return}
+  var tn=e.target.closest("[data-tn]");
+  if(tn){
+    var pr=proj(tn.dataset.tn),nm=tn.value.trim();if(!pr)return;
+    if(!nm||nameTaken(nm,pr.id)){say(!nm?"Nama tag tidak boleh kosong":"Nama tag sudah dipakai",1);renderTags();return}
+    pr.name=nm;commit();renderTags();return;
+  }
+  var tc=e.target.closest("[data-tc]");
+  if(tc){var pc=proj(tc.dataset.tc);if(pc){pc.color=tc.value;commit();renderTags()}return}
   var m=e.target.closest("[data-mv]");
   if(m){
     var t=task(m.dataset.mv),was=t.status;setStatus(t,m.value);
@@ -768,6 +809,13 @@ document.addEventListener("dblclick",function(e){var t=e.target.closest(".t[data
 $("cmd").addEventListener("submit",function(e){e.preventDefault();var ci=$("ci"),v=ci.value;if(!v.trim())return;ci.value="";if(runCmd(v)===false)ci.value=v});
 document.addEventListener("submit",function(e){
   if(e.target.id==="ef"){e.preventDefault();saveEdit();return}
+  if(e.target.id==="tgf"){
+    e.preventDefault();
+    var nm=$("tg-n").value.trim();if(!nm)return;
+    if(nameTaken(nm,"")){say("Nama tag sudah dipakai",1);return}
+    var id="p"+uid();state.projects.push({id:id,name:nm,color:$("tg-c").value});lastProj=id;
+    commit();renderTags();$("tg-n").focus();say("Tag ditambahkan: "+nm);return;
+  }
   if(e.target.id!=="rf")return;
   e.preventDefault();
   var rt=$("rt").value.trim();if(!rt)return;
